@@ -56,7 +56,7 @@ export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
     const mode = (isLight) ? 'Light' : 'Dark'
 
     return (<header id={id}>
-        <Navbar sticky='top' bg={(isLight) ? 'light' : 'primary'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
+        <Navbar sticky='top' bg={(isLight) ? 'light' : 'dark'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
             <Container fluid>
                 <Navbar.Brand className='col-lg-2'>
                     <Logo light={isLight} height={40} />
@@ -73,7 +73,7 @@ export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
                     </Nav>
                     <Nav className="justify-content-end">
                         {(auth && auth.user) &&
-                            <NavDropdown title={`Hi ${auth.user.name}`} id="basic-nav-dropdown">
+                            <NavDropdown title={`Hi ${auth.user.username}`} id="basic-nav-dropdown">
                                 {/* <NavDropdown.Item href={route('profile')}>My Profile</NavDropdown.Item> */}
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={doLogout}>Logout</NavDropdown.Item>

@@ -1,34 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { useForm } from '@inertiajs/inertia-react';
-import { Container, Row, Col, Button, Alert, Form, ButtonGroup, } from 'react-bootstrap'
+import { Container, Row, Col, Button, Alert, Form, ButtonGroup, FormControl, } from 'react-bootstrap'
 import { AuthLogo, AuthHeading, } from '@Components'
 import { Input, Checkbox, ValidationErrors, } from '@Components/Form'
 import Layouts from '@Layouts'
 import './styles.scss'
 
-import './styles.scss';
-
 export default function Register({ appTitle, }) {
     const { data, setData, isDirty, hasErrors, post, processing, errors, reset, ...rest } = useForm({
-        name: '',
+        first_name: '',
+        last_name: '',
         username: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
 
-    console.log(rest);
-
     const initialState = {
         isCheckingUsername: false,
         isValid: false,
         usernameValue: '',
     };
-
-    const { state, setState } = useState('');
-
-    console.log(state);
 
     useEffect(() => {
         return () => {
@@ -53,38 +46,77 @@ export default function Register({ appTitle, }) {
         post(route('register'));
     };
 
-    console.log(state);
     return (
         <Layouts.Authenticating>
-            <ValidationErrors errors={errors} />
-
             <Form className='form-register' onSubmit={submit}>
-                <ValidationErrors errors={errors} />
-                <AuthLogo height={100} light logoText={appTitle} />
+                <AuthLogo height={100} light inline logoText={appTitle} />
                 <h4>Create an account</h4>
-                <Form.Group>
-                    <Form.Label htmlFor="name">Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="name"
-                        value={data.name}
-                        autoComplete="name"
-                        placeholder="Tell us your Name"
-                        required
-                        onChange={onHandleChange}
-                    />
+                <ValidationErrors errors={errors} />
+                <Form.Group as={Row}>
+                    <Col>
+                        <Form.Label htmlFor="first_name">First Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="first_name"
+                            value={data.first_name}
+                            autoComplete="first_name"
+                            placeholder="Your First Name"
+                            required
+                            onChange={onHandleChange}
+                        />
+                        {errors && errors.first_name &&
+                            <FormControl.Feedback type='invalid'>{errors.first_name}</FormControl.Feedback>
+                        }
+                    </Col>
+                    <Col>
+                        <Form.Label htmlFor="last_name">Last Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="last_name"
+                            value={data.last_name}
+                            autoComplete="last_name"
+                            placeholder="Your Last Name"
+                            required
+                            onChange={onHandleChange}
+                        />
+                        {errors && errors.last_name &&
+                            <FormControl.Feedback type='invalid'>{errors.last_name}</FormControl.Feedback>
+                        }
+                    </Col>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor="email">Email Address</Form.Label>
-                    <Form.Control
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        autoComplete="email"
-                        placeholder="Tell us your email Address"
-                        required
-                        onChange={onHandleChange}
-                    />
+                <Form.Group as={Row}>
+                    <Col>
+                        <Form.Label htmlFor="username">Username</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="username"
+                            value={data.username}
+                            autoComplete="username"
+                            placeholder="Your Username"
+                            required
+                            onChange={onHandleChange}
+                        />
+                        {errors && errors.username &&
+                            <FormControl.Feedback type='invalid'>{errors.username}</FormControl.Feedback>
+                        }
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                    <Col>
+                        <Form.Label htmlFor="email">Email Address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            autoComplete="email"
+                            placeholder="Your email Address"
+                            required
+                            onChange={onHandleChange}
+                        />
+                        {errors && errors.email &&
+                            <FormControl.Feedback type='invalid'>{errors.email}</FormControl.Feedback>
+                        }
+                    </Col>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label htmlFor="password">Password</Form.Label>
@@ -97,6 +129,9 @@ export default function Register({ appTitle, }) {
                         required
                         onChange={onHandleChange}
                     />
+                    {errors && errors.password &&
+                        <FormControl.Feedback type='invalid'>{errors.password}</FormControl.Feedback>
+                    }
                 </Form.Group>
                 <Form.Group>
                     <Form.Label htmlFor="password_confirmation">Confirm Password</Form.Label>
@@ -108,6 +143,9 @@ export default function Register({ appTitle, }) {
                         required
                         onChange={onHandleChange}
                     />
+                    {errors && errors.password_confirmation &&
+                        <FormControl.Feedback type='invalid'>{errors.first_name}</FormControl.Feedback>
+                    }
                 </Form.Group>
 
                 <Row>

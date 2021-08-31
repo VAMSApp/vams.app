@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react'
 import { InertiaLink } from '@inertiajs/inertia-react'
 import { useForm } from '@inertiajs/inertia-react'
-import { Container, Row, Col, Button, Alert, Form, ButtonGroup, } from 'react-bootstrap'
+import { Container, Row, Col, Button, Alert, Form, ButtonGroup, FormControl, } from 'react-bootstrap'
 import { AuthLogo } from '@Components'
-import { Input, Checkbox, ValidationErrors, } from '@Components/Form'
+import { ValidationErrors, } from '@Components/Form'
 import Layouts from '@Layouts'
 import './styles.scss'
 
 export default function Login({ status, canResetPassword }) {
 
     const { data, setData, post, isDirty, hasErrors, processing, errors, reset, ...formProps } = useForm({
-        email: '',
+        username: '',
         password: '',
         remember: '',
     })
 
-    console.log('formProps', formProps)
     useEffect(() => {
         return () => {
             reset('password')
@@ -37,17 +36,21 @@ export default function Login({ status, canResetPassword }) {
             {status && <Alert variant='danger'>{status}</Alert>}
 
             <Form className='form-login' onSubmit={submit}>
+                <AuthLogo height={100} light logoText='NDBB Airlines' />
+                <h4>Sign In</h4>
                 <ValidationErrors errors={errors} />
-                <AuthLogo height={50} light logoText='NDBB Airlines' />
                 <Form.Group>
                     <Form.Control
-                       type="email"
-                       name="email"
-                       value={data.email}
-                       autoComplete="email"
-                       placeholder="Email Address"
+                       type="username"
+                       name="username"
+                       value={data.username}
+                       autoComplete="username"
+                       placeholder="Username"
                        onChange={onHandleChange}
                     />
+                    {errors && errors.username &&
+                        <FormControl.Feedback type='invalid'>{errors.username}</FormControl.Feedback>
+                    }
                 </Form.Group>
                 <Form.Group>
                     <Form.Control
@@ -56,6 +59,18 @@ export default function Login({ status, canResetPassword }) {
                         value={data.password}
                         placeholder="Password"
                         autoComplete="current-password"
+                        onChange={onHandleChange}
+                    />
+
+                    {errors && errors.password &&
+                    <FormControl.Feedback type='invalid'>{errors.password}</FormControl.Feedback>
+                }
+                </Form.Group>
+                <Form.Group>
+                    <Form.Switch
+                        type="switch"
+                        id="remember"
+                        label="Remember Me"
                         onChange={onHandleChange}
                     />
                 </Form.Group>

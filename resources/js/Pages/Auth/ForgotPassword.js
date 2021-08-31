@@ -1,23 +1,23 @@
-import React from 'react';
-import { Button, } from 'react-bootstrap'
+import React from 'react'
+import { Form, Button, } from 'react-bootstrap'
 import Layouts from '@Layouts'
-import {  Form, } from '@/Components/Form';
-import { useForm } from '@inertiajs/inertia-react';
+import {  Inout, ValidationErrors, } from '@Components/Form'
+import { useForm } from '@inertiajs/inertia-react'
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
-    });
+    })
 
     const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
-    };
+        setData(event.target.name, event.target.value)
+    }
 
     const submit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route('password.email'));
-    };
+        post(route('password.email'))
+    }
 
     return (
         <Layouts.Guest>
@@ -28,10 +28,10 @@ export default function ForgotPassword({ status }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <Form.ValidationErrors errors={errors} />
+            <ValidationErrors errors={errors} />
 
-            <form onSubmit={submit}>
-                <Form.Input
+            <Form onSubmit={submit}>
+                <Form.Control
                     type="text"
                     name="email"
                     value={data.email}
@@ -44,7 +44,7 @@ export default function ForgotPassword({ status }) {
                         Email Password Reset Link
                     </Button>
                 </div>
-            </form>
+            </Form>
         </Layouts.Guest>
-    );
+    )
 }

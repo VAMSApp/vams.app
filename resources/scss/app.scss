@@ -1,6 +1,6 @@
-@import "~bootswatch/dist/lux/variables";
+@import "~bootswatch/dist/lumen/variables";
 @import "~bootstrap/scss/bootstrap";
-@import "~bootswatch/dist/lux/bootswatch";
+@import "~bootswatch/dist/lumen/bootswatch";
 @import "./fonts.scss";
 
 html,
@@ -32,4 +32,12 @@ body {
 
 a.nav-link.active {
     color: #1f9bcf;
+}
+
+.form-login .logoText.inline,
+.form-register .logoText.inline {
+    border-top: none !important;
+    border-left: 1px solid #c3c3c3;
+    margin-top: 0 !important;
+    margin-left: 10px;
 }
