@@ -1,0 +1,35 @@
+@import "~bootswatch/dist/lux/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/lux/bootswatch";
+@import "./fonts.scss";
+
+html,
+body {
+  height: 100%;
+  color: #222;
+  background-color: #fafafa;
+}
+
+.navbar .logoText {
+    border-left: 2px solid #EFEFEF;
+    margin-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.navbar-dark .logoText {
+    border-left: 2px solid #302f2f;
+}
+
+#AuthenticatedHeader {
+    margin-bottom: 20px;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    display: block !important;
+}
+
+a.nav-link.active {
+    color: #1f9bcf;
+}

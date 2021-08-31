@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import Button from '@/Components/Button';
-import Guest from '@/Layouts/Guest';
-import Input from '@/Components/Input';
-import Label from '@/Components/Label';
-import ValidationErrors from '@/Components/ValidationErrors';
-import { Head, useForm } from '@inertiajs/inertia-react';
+import React, { useEffect } from 'react'
+import { useForm } from '@inertiajs/inertia-react'
+import { Button, Label, } from 'react-bootstrap'
+import Layouts from '@Layouts'
+import { Form, } from '@Components'
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -28,35 +26,33 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <Guest>
-            <Head title="Confirm Password" />
+        <Layouts.Guest>
+            <Container>
+                <Row>
+                    <Col>
+                        <p className="text-muted">This is a secure area of the application. Please confirm your password before continuing.</p>
+                    </Col>
+                </Row>
 
-            <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your password before continuing.
-            </div>
+                <form onSubmit={submit}>
+                    <div className="mt-4">
+                        <Form.Input
+                            type="password"
+                            name="password"
+                            label="Password"
+                            value={data.password}
+                            className="mt-1 block w-full"
+                            isFocused={true}
+                        />
+                    </div>
 
-            <ValidationErrors errors={errors} />
-
-            <form onSubmit={submit}>
-                <div className="mt-4">
-                    <Label forInput="password" value="Password" />
-
-                    <Input
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                    />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Button className="ml-4" processing={processing}>
-                        Confirm
-                    </Button>
-                </div>
-            </form>
-        </Guest>
+                    <div className="flex items-center justify-end mt-4">
+                        <Button className="ml-4" processing={processing}>
+                            Confirm
+                        </Button>
+                    </div>
+                </form>
+            </Container>
+        </Layouts.Guest>
     );
 }

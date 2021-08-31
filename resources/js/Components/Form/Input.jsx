@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Form } from 'react-bootstrap';
 
 export default function Input({
     type = 'text',
@@ -9,6 +10,9 @@ export default function Input({
     required,
     isFocused,
     handleChange,
+    label,
+    labelProps,
+    helpText,
 }) {
     const input = useRef();
 
@@ -19,20 +23,23 @@ export default function Input({
     }, []);
 
     return (
-        <div className="flex flex-col items-start">
-            <input
+        <div>
+            {label &&
+                <Form.Label {...labelProps}>{label}</Form.Label>
+            }
+            <Form.Control
                 type={type}
                 name={name}
                 value={value}
-                className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
-                    className
-                }
+                className={className}
                 ref={input}
                 autoComplete={autoComplete}
                 required={required}
                 onChange={(e) => handleChange(e)}
             />
+            {helpText &&
+                <Form.Text>{helpText}</Form.Text>
+            }
         </div>
     );
 }

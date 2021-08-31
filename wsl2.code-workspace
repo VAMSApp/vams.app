@@ -5,6 +5,18 @@
         },
         {
             "path": "../laradock"
+        },
+        {
+            "path": "../ndbb-airlines"
+        },
+        {
+            "path": "../crm"
+        },
+        {
+            "path": "../php-vams.back"
         }
-    ]
+    ],
+    "settings": {
+        "git.ignoreLimitWarning": true
+    }
 }
