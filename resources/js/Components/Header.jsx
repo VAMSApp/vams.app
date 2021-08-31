@@ -1,53 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react'
+import { Inertia } from '@inertiajs/inertia'
 import {
     Navbar,
     Nav,
     NavDropdown,
     Container,
-} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCogs, } from '@fortawesome/free-solid-svg-icons';
-import { Logo, ColorSwitcher, Navigation, } from '@Components';
+} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCogs, } from '@fortawesome/free-solid-svg-icons'
+import { Logo, ColorSwitcher, Navigation, } from '@Components'
 import './headerStyle.scss'
 
-const Menu = [];
+const Menu = [
+    {
+        routeName: 'home',
+        label: 'Home',
+        href: '/home'
+    }
+]
 
 export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
     const initialState = {
         isLight: false,
-    };
+    }
 
-    const savedState = JSON.parse(localStorage.getItem('state'));
-    const [state, setState] = useState(savedState || initialState);
+    const savedState = JSON.parse(localStorage.getItem('state'))
+    const [state, setState] = useState(savedState || initialState)
 
     const changeColor = () => {
         const {
             isLight,
             navIsOpen,
-        } = state;
+        } = state
 
         const newState = Object.assign({}, state, {
             isLight: !isLight,
-        });
+        })
 
-        setState(newState);
+        setState(newState)
     }
 
     const {
         isLight,
         navIsOpen,
-    } = state;
+    } = state
 
     const doLogout = () => {
         Inertia.post(route('logout'))
     }
 
     useEffect(() => {
-        localStorage.setItem('state',  JSON.stringify(state));
-    }, [state]);
+        localStorage.setItem('state',  JSON.stringify(state))
+    }, [state])
 
-    const mode = (isLight) ? 'Light' : 'Dark';
+    const mode = (isLight) ? 'Light' : 'Dark'
 
     return (<header id={id}>
         <Navbar sticky='top' bg={(isLight) ? 'light' : 'primary'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
@@ -61,9 +67,9 @@ export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href={route('home')} active={route().current('home')}>
-                            Home
-                        </Nav.Link>
+                        {Menu.map((v, k) => (<Nav.Link key={k} href={v.href} active={route().current(v.name)}>
+                            {v.label}
+                        </Nav.Link>))}
                     </Nav>
                     <Nav className="justify-content-end">
                         {(auth && auth.user) &&
@@ -86,7 +92,7 @@ export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    </header>);
+    </header>)
 }
 
-Header.propTypes = {};
+Header.propTypes = {}
