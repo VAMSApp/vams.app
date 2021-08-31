@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use App\Models\User;
 
 class UserSeeder extends Seeder
@@ -21,10 +22,24 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@vams.app',
             'password' => Hash::make('passw0rd!'),
+            'roles' => [
+                'admin'
+            ]
         ];
 
-        User::updateOrCreate([
+        $user = User::firstOrCreate([
             'username' => $newUser['username']
-        ], $newUser)->save();
+        ], [
+            'first_name' => $newUser['first_name'],
+            'last_name' => $newUser['last_name'],
+            'username' => $newUser['username'],
+            'email' => $newUser['email'],
+            'password' => $newUser['password'],
+        ]);
+
+        $user->assignRole($newUser['roles']);
+
+        $user->save();
+
     }
 }
