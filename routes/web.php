@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +22,14 @@ Route::get('/', function () {
         'pageTitle' => 'Dashboard'
     ]);
 })->middleware(['auth', 'verified'])->name('home');
+
+
+Route::prefix('/user')
+->middleware(['auth', 'verified', 'role:admin'])
+->group(function () {
+
+    Route::get('/', [UserController::class, 'index'])
+        ->name('user.list');
+});
 
 require __DIR__.'/auth.php';
