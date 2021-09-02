@@ -81,8 +81,8 @@ export default function Login({ status, canResetPassword }) {
                 </Row>
                 <div className="d-grid gap-2">
                     <ButtonGroup>
-                        <Button size='md' variant='secondary' href={route('register')}>Register</Button>
                         <Button type='submit' variant='primary' size='md' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
+                        <Button size='md' variant='secondary' href={route('register')}>Register</Button>
                     </ButtonGroup>
                 </div>
                 <div className="d-grid gap-2">
