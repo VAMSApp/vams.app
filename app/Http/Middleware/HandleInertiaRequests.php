@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use App\Models\Menu;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -33,10 +34,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $user = $request->user();
+        $menu = Menu::with(['menu_items'])->first();
+
+        foreach ($menu->menu_items as $key => $item) {
+            if ($user) {
+                if (!$user->hasAnyRole(['admin', $item->role_name ])) {
+                    unset($item);
+                }
+            }
+        }
+
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
             ],
+            'menus' => [
+                'mainMenu' => $menu
+            ]
         ]);
     }
 }

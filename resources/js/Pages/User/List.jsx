@@ -5,7 +5,7 @@ import { faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faPlan
 import { Table, } from '@Components'
 import Layouts from '@Layouts'
 
-export function ListPage({ auth, errors, appTitle, pageTitle, users, ...props}) {
+export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...props}) {
 
     const columns = React.useMemo(
         () => [
@@ -62,6 +62,7 @@ export function ListPage({ auth, errors, appTitle, pageTitle, users, ...props}) 
             errors={errors}
             appTitle={appTitle}
             pageTitle={pageTitle}
+            menus={menus}
         >
         {users &&
             <Table

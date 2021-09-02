@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,11 @@ Route::get('/', function () {
 Route::prefix('/user')
 ->middleware(['auth', 'verified', 'role:admin'])
 ->group(function () {
-
     Route::get('/', [UserController::class, 'index'])
         ->name('user.list');
 });
+
+
+Route::get('/load_menu', [MenuController::class, 'load_menu'])->middleware(['auth', 'verified'])->name('load_menu');
 
 require __DIR__.'/auth.php';
