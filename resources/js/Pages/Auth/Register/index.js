@@ -155,8 +155,8 @@ export default function Register({ appTitle, }) {
                 </Row>
                 <div className="d-grid gap-2">
                     <ButtonGroup>
-                        <Button size='md' variant='secondary' href={route('login')}>Cancel</Button>
                         <Button type='submit' variant='primary' size='md' disabled={(processing || (isDirty && hasErrors))}>Register</Button>
+                        <Button size='md' variant='secondary' href={route('login')}>Cancel</Button>
                     </ButtonGroup>
                 </div>
             </Form>

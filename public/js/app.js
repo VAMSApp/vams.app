@@ -16341,16 +16341,16 @@ function Register(_ref) {
         className: "d-grid gap-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-            size: "md",
-            variant: "secondary",
-            href: route('login'),
-            children: "Cancel"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
             type: "submit",
             variant: "primary",
             size: "md",
             disabled: processing || isDirty && hasErrors,
             children: "Register"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+            size: "md",
+            variant: "secondary",
+            href: route('login'),
+            children: "Cancel"
           })]
         })
       })]
