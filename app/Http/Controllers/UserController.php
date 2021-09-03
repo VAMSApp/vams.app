@@ -34,7 +34,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $roles = Role::all();
 
@@ -42,6 +42,16 @@ class UserController extends Controller
             'appTitle' => env('APP_TITLE'),
             'pageTitle' => 'Create User',
             'roles' => $roles,
+        ]);
+    }
+
+    public function remove_role(Request $request, $id)
+    {
+        $roleId = $request->json('roleId');
+        $userId = $request->json('userId');
+        dd([
+            'roleId' => $roleId,
+            'userId' => $userId,
         ]);
     }
 
@@ -53,7 +63,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|min:5|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $userRoles = $request->roles;
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->setRoles($userRoles);
+        $user->save();
+
+        return redirect('users.show', $user->id);
     }
 
     /**
@@ -65,11 +96,13 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::with(['roles'])->where('id', $id)->first();
+        $roles = Role::all();
 
-        return Inertia::render('User/List', [
+        return Inertia::render('User/Show', [
             'appTitle' => env('APP_TITLE'),
-            'pageTitle' => 'Viewing '.$user->username,
+            'pageTitle' => 'Viewing ',
             'user' => $user,
+            'roles' => $roles,
         ]);
     }
 
@@ -81,7 +114,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::with(['roles'])->where('id', $id)->first();
+        $roles = Role::all();
+
+        return Inertia::render('User/Edit', [
+            'appTitle' => env('APP_TITLE'),
+            'pageTitle' => 'Editing '.$user->username,
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
     /**

@@ -87,15 +87,7 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, role
                 columns={columns}
             />
         }
-        <Button onClick={toggleCreateUserModal} variant='primary' size='lg'>Add new User</Button>
-        <Modal show={modalIsVisible} onHide={toggleCreateUserModal}>
-            <Modal.Header>
-                <Modal.Title>Add new User</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <UserForm roles={roles} onSubmit={doCreateUser} onCancel={toggleCreateUserModal} />
-            </Modal.Body>
-        </Modal>
+        <Button href={route('users.create')} variant='primary' size='lg'>Add New User</Button>
         </Layouts.Authenticated>
     );
 }

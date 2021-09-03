@@ -1,22 +1,52 @@
 import React, { useState, useEffect, } from 'react'
-import { Form, FormControl, Container, Badge, Row, Col, ButtonGroup, Button, Modal, } from 'react-bootstrap'
+import { useForm } from '@inertiajs/inertia-react';
+import { Modal, Badge, Row, Col, Form, FormControl, ButtonGroup, Button, } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faPlane, faPlaneDeparture, faSpellCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Input, Checkbox, ValidationErrors, } from '@Components/Form'
+import { Table, } from '@Components'
 import Layouts from '@Layouts'
-import UserForm from './Form'
+import { Input, Checkbox, ValidationErrors, } from '@Components/Form'
 
+function CreatePage({ auth, menus, appTitle, pageTitle, roles, errors, ...props}) {
+    const initialState = {
+        first_name: undefined,
+        last_name: undefined,
+        username: undefined,
+        email: undefined,
+        password: undefined,
+        password_confirmation: undefined,
+        userRoles: undefined,
+    };
 
-export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles, ...props}) {
-    const doEditUser = (data) => {
-        console.log(data);
+    const [state, setState] = useState(initialState)
+
+    const {
+        first_name,
+        last_name,
+        username,
+        email,
+        password,
+        password_confirmation,
+        userRoles,
+     } = state
+
+    const onHandleChange = (event) => {
+        const {
+            name,
+            type,
+            checked,
+            value,
+        } = event.target;
+
+        setState({
+            ...state,
+            [name]: (type === 'checkbox') ? checked : value
+        });
+    };
+
+    const doSubmit = () => {
+        onSubmit()
     }
-
-    const doCancel = () => {
-        console.log('doCancel');
-    }
-
-
 
     return (
         <Layouts.Authenticated
@@ -27,7 +57,7 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
             pageTitle={pageTitle}
         >
         {user &&
-            <Form>
+        <Form onSubmit={doSubmit}>
             <ValidationErrors errors={errors} />
             <Form.Group as={Row}>
                 <Col>
@@ -35,10 +65,11 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
                     <Form.Control
                         type="text"
                         name="first_name"
-                        value={user.first_name}
+                        value={data.first_name}
                         autoComplete="first_name"
                         placeholder="First Name"
-                        disabled={true}
+                        required
+                        onChange={onHandleChange}
                     />
                     {errors && errors.first_name &&
                         <FormControl.Feedback type='invalid'>{errors.first_name}</FormControl.Feedback>
@@ -49,10 +80,11 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
                     <Form.Control
                         type="text"
                         name="last_name"
-                        value={user.last_name}
+                        value={data.last_name}
                         autoComplete="last_name"
                         placeholder="Last Name"
-                        disabled={true}
+                        required
+                        onChange={onHandleChange}
                     />
                     {errors && errors.last_name &&
                         <FormControl.Feedback type='invalid'>{errors.last_name}</FormControl.Feedback>
@@ -65,10 +97,11 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
                     <Form.Control
                         type="text"
                         name="username"
-                        value={user.username}
+                        value={data.username}
                         autoComplete="username"
                         placeholder="Username"
-                        disabled={true}
+                        required
+                        onChange={onHandleChange}
                     />
                     {errors && errors.username &&
                         <FormControl.Feedback type='invalid'>{errors.username}</FormControl.Feedback>
@@ -81,42 +114,16 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
                     <Form.Control
                         type="email"
                         name="email"
-                        value={user.email}
+                        value={data.email}
                         autoComplete="email"
                         placeholder="email Address"
-                        disabled={true}
+                        required
+                        onChange={onHandleChange}
                     />
                     {errors && errors.email &&
                         <FormControl.Feedback type='invalid'>{errors.email}</FormControl.Feedback>
                     }
                 </Col>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    name="password"
-                    value={user.password}
-                    autoComplete="new-password"
-                    placeholder="Type a secure password"
-                    disabled={true}
-                />
-                {errors && errors.password &&
-                    <FormControl.Feedback type='invalid'>{errors.password}</FormControl.Feedback>
-                }
-            </Form.Group>
-            <Form.Group>
-                <Form.Label htmlFor="password_confirmation">Confirm Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    name="password_confirmation"
-                    value={user.password_confirmation}
-                    placeholder="Type the same password again"
-                    disabled={true}
-                />
-                {errors && errors.password_confirmation &&
-                    <FormControl.Feedback type='invalid'>{errors.first_name}</FormControl.Feedback>
-                }
             </Form.Group>
             <Form.Group>
                 <Form.Label>Roles</Form.Label>
@@ -133,7 +140,7 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
                             <td>{r.id}</td>
                             <td>{r.name}</td>
                             <td>
-                                <Button size='sm' variant='danger' onClick={(e) => removeRoleFromUser(user.id, r.id)}>
+                                <Button size='sm' variant='danger' onClick={(e) => openDeleteModal(user.id, r)}>
                                     <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                             </td>
@@ -149,14 +156,28 @@ export function ShowPage({ auth, menus, errors, appTitle, pageTitle, user, roles
             </Row>
             <div className="d-grid gap-2">
                 <ButtonGroup>
-                    <Button href={route('users.edit', { id: user.id })} variant='success' size='md'>Edit User</Button>
-                    <Button href={route('users.index')} size='md' variant='secondary'>Go Back</Button>
+                    <Button type='submit' variant='success' size='md' disabled={(processing || (isDirty && hasErrors))}>Save Changes</Button>
+                    <Button href={route('users.show', { id: user.id })} size='md' variant='secondary'>Cancel</Button>
                 </ButtonGroup>
             </div>
         </Form>
         }
+        <Modal show={confirmDeleteModalVisible} onHide={toggleDeleteModal}>
+            <Modal.Header>
+                <Modal.Title>Confirm role removal</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Are you sure you that you want to remove the {(role) ? role.name : ''} role from this user?</p>
+            </Modal.Body>
+            <Modal.Footer>
+                <ButtonGroup>
+                    <Button variant='danger' size='md' onClick={removeRoleFromUser}>Yes, Remove Role</Button>
+                    <Button variant='secondary' size='md' onClick={cancelRoleRemove}>No</Button>
+                </ButtonGroup>
+            </Modal.Footer>
+        </Modal>
         </Layouts.Authenticated>
     );
 }
 
-export default ShowPage
+export default CreatePage
