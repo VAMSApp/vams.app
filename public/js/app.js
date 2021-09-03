@@ -13180,6 +13180,67 @@ function useSafeState(state) {
 
 /***/ }),
 
+/***/ "./node_modules/@restart/hooks/esm/useUpdatedRef.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useUpdatedRef.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useUpdatedRef)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/**
+ * Returns a ref that is immediately updated with the new value
+ *
+ * @param value The Ref value
+ * @category refs
+ */
+
+function useUpdatedRef(value) {
+  var valueRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  valueRef.current = value;
+  return valueRef;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useWillUnmount.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useWillUnmount.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useWillUnmount)
+/* harmony export */ });
+/* harmony import */ var _useUpdatedRef__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useUpdatedRef */ "./node_modules/@restart/hooks/esm/useUpdatedRef.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+/**
+ * Attach a callback that fires when a component unmounts
+ *
+ * @param fn Handler to run when the component unmounts
+ * @category effects
+ */
+
+function useWillUnmount(fn) {
+  var onUnmount = (0,_useUpdatedRef__WEBPACK_IMPORTED_MODULE_0__.default)(fn);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    return function () {
+      return onUnmount.current();
+    };
+  }, []);
+}
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -15360,7 +15421,6 @@ function Header(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
         fluid: true,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Brand, {
-          className: "col-lg-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components__WEBPACK_IMPORTED_MODULE_3__.Logo, {
             light: isLight,
             height: 40
@@ -16585,6 +16645,240 @@ function Dashboard(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/User/Form.jsx":
+/*!******************************************!*\
+  !*** ./resources/js/Pages/User/Form.jsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Form.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/FormControl.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/ButtonGroup.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _Components_Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components/Form */ "./resources/js/Components/Form/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _excluded = ["user", "roles", "onSubmit", "onCancel"],
+    _excluded2 = ["data", "setData", "isDirty", "hasErrors", "post", "processing", "errors", "reset"];
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+function UserForm(_ref) {
+  var user = _ref.user,
+      roles = _ref.roles,
+      onSubmit = _ref.onSubmit,
+      onCancel = _ref.onCancel,
+      props = _objectWithoutProperties(_ref, _excluded);
+
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.useForm)({
+    first_name: user ? user.first_name : '',
+    last_name: user ? user.last_name : '',
+    username: user ? user.username : '',
+    email: user ? user.email : '',
+    role: user ? user.roles : '',
+    password: ''
+  }),
+      data = _useForm.data,
+      setData = _useForm.setData,
+      isDirty = _useForm.isDirty,
+      hasErrors = _useForm.hasErrors,
+      post = _useForm.post,
+      processing = _useForm.processing,
+      errors = _useForm.errors,
+      reset = _useForm.reset,
+      rest = _objectWithoutProperties(_useForm, _excluded2);
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return function () {
+      reset('password', 'password_confirmation');
+    };
+  }, []);
+
+  var onHandleChange = function onHandleChange(event) {
+    var _event$target = event.target,
+        name = _event$target.name,
+        type = _event$target.type,
+        checked = _event$target.checked,
+        value = _event$target.value;
+    setData(name, type === 'checkbox' ? checked : value);
+  };
+
+  var doSubmit = function doSubmit() {
+    onSubmit();
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    id: "UserForm",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+      onSubmit: doSubmit,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Components_Form__WEBPACK_IMPORTED_MODULE_2__.ValidationErrors, {
+        errors: errors
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+            htmlFor: "first_name",
+            children: "First Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+            type: "text",
+            name: "first_name",
+            value: data.first_name,
+            autoComplete: "first_name",
+            placeholder: "First Name",
+            required: true,
+            onChange: onHandleChange
+          }), errors && errors.first_name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+            type: "invalid",
+            children: errors.first_name
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+            htmlFor: "last_name",
+            children: "Last Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+            type: "text",
+            name: "last_name",
+            value: data.last_name,
+            autoComplete: "last_name",
+            placeholder: "Last Name",
+            required: true,
+            onChange: onHandleChange
+          }), errors && errors.last_name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+            type: "invalid",
+            children: errors.last_name
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+            htmlFor: "username",
+            children: "Username"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+            type: "text",
+            name: "username",
+            value: data.username,
+            autoComplete: "username",
+            placeholder: "Username",
+            required: true,
+            onChange: onHandleChange
+          }), errors && errors.username && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+            type: "invalid",
+            children: errors.username
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+            htmlFor: "email",
+            children: "Email Address"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+            type: "email",
+            name: "email",
+            value: data.email,
+            autoComplete: "email",
+            placeholder: "email Address",
+            required: true,
+            onChange: onHandleChange
+          }), errors && errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+            type: "invalid",
+            children: errors.email
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+          htmlFor: "password",
+          children: "Password"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+          type: "password",
+          name: "password",
+          value: data.password,
+          autoComplete: "new-password",
+          placeholder: "Type a secure password",
+          required: true,
+          onChange: onHandleChange
+        }), errors && errors.password && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+          type: "invalid",
+          children: errors.password
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+          htmlFor: "password_confirmation",
+          children: "Confirm Password"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Control, {
+          type: "password",
+          name: "password_confirmation",
+          value: data.password_confirmation,
+          placeholder: "Type the same password again",
+          required: true,
+          onChange: onHandleChange
+        }), errors && errors.password_confirmation && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Feedback, {
+          type: "invalid",
+          children: errors.first_name
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Group, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default.Label, {
+          children: "Role"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
+          id: "role",
+          name: "role",
+          className: "form-control",
+          value: data.role,
+          onChange: onHandleChange,
+          children: roles.map(function (r, k) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: r.id,
+              children: "(".concat(r.id, ") ").concat(r.name)
+            }, k);
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "d-grid gap-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+            type: "submit",
+            variant: "success",
+            size: "md",
+            disabled: processing || isDirty && hasErrors,
+            children: "Create User"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+            size: "md",
+            variant: "secondary",
+            onClick: onCancel,
+            children: "Cancel"
+          })]
+        })
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UserForm);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/User/List.jsx":
 /*!******************************************!*\
   !*** ./resources/js/Pages/User/List.jsx ***!
@@ -16598,17 +16892,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/ButtonGroup.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/ButtonGroup.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Modal.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 /* harmony import */ var _Components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components */ "./resources/js/Components/index.js");
 /* harmony import */ var _Layouts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Layouts */ "./resources/js/Layouts/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _excluded = ["auth", "menus", "errors", "appTitle", "pageTitle", "users"];
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Form */ "./resources/js/Pages/User/Form.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _excluded = ["auth", "menus", "errors", "appTitle", "pageTitle", "users", "roles"];
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 
 
 
@@ -16625,8 +16935,17 @@ function ListPage(_ref) {
       appTitle = _ref.appTitle,
       pageTitle = _ref.pageTitle,
       users = _ref.users,
+      roles = _ref.roles,
       props = _objectWithoutProperties(_ref, _excluded);
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    modalIsVisible: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var modalIsVisible = state.modalIsVisible;
   var columns = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(function () {
     return [{
       Header: 'Username',
@@ -16642,7 +16961,7 @@ function ListPage(_ref) {
       className: 'text-center',
       Cell: function Cell(_ref2) {
         var row = _ref2.row;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
           children: "".concat(row.original.first_name, " ").concat(row.original.last_name)
         });
       }
@@ -16660,20 +16979,23 @@ function ListPage(_ref) {
       className: 'text-center',
       Cell: function Cell(_ref3) {
         var row = _ref3.row;
-        console.log(row);
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-              href: "#",
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+              href: route('users.show', {
+                id: row.original.id
+              }),
               className: "btn btn-sm btn-info",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faInfoCircle
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
+                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.faInfoCircle
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-              href: "#",
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+              href: route('users.edit', {
+                id: row.original.id
+              }),
               className: "btn btn-sm btn-warning",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
-                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faPencilAlt
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
+                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.faPencilAlt
               })
             })]
           })
@@ -16681,19 +17003,104 @@ function ListPage(_ref) {
       }
     }];
   });
+
+  var toggleCreateUserModal = function toggleCreateUserModal() {
+    setState({
+      modalIsVisible: !modalIsVisible
+    });
+  };
+
+  var doCreateUser = function doCreateUser(data) {
+    console.log(data);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Layouts__WEBPACK_IMPORTED_MODULE_3__.default.Authenticated, {
+    auth: auth,
+    menus: menus,
+    errors: errors,
+    appTitle: appTitle,
+    pageTitle: pageTitle,
+    children: [users && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components__WEBPACK_IMPORTED_MODULE_2__.Table, {
+      data: users,
+      columns: columns
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+      onClick: toggleCreateUserModal,
+      variant: "primary",
+      size: "lg",
+      children: "Add new User"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+      show: modalIsVisible,
+      onHide: toggleCreateUserModal,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Title, {
+          children: "Add new User"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_4__.default, {
+          roles: roles,
+          onSubmit: doCreateUser,
+          onCancel: toggleCreateUserModal
+        })
+      })]
+    })]
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListPage);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/User/Show.jsx":
+/*!******************************************!*\
+  !*** ./resources/js/Pages/User/Show.jsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _Components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components */ "./resources/js/Components/index.js");
+/* harmony import */ var _Layouts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Layouts */ "./resources/js/Layouts/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _excluded = ["auth", "menus", "errors", "appTitle", "pageTitle", "user"];
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+
+function ShowPage(_ref) {
+  var auth = _ref.auth,
+      menus = _ref.menus,
+      errors = _ref.errors,
+      appTitle = _ref.appTitle,
+      pageTitle = _ref.pageTitle,
+      user = _ref.user,
+      props = _objectWithoutProperties(_ref, _excluded);
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Layouts__WEBPACK_IMPORTED_MODULE_3__.default.Authenticated, {
     auth: auth,
     menus: menus,
     errors: errors,
     appTitle: appTitle,
     pageTitle: pageTitle,
-    children: users && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components__WEBPACK_IMPORTED_MODULE_2__.Table, {
-      data: users,
-      columns: columns
+    children: user && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+      children: "user content here"
     })
   });
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListPage);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Show);
 
 /***/ }),
 
@@ -17220,6 +17627,72 @@ module.exports = deepmerge_1;
 
 /***/ }),
 
+/***/ "./node_modules/dom-helpers/esm/activeElement.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/activeElement.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ activeElement)
+/* harmony export */ });
+/* harmony import */ var _ownerDocument__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ownerDocument */ "./node_modules/dom-helpers/esm/ownerDocument.js");
+
+/**
+ * Returns the actively focused element safely.
+ *
+ * @param doc the document to check
+ */
+
+function activeElement(doc) {
+  if (doc === void 0) {
+    doc = (0,_ownerDocument__WEBPACK_IMPORTED_MODULE_0__.default)();
+  }
+
+  // Support: IE 9 only
+  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+  try {
+    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
+    // document.activeElement from an <iframe>
+
+    if (!active || !active.nodeName) return null;
+    return active;
+  } catch (e) {
+    /* ie throws if no active element */
+    return doc.body;
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/addClass.js":
+/*!**************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/addClass.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ addClass)
+/* harmony export */ });
+/* harmony import */ var _hasClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasClass */ "./node_modules/dom-helpers/esm/hasClass.js");
+
+/**
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!(0,_hasClass__WEBPACK_IMPORTED_MODULE_0__.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
+}
+
+/***/ }),
+
 /***/ "./node_modules/dom-helpers/esm/addEventListener.js":
 /*!**********************************************************!*\
   !*** ./node_modules/dom-helpers/esm/addEventListener.js ***!
@@ -17498,6 +17971,23 @@ function hyphenateStyleName(string) {
 
 /***/ }),
 
+/***/ "./node_modules/dom-helpers/esm/isDocument.js":
+/*!****************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/isDocument.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ isDocument)
+/* harmony export */ });
+function isDocument(element) {
+  return 'nodeType' in element && element.nodeType === document.DOCUMENT_NODE;
+}
+
+/***/ }),
+
 /***/ "./node_modules/dom-helpers/esm/isTransform.js":
 /*!*****************************************************!*\
   !*** ./node_modules/dom-helpers/esm/isTransform.js ***!
@@ -17512,6 +18002,27 @@ __webpack_require__.r(__webpack_exports__);
 var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
 function isTransform(value) {
   return !!(value && supportedTransforms.test(value));
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/isWindow.js":
+/*!**************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/isWindow.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ isWindow)
+/* harmony export */ });
+/* harmony import */ var _isDocument__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDocument */ "./node_modules/dom-helpers/esm/isDocument.js");
+
+function isWindow(node) {
+  if ('window' in node && node.window === node) return node;
+  if ((0,_isDocument__WEBPACK_IMPORTED_MODULE_0__.default)(node)) return node.defaultView || false;
+  return false;
 }
 
 /***/ }),
@@ -17650,6 +18161,40 @@ function qsa(element, selector) {
 
 /***/ }),
 
+/***/ "./node_modules/dom-helpers/esm/removeClass.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/removeClass.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ removeClass)
+/* harmony export */ });
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+/**
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+
+
+function removeClass(element, className) {
+  if (element.classList) {
+    element.classList.remove(className);
+  } else if (typeof element.className === 'string') {
+    element.className = replaceClassName(element.className, className);
+  } else {
+    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/dom-helpers/esm/removeEventListener.js":
 /*!*************************************************************!*\
   !*** ./node_modules/dom-helpers/esm/removeEventListener.js ***!
@@ -17679,6 +18224,40 @@ function removeEventListener(node, eventName, handler, options) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeEventListener);
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/scrollbarSize.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/scrollbarSize.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ scrollbarSize)
+/* harmony export */ });
+/* harmony import */ var _canUseDOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canUseDOM */ "./node_modules/dom-helpers/esm/canUseDOM.js");
+
+var size;
+function scrollbarSize(recalc) {
+  if (!size && size !== 0 || recalc) {
+    if (_canUseDOM__WEBPACK_IMPORTED_MODULE_0__.default) {
+      var scrollDiv = document.createElement('div');
+      scrollDiv.style.position = 'absolute';
+      scrollDiv.style.top = '-9999px';
+      scrollDiv.style.width = '50px';
+      scrollDiv.style.height = '50px';
+      scrollDiv.style.overflow = 'scroll';
+      document.body.appendChild(scrollDiv);
+      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+    }
+  }
+
+  return size;
+}
 
 /***/ }),
 
@@ -40802,6 +41381,104 @@ Alert.Heading = AlertHeading;
 
 /***/ }),
 
+/***/ "./node_modules/react-bootstrap/esm/BootstrapModalManager.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/BootstrapModalManager.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ BootstrapModalManager)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var dom_helpers_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dom-helpers/css */ "./node_modules/dom-helpers/esm/css.js");
+/* harmony import */ var dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dom-helpers/querySelectorAll */ "./node_modules/dom-helpers/esm/querySelectorAll.js");
+/* harmony import */ var dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dom-helpers/scrollbarSize */ "./node_modules/dom-helpers/esm/scrollbarSize.js");
+/* harmony import */ var react_overlays_ModalManager__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-overlays/ModalManager */ "./node_modules/react-overlays/esm/ModalManager.js");
+
+
+
+
+
+var Selector = {
+  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+  STICKY_CONTENT: '.sticky-top',
+  NAVBAR_TOGGLER: '.navbar-toggler'
+};
+
+var BootstrapModalManager = /*#__PURE__*/function (_ModalManager) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__.default)(BootstrapModalManager, _ModalManager);
+
+  function BootstrapModalManager() {
+    return _ModalManager.apply(this, arguments) || this;
+  }
+
+  var _proto = BootstrapModalManager.prototype;
+
+  _proto.adjustAndStore = function adjustAndStore(prop, element, adjust) {
+    var _css;
+
+    var actual = element.style[prop]; // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
+    // @ts-ignore
+
+    element.dataset[prop] = actual;
+    (0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_1__.default)(element, (_css = {}, _css[prop] = parseFloat((0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_1__.default)(element, prop)) + adjust + "px", _css));
+  };
+
+  _proto.restore = function restore(prop, element) {
+    var value = element.dataset[prop];
+
+    if (value !== undefined) {
+      var _css2;
+
+      delete element.dataset[prop];
+      (0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_1__.default)(element, (_css2 = {}, _css2[prop] = value, _css2));
+    }
+  };
+
+  _proto.setContainerStyle = function setContainerStyle(containerState, container) {
+    var _this = this;
+
+    _ModalManager.prototype.setContainerStyle.call(this, containerState, container);
+
+    if (!containerState.overflowing) return;
+    var size = (0,dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_3__.default)();
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.FIXED_CONTENT).forEach(function (el) {
+      return _this.adjustAndStore('paddingRight', el, size);
+    });
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.STICKY_CONTENT).forEach(function (el) {
+      return _this.adjustAndStore('marginRight', el, -size);
+    });
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.NAVBAR_TOGGLER).forEach(function (el) {
+      return _this.adjustAndStore('marginRight', el, size);
+    });
+  };
+
+  _proto.removeContainerStyle = function removeContainerStyle(containerState, container) {
+    var _this2 = this;
+
+    _ModalManager.prototype.removeContainerStyle.call(this, containerState, container);
+
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.FIXED_CONTENT).forEach(function (el) {
+      return _this2.restore('paddingRight', el);
+    });
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.STICKY_CONTENT).forEach(function (el) {
+      return _this2.restore('marginRight', el);
+    });
+    (0,dom_helpers_querySelectorAll__WEBPACK_IMPORTED_MODULE_2__.default)(container, Selector.NAVBAR_TOGGLER).forEach(function (el) {
+      return _this2.restore('marginRight', el);
+    });
+  };
+
+  return BootstrapModalManager;
+}(react_overlays_ModalManager__WEBPACK_IMPORTED_MODULE_4__.default);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/react-bootstrap/esm/Button.js":
 /*!****************************************************!*\
   !*** ./node_modules/react-bootstrap/esm/Button.js ***!
@@ -42585,6 +43262,548 @@ function (_ref, ref) {
 });
 FormText.displayName = 'FormText';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormText);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/Modal.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/Modal.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var dom_helpers_addEventListener__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dom-helpers/addEventListener */ "./node_modules/dom-helpers/esm/addEventListener.js");
+/* harmony import */ var dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dom-helpers/canUseDOM */ "./node_modules/dom-helpers/esm/canUseDOM.js");
+/* harmony import */ var dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! dom-helpers/ownerDocument */ "./node_modules/dom-helpers/esm/ownerDocument.js");
+/* harmony import */ var dom_helpers_removeEventListener__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! dom-helpers/removeEventListener */ "./node_modules/dom-helpers/esm/removeEventListener.js");
+/* harmony import */ var dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! dom-helpers/scrollbarSize */ "./node_modules/dom-helpers/esm/scrollbarSize.js");
+/* harmony import */ var _restart_hooks_useCallbackRef__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @restart/hooks/useCallbackRef */ "./node_modules/@restart/hooks/esm/useCallbackRef.js");
+/* harmony import */ var _restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @restart/hooks/useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+/* harmony import */ var _restart_hooks_useWillUnmount__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @restart/hooks/useWillUnmount */ "./node_modules/@restart/hooks/esm/useWillUnmount.js");
+/* harmony import */ var dom_helpers_transitionEnd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! dom-helpers/transitionEnd */ "./node_modules/dom-helpers/esm/transitionEnd.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_overlays_Modal__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-overlays/Modal */ "./node_modules/react-overlays/esm/Modal.js");
+/* harmony import */ var warning__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! warning */ "./node_modules/warning/warning.js");
+/* harmony import */ var warning__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(warning__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _BootstrapModalManager__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./BootstrapModalManager */ "./node_modules/react-bootstrap/esm/BootstrapModalManager.js");
+/* harmony import */ var _Fade__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Fade */ "./node_modules/react-bootstrap/esm/Fade.js");
+/* harmony import */ var _ModalBody__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./ModalBody */ "./node_modules/react-bootstrap/esm/ModalBody.js");
+/* harmony import */ var _ModalContext__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./ModalContext */ "./node_modules/react-bootstrap/esm/ModalContext.js");
+/* harmony import */ var _ModalDialog__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ModalDialog */ "./node_modules/react-bootstrap/esm/ModalDialog.js");
+/* harmony import */ var _ModalFooter__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./ModalFooter */ "./node_modules/react-bootstrap/esm/ModalFooter.js");
+/* harmony import */ var _ModalHeader__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./ModalHeader */ "./node_modules/react-bootstrap/esm/ModalHeader.js");
+/* harmony import */ var _ModalTitle__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./ModalTitle */ "./node_modules/react-bootstrap/esm/ModalTitle.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+
+
+var _excluded = ["bsPrefix", "className", "style", "dialogClassName", "contentClassName", "children", "dialogAs", "aria-labelledby", "show", "animation", "backdrop", "keyboard", "onEscapeKeyDown", "onShow", "onHide", "container", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "onEntered", "onExit", "onExiting", "onEnter", "onEntering", "onExited", "backdropClassName", "manager"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var manager;
+var defaultProps = {
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  animation: true,
+  dialogAs: _ModalDialog__WEBPACK_IMPORTED_MODULE_14__.default
+};
+/* eslint-disable no-use-before-define, react/no-multi-comp */
+
+function DialogTransition(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement(_Fade__WEBPACK_IMPORTED_MODULE_15__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, props, {
+    timeout: null
+  }));
+}
+
+function BackdropTransition(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement(_Fade__WEBPACK_IMPORTED_MODULE_15__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, props, {
+    timeout: null
+  }));
+}
+/* eslint-enable no-use-before-define */
+
+
+var Modal = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      className = _ref.className,
+      style = _ref.style,
+      dialogClassName = _ref.dialogClassName,
+      contentClassName = _ref.contentClassName,
+      children = _ref.children,
+      Dialog = _ref.dialogAs,
+      ariaLabelledby = _ref['aria-labelledby'],
+      show = _ref.show,
+      animation = _ref.animation,
+      backdrop = _ref.backdrop,
+      keyboard = _ref.keyboard,
+      onEscapeKeyDown = _ref.onEscapeKeyDown,
+      onShow = _ref.onShow,
+      onHide = _ref.onHide,
+      container = _ref.container,
+      autoFocus = _ref.autoFocus,
+      enforceFocus = _ref.enforceFocus,
+      restoreFocus = _ref.restoreFocus,
+      restoreFocusOptions = _ref.restoreFocusOptions,
+      onEntered = _ref.onEntered,
+      onExit = _ref.onExit,
+      onExiting = _ref.onExiting,
+      onEnter = _ref.onEnter,
+      onEntering = _ref.onEntering,
+      onExited = _ref.onExited,
+      backdropClassName = _ref.backdropClassName,
+      propsManager = _ref.manager,
+      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(_ref, _excluded);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_12__.useState)({}),
+      modalStyle = _useState[0],
+      setStyle = _useState[1];
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_12__.useState)(false),
+      animateStaticModal = _useState2[0],
+      setAnimateStaticModal = _useState2[1];
+
+  var waitingForMouseUpRef = (0,react__WEBPACK_IMPORTED_MODULE_12__.useRef)(false);
+  var ignoreBackdropClickRef = (0,react__WEBPACK_IMPORTED_MODULE_12__.useRef)(false);
+  var removeStaticModalAnimationRef = (0,react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null); // TODO: what's this type
+
+  var _useCallbackRef = (0,_restart_hooks_useCallbackRef__WEBPACK_IMPORTED_MODULE_8__.default)(),
+      modal = _useCallbackRef[0],
+      setModalRef = _useCallbackRef[1];
+
+  var handleHide = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_9__.default)(onHide);
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_16__.useBootstrapPrefix)(bsPrefix, 'modal');
+  (0,react__WEBPACK_IMPORTED_MODULE_12__.useImperativeHandle)(ref, function () {
+    return {
+      get _modal() {
+         true ? warning__WEBPACK_IMPORTED_MODULE_13___default()(false, 'Accessing `_modal` is not supported and will be removed in a future release') : 0;
+        return modal;
+      }
+
+    };
+  }, [modal]);
+  var modalContext = (0,react__WEBPACK_IMPORTED_MODULE_12__.useMemo)(function () {
+    return {
+      onHide: handleHide
+    };
+  }, [handleHide]);
+
+  function getModalManager() {
+    if (propsManager) return propsManager;
+    if (!manager) manager = new _BootstrapModalManager__WEBPACK_IMPORTED_MODULE_17__.default();
+    return manager;
+  }
+
+  function updateDialogStyle(node) {
+    if (!dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_4__.default) return;
+    var containerIsOverflowing = getModalManager().isContainerOverflowing(modal);
+    var modalIsOverflowing = node.scrollHeight > (0,dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_5__.default)(node).documentElement.clientHeight;
+    setStyle({
+      paddingRight: containerIsOverflowing && !modalIsOverflowing ? (0,dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_7__.default)() : undefined,
+      paddingLeft: !containerIsOverflowing && modalIsOverflowing ? (0,dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_7__.default)() : undefined
+    });
+  }
+
+  var handleWindowResize = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_9__.default)(function () {
+    if (modal) {
+      updateDialogStyle(modal.dialog);
+    }
+  });
+  (0,_restart_hooks_useWillUnmount__WEBPACK_IMPORTED_MODULE_10__.default)(function () {
+    (0,dom_helpers_removeEventListener__WEBPACK_IMPORTED_MODULE_6__.default)(window, 'resize', handleWindowResize);
+
+    if (removeStaticModalAnimationRef.current) {
+      removeStaticModalAnimationRef.current();
+    }
+  }); // We prevent the modal from closing during a drag by detecting where the
+  // the click originates from. If it starts in the modal and then ends outside
+  // don't close.
+
+  var handleDialogMouseDown = function handleDialogMouseDown() {
+    waitingForMouseUpRef.current = true;
+  };
+
+  var handleMouseUp = function handleMouseUp(e) {
+    if (waitingForMouseUpRef.current && modal && e.target === modal.dialog) {
+      ignoreBackdropClickRef.current = true;
+    }
+
+    waitingForMouseUpRef.current = false;
+  };
+
+  var handleStaticModalAnimation = function handleStaticModalAnimation() {
+    setAnimateStaticModal(true);
+    removeStaticModalAnimationRef.current = (0,dom_helpers_transitionEnd__WEBPACK_IMPORTED_MODULE_11__.default)(modal.dialog, function () {
+      setAnimateStaticModal(false);
+    });
+  };
+
+  var handleStaticBackdropClick = function handleStaticBackdropClick(e) {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    handleStaticModalAnimation();
+  };
+
+  var handleClick = function handleClick(e) {
+    if (backdrop === 'static') {
+      handleStaticBackdropClick(e);
+      return;
+    }
+
+    if (ignoreBackdropClickRef.current || e.target !== e.currentTarget) {
+      ignoreBackdropClickRef.current = false;
+      return;
+    }
+
+    onHide();
+  };
+
+  var handleEscapeKeyDown = function handleEscapeKeyDown(e) {
+    if (!keyboard && backdrop === 'static') {
+      // Call preventDefault to stop modal from closing in react-overlays,
+      // then play our animation.
+      e.preventDefault();
+      handleStaticModalAnimation();
+    } else if (keyboard && onEscapeKeyDown) {
+      onEscapeKeyDown(e);
+    }
+  };
+
+  var handleEnter = function handleEnter(node) {
+    if (node) {
+      node.style.display = 'block';
+      updateDialogStyle(node);
+    }
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    if (onEnter) onEnter.apply(void 0, [node].concat(args));
+  };
+
+  var handleExit = function handleExit(node) {
+    if (removeStaticModalAnimationRef.current) {
+      removeStaticModalAnimationRef.current();
+    }
+
+    for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      args[_key2 - 1] = arguments[_key2];
+    }
+
+    if (onExit) onExit.apply(void 0, [node].concat(args));
+  };
+
+  var handleEntering = function handleEntering(node) {
+    for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      args[_key3 - 1] = arguments[_key3];
+    }
+
+    if (onEntering) onEntering.apply(void 0, [node].concat(args)); // FIXME: This should work even when animation is disabled.
+
+    (0,dom_helpers_addEventListener__WEBPACK_IMPORTED_MODULE_3__.default)(window, 'resize', handleWindowResize);
+  };
+
+  var handleExited = function handleExited(node) {
+    if (node) node.style.display = ''; // RHL removes it sometimes
+
+    for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+      args[_key4 - 1] = arguments[_key4];
+    }
+
+    if (onExited) onExited.apply(void 0, args); // FIXME: This should work even when animation is disabled.
+
+    (0,dom_helpers_removeEventListener__WEBPACK_IMPORTED_MODULE_6__.default)(window, 'resize', handleWindowResize);
+  };
+
+  var renderBackdrop = (0,react__WEBPACK_IMPORTED_MODULE_12__.useCallback)(function (backdropProps) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement("div", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, backdropProps, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(bsPrefix + "-backdrop", backdropClassName, !animation && 'show')
+    }));
+  }, [animation, backdropClassName, bsPrefix]);
+
+  var baseModalStyle = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, style, modalStyle); // Sets `display` always block when `animation` is false
+
+
+  if (!animation) {
+    baseModalStyle.display = 'block';
+  }
+
+  var renderDialog = function renderDialog(dialogProps) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement("div", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+      role: "dialog"
+    }, dialogProps, {
+      style: baseModalStyle,
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, bsPrefix, animateStaticModal && bsPrefix + "-static"),
+      onClick: backdrop ? handleClick : undefined,
+      onMouseUp: handleMouseUp,
+      "aria-labelledby": ariaLabelledby
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement(Dialog, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, props, {
+      onMouseDown: handleDialogMouseDown,
+      className: dialogClassName,
+      contentClassName: contentClassName
+    }), children));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement(_ModalContext__WEBPACK_IMPORTED_MODULE_18__.default.Provider, {
+    value: modalContext
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_12__.createElement(react_overlays_Modal__WEBPACK_IMPORTED_MODULE_19__.default, {
+    show: show,
+    ref: setModalRef,
+    backdrop: backdrop,
+    container: container,
+    keyboard: true // Always set true - see handleEscapeKeyDown
+    ,
+    autoFocus: autoFocus,
+    enforceFocus: enforceFocus,
+    restoreFocus: restoreFocus,
+    restoreFocusOptions: restoreFocusOptions,
+    onEscapeKeyDown: handleEscapeKeyDown,
+    onShow: onShow,
+    onHide: onHide,
+    onEnter: handleEnter,
+    onEntering: handleEntering,
+    onEntered: onEntered,
+    onExit: handleExit,
+    onExiting: onExiting,
+    onExited: handleExited,
+    manager: getModalManager(),
+    containerClassName: bsPrefix + "-open",
+    transition: animation ? DialogTransition : undefined,
+    backdropTransition: animation ? BackdropTransition : undefined,
+    renderBackdrop: renderBackdrop,
+    renderDialog: renderDialog
+  }));
+});
+Modal.displayName = 'Modal';
+Modal.defaultProps = defaultProps;
+Modal.Body = _ModalBody__WEBPACK_IMPORTED_MODULE_20__.default;
+Modal.Header = _ModalHeader__WEBPACK_IMPORTED_MODULE_21__.default;
+Modal.Title = _ModalTitle__WEBPACK_IMPORTED_MODULE_22__.default;
+Modal.Footer = _ModalFooter__WEBPACK_IMPORTED_MODULE_23__.default;
+Modal.Dialog = _ModalDialog__WEBPACK_IMPORTED_MODULE_14__.default;
+Modal.TRANSITION_DURATION = 300;
+Modal.BACKDROP_TRANSITION_DURATION = 150;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalBody.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalBody.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createWithBsPrefix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createWithBsPrefix */ "./node_modules/react-bootstrap/esm/createWithBsPrefix.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_createWithBsPrefix__WEBPACK_IMPORTED_MODULE_0__.default)('modal-body'));
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalContext.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalContext.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var ModalContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onHide: function onHide() {}
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalContext);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalDialog.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalDialog.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+
+
+var _excluded = ["bsPrefix", "className", "contentClassName", "centered", "size", "children", "scrollable"];
+
+
+
+var ModalDialog = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      className = _ref.className,
+      contentClassName = _ref.contentClassName,
+      centered = _ref.centered,
+      size = _ref.size,
+      children = _ref.children,
+      scrollable = _ref.scrollable,
+      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref, _excluded);
+
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_4__.useBootstrapPrefix)(bsPrefix, 'modal');
+  var dialogClass = bsPrefix + "-dialog";
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, props, {
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(dialogClass, className, size && bsPrefix + "-" + size, centered && dialogClass + "-centered", scrollable && dialogClass + "-scrollable")
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(bsPrefix + "-content", contentClassName)
+  }, children));
+});
+ModalDialog.displayName = 'ModalDialog';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalDialog);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalFooter.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalFooter.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createWithBsPrefix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createWithBsPrefix */ "./node_modules/react-bootstrap/esm/createWithBsPrefix.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_createWithBsPrefix__WEBPACK_IMPORTED_MODULE_0__.default)('modal-footer'));
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalHeader.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalHeader.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @restart/hooks/useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+/* harmony import */ var _CloseButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CloseButton */ "./node_modules/react-bootstrap/esm/CloseButton.js");
+/* harmony import */ var _ModalContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalContext */ "./node_modules/react-bootstrap/esm/ModalContext.js");
+
+
+var _excluded = ["bsPrefix", "closeLabel", "closeButton", "onHide", "className", "children"];
+
+
+
+
+
+
+var defaultProps = {
+  closeLabel: 'Close',
+  closeButton: false
+};
+var ModalHeader = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      closeLabel = _ref.closeLabel,
+      closeButton = _ref.closeButton,
+      onHide = _ref.onHide,
+      className = _ref.className,
+      children = _ref.children,
+      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref, _excluded);
+
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_5__.useBootstrapPrefix)(bsPrefix, 'modal-header');
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_3__.useContext)(_ModalContext__WEBPACK_IMPORTED_MODULE_6__.default);
+  var handleClick = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_4__.default)(function () {
+    if (context) context.onHide();
+    if (onHide) onHide();
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    ref: ref
+  }, props, {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, bsPrefix)
+  }), children, closeButton && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(_CloseButton__WEBPACK_IMPORTED_MODULE_7__.default, {
+    label: closeLabel,
+    onClick: handleClick
+  }));
+});
+ModalHeader.displayName = 'ModalHeader';
+ModalHeader.defaultProps = defaultProps;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalHeader);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/ModalTitle.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/ModalTitle.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createWithBsPrefix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createWithBsPrefix */ "./node_modules/react-bootstrap/esm/createWithBsPrefix.js");
+/* harmony import */ var _divWithClassName__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./divWithClassName */ "./node_modules/react-bootstrap/esm/divWithClassName.js");
+
+
+var DivStyledAsH4 = (0,_divWithClassName__WEBPACK_IMPORTED_MODULE_0__.default)('h4');
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_createWithBsPrefix__WEBPACK_IMPORTED_MODULE_1__.default)('modal-title', {
+  Component: DivStyledAsH4
+}));
 
 /***/ }),
 
@@ -72276,6 +73495,741 @@ DropdownToggle.propTypes = propTypes;
 
 /***/ }),
 
+/***/ "./node_modules/react-overlays/esm/Modal.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-overlays/esm/Modal.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var dom_helpers_activeElement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dom-helpers/activeElement */ "./node_modules/dom-helpers/esm/activeElement.js");
+/* harmony import */ var dom_helpers_contains__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dom-helpers/contains */ "./node_modules/dom-helpers/esm/contains.js");
+/* harmony import */ var dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dom-helpers/canUseDOM */ "./node_modules/dom-helpers/esm/canUseDOM.js");
+/* harmony import */ var dom_helpers_listen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! dom-helpers/listen */ "./node_modules/dom-helpers/esm/listen.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _restart_hooks_useMounted__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @restart/hooks/useMounted */ "./node_modules/@restart/hooks/esm/useMounted.js");
+/* harmony import */ var _restart_hooks_useWillUnmount__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @restart/hooks/useWillUnmount */ "./node_modules/@restart/hooks/esm/useWillUnmount.js");
+/* harmony import */ var _restart_hooks_usePrevious__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @restart/hooks/usePrevious */ "./node_modules/@restart/hooks/esm/usePrevious.js");
+/* harmony import */ var _restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @restart/hooks/useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+/* harmony import */ var _ModalManager__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ModalManager */ "./node_modules/react-overlays/esm/ModalManager.js");
+/* harmony import */ var _useWaitForDOMRef__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./useWaitForDOMRef */ "./node_modules/react-overlays/esm/useWaitForDOMRef.js");
+
+
+
+/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
+
+
+
+
+
+
+
+
+
+
+
+
+
+var manager;
+
+function getManager() {
+  if (!manager) manager = new _ModalManager__WEBPACK_IMPORTED_MODULE_13__.default();
+  return manager;
+}
+
+function useModalManager(provided) {
+  var modalManager = provided || getManager();
+  var modal = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)({
+    dialog: null,
+    backdrop: null
+  });
+  return Object.assign(modal.current, {
+    add: function add(container, className) {
+      return modalManager.add(modal.current, container, className);
+    },
+    remove: function remove() {
+      return modalManager.remove(modal.current);
+    },
+    isTopModal: function isTopModal() {
+      return modalManager.isTopModal(modal.current);
+    },
+    setDialogRef: (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(function (ref) {
+      modal.current.dialog = ref;
+    }, []),
+    setBackdropRef: (0,react__WEBPACK_IMPORTED_MODULE_7__.useCallback)(function (ref) {
+      modal.current.backdrop = ref;
+    }, [])
+  });
+}
+
+var Modal = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_7__.forwardRef)(function (_ref, ref) {
+  var _ref$show = _ref.show,
+      show = _ref$show === void 0 ? false : _ref$show,
+      _ref$role = _ref.role,
+      role = _ref$role === void 0 ? 'dialog' : _ref$role,
+      className = _ref.className,
+      style = _ref.style,
+      children = _ref.children,
+      _ref$backdrop = _ref.backdrop,
+      backdrop = _ref$backdrop === void 0 ? true : _ref$backdrop,
+      _ref$keyboard = _ref.keyboard,
+      keyboard = _ref$keyboard === void 0 ? true : _ref$keyboard,
+      onBackdropClick = _ref.onBackdropClick,
+      onEscapeKeyDown = _ref.onEscapeKeyDown,
+      transition = _ref.transition,
+      backdropTransition = _ref.backdropTransition,
+      _ref$autoFocus = _ref.autoFocus,
+      autoFocus = _ref$autoFocus === void 0 ? true : _ref$autoFocus,
+      _ref$enforceFocus = _ref.enforceFocus,
+      enforceFocus = _ref$enforceFocus === void 0 ? true : _ref$enforceFocus,
+      _ref$restoreFocus = _ref.restoreFocus,
+      restoreFocus = _ref$restoreFocus === void 0 ? true : _ref$restoreFocus,
+      restoreFocusOptions = _ref.restoreFocusOptions,
+      renderDialog = _ref.renderDialog,
+      _ref$renderBackdrop = _ref.renderBackdrop,
+      renderBackdrop = _ref$renderBackdrop === void 0 ? function (props) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", props);
+  } : _ref$renderBackdrop,
+      providedManager = _ref.manager,
+      containerRef = _ref.container,
+      containerClassName = _ref.containerClassName,
+      onShow = _ref.onShow,
+      _ref$onHide = _ref.onHide,
+      onHide = _ref$onHide === void 0 ? function () {} : _ref$onHide,
+      onExit = _ref.onExit,
+      onExited = _ref.onExited,
+      onExiting = _ref.onExiting,
+      onEnter = _ref.onEnter,
+      onEntering = _ref.onEntering,
+      onEntered = _ref.onEntered,
+      rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref, ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "backdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "containerClassName", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"]);
+
+  var container = (0,_useWaitForDOMRef__WEBPACK_IMPORTED_MODULE_14__.default)(containerRef);
+  var modal = useModalManager(providedManager);
+  var isMounted = (0,_restart_hooks_useMounted__WEBPACK_IMPORTED_MODULE_9__.default)();
+  var prevShow = (0,_restart_hooks_usePrevious__WEBPACK_IMPORTED_MODULE_11__.default)(show);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(!show),
+      exited = _useState[0],
+      setExited = _useState[1];
+
+  var lastFocusRef = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useImperativeHandle)(ref, function () {
+    return modal;
+  }, [modal]);
+
+  if (dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_4__.default && !prevShow && show) {
+    lastFocusRef.current = (0,dom_helpers_activeElement__WEBPACK_IMPORTED_MODULE_2__.default)();
+  }
+
+  if (!transition && !show && !exited) {
+    setExited(true);
+  } else if (show && exited) {
+    setExited(false);
+  }
+
+  var handleShow = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__.default)(function () {
+    modal.add(container, containerClassName);
+    removeKeydownListenerRef.current = (0,dom_helpers_listen__WEBPACK_IMPORTED_MODULE_5__.default)(document, 'keydown', handleDocumentKeyDown);
+    removeFocusListenerRef.current = (0,dom_helpers_listen__WEBPACK_IMPORTED_MODULE_5__.default)(document, 'focus', // the timeout is necessary b/c this will run before the new modal is mounted
+    // and so steals focus from it
+    function () {
+      return setTimeout(handleEnforceFocus);
+    }, true);
+
+    if (onShow) {
+      onShow();
+    } // autofocus after onShow to not trigger a focus event for previous
+    // modals before this one is shown.
+
+
+    if (autoFocus) {
+      var currentActiveElement = (0,dom_helpers_activeElement__WEBPACK_IMPORTED_MODULE_2__.default)(document);
+
+      if (modal.dialog && currentActiveElement && !(0,dom_helpers_contains__WEBPACK_IMPORTED_MODULE_3__.default)(modal.dialog, currentActiveElement)) {
+        lastFocusRef.current = currentActiveElement;
+        modal.dialog.focus();
+      }
+    }
+  });
+  var handleHide = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__.default)(function () {
+    modal.remove();
+    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
+    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
+
+    if (restoreFocus) {
+      var _lastFocusRef$current;
+
+      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
+      lastFocusRef.current = null;
+    }
+  }); // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
+  // Show logic when:
+  //  - show is `true` _and_ `container` has resolved
+
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(function () {
+    if (!show || !container) return;
+    handleShow();
+  }, [show, container,
+  /* should never change: */
+  handleShow]); // Hide cleanup logic when:
+  //  - `exited` switches to true
+  //  - component unmounts;
+
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(function () {
+    if (!exited) return;
+    handleHide();
+  }, [exited, handleHide]);
+  (0,_restart_hooks_useWillUnmount__WEBPACK_IMPORTED_MODULE_10__.default)(function () {
+    handleHide();
+  }); // --------------------------------
+
+  var handleEnforceFocus = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__.default)(function () {
+    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
+      return;
+    }
+
+    var currentActiveElement = (0,dom_helpers_activeElement__WEBPACK_IMPORTED_MODULE_2__.default)();
+
+    if (modal.dialog && currentActiveElement && !(0,dom_helpers_contains__WEBPACK_IMPORTED_MODULE_3__.default)(modal.dialog, currentActiveElement)) {
+      modal.dialog.focus();
+    }
+  });
+  var handleBackdropClick = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__.default)(function (e) {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    onBackdropClick == null ? void 0 : onBackdropClick(e);
+
+    if (backdrop === true) {
+      onHide();
+    }
+  });
+  var handleDocumentKeyDown = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_12__.default)(function (e) {
+    if (keyboard && e.keyCode === 27 && modal.isTopModal()) {
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+
+      if (!e.defaultPrevented) {
+        onHide();
+      }
+    }
+  });
+  var removeFocusListenerRef = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)();
+  var removeKeydownListenerRef = (0,react__WEBPACK_IMPORTED_MODULE_7__.useRef)();
+
+  var handleHidden = function handleHidden() {
+    setExited(true);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    onExited == null ? void 0 : onExited.apply(void 0, args);
+  };
+
+  var Transition = transition;
+
+  if (!container || !(show || Transition && !exited)) {
+    return null;
+  }
+
+  var dialogProps = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    role: role,
+    ref: modal.setDialogRef,
+    // apparently only works on the dialog role element
+    'aria-modal': role === 'dialog' ? true : undefined
+  }, rest, {
+    style: style,
+    className: className,
+    tabIndex: -1
+  });
+
+  var dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", dialogProps, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.cloneElement(children, {
+    role: 'document'
+  }));
+
+  if (Transition) {
+    dialog = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement(Transition, {
+      appear: true,
+      unmountOnExit: true,
+      "in": !!show,
+      onExit: onExit,
+      onExiting: onExiting,
+      onExited: handleHidden,
+      onEnter: onEnter,
+      onEntering: onEntering,
+      onEntered: onEntered
+    }, dialog);
+  }
+
+  var backdropElement = null;
+
+  if (backdrop) {
+    var BackdropTransition = backdropTransition;
+    backdropElement = renderBackdrop({
+      ref: modal.setBackdropRef,
+      onClick: handleBackdropClick
+    });
+
+    if (BackdropTransition) {
+      backdropElement = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement(BackdropTransition, {
+        appear: true,
+        "in": !!show
+      }, backdropElement);
+    }
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement(react__WEBPACK_IMPORTED_MODULE_7__.Fragment, null, /*#__PURE__*/react_dom__WEBPACK_IMPORTED_MODULE_8__.createPortal( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement(react__WEBPACK_IMPORTED_MODULE_7__.Fragment, null, backdropElement, dialog), container));
+});
+var propTypes = {
+  /**
+   * Set the visibility of the Modal
+   */
+  show: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),
+
+  /**
+   * A DOM element, a `ref` to an element, or function that returns either. The Modal is appended to it's `container` element.
+   *
+   * For the sake of assistive technologies, the container should usually be the document body, so that the rest of the
+   * page content can be placed behind a virtual backdrop as well as a visual one.
+   */
+  container: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().any),
+
+  /**
+   * A callback fired when the Modal is opening.
+   */
+  onShow: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A callback fired when either the backdrop is clicked, or the escape key is pressed.
+   *
+   * The `onHide` callback only signals intent from the Modal,
+   * you must actually set the `show` prop to `false` for the Modal to close.
+   */
+  onHide: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Include a backdrop component.
+   */
+  backdrop: prop_types__WEBPACK_IMPORTED_MODULE_6___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool), prop_types__WEBPACK_IMPORTED_MODULE_6___default().oneOf(['static'])]),
+
+  /**
+   * A function that returns the dialog component. Useful for custom
+   * rendering. **Note:** the component should make sure to apply the provided ref.
+   *
+   * ```js static
+   * renderDialog={props => <MyDialog {...props} />}
+   * ```
+   */
+  renderDialog: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A function that returns a backdrop component. Useful for custom
+   * backdrop rendering.
+   *
+   * ```js
+   *  renderBackdrop={props => <MyBackdrop {...props} />}
+   * ```
+   */
+  renderBackdrop: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A callback fired when the escape key, if specified in `keyboard`, is pressed.
+   *
+   * If preventDefault() is called on the keyboard event, closing the modal will be cancelled.
+   */
+  onEscapeKeyDown: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A callback fired when the backdrop, if specified, is clicked.
+   */
+  onBackdropClick: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A css class or set of classes applied to the modal container when the modal is open,
+   * and removed when it is closed.
+   */
+  containerClassName: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().string),
+
+  /**
+   * Close the modal when escape key is pressed
+   */
+  keyboard: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),
+
+  /**
+   * A `react-transition-group@2.0.0` `<Transition/>` component used
+   * to control animations for the dialog component.
+   */
+  transition: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().elementType),
+
+  /**
+   * A `react-transition-group@2.0.0` `<Transition/>` component used
+   * to control animations for the backdrop components.
+   */
+  backdropTransition: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().elementType),
+
+  /**
+   * When `true` The modal will automatically shift focus to itself when it opens, and
+   * replace it to the last focused element when it closes. This also
+   * works correctly with any Modal children that have the `autoFocus` prop.
+   *
+   * Generally this should never be set to `false` as it makes the Modal less
+   * accessible to assistive technologies, like screen readers.
+   */
+  autoFocus: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),
+
+  /**
+   * When `true` The modal will prevent focus from leaving the Modal while open.
+   *
+   * Generally this should never be set to `false` as it makes the Modal less
+   * accessible to assistive technologies, like screen readers.
+   */
+  enforceFocus: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),
+
+  /**
+   * When `true` The modal will restore focus to previously focused element once
+   * modal is hidden
+   */
+  restoreFocus: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool),
+
+  /**
+   * Options passed to focus function when `restoreFocus` is set to `true`
+   *
+   * @link  https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Parameters
+   */
+  restoreFocusOptions: prop_types__WEBPACK_IMPORTED_MODULE_6___default().shape({
+    preventScroll: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().bool)
+  }),
+
+  /**
+   * Callback fired before the Modal transitions in
+   */
+  onEnter: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Callback fired as the Modal begins to transition in
+   */
+  onEntering: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Callback fired after the Modal finishes transitioning in
+   */
+  onEntered: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Callback fired right before the Modal transitions out
+   */
+  onExit: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Callback fired as the Modal begins to transition out
+   */
+  onExiting: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * Callback fired after the Modal finishes transitioning out
+   */
+  onExited: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().func),
+
+  /**
+   * A ModalManager instance used to track and manage the state of open
+   * Modals. Useful when customizing how modals interact within a container
+   */
+  manager: prop_types__WEBPACK_IMPORTED_MODULE_6___default().instanceOf(_ModalManager__WEBPACK_IMPORTED_MODULE_13__.default)
+};
+Modal.displayName = 'Modal';
+Modal.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Object.assign(Modal, {
+  Manager: _ModalManager__WEBPACK_IMPORTED_MODULE_13__.default
+}));
+
+/***/ }),
+
+/***/ "./node_modules/react-overlays/esm/ModalManager.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-overlays/esm/ModalManager.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var dom_helpers_addClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dom-helpers/addClass */ "./node_modules/dom-helpers/esm/addClass.js");
+/* harmony import */ var dom_helpers_removeClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dom-helpers/removeClass */ "./node_modules/dom-helpers/esm/removeClass.js");
+/* harmony import */ var dom_helpers_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dom-helpers/css */ "./node_modules/dom-helpers/esm/css.js");
+/* harmony import */ var dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dom-helpers/scrollbarSize */ "./node_modules/dom-helpers/esm/scrollbarSize.js");
+/* harmony import */ var _isOverflowing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isOverflowing */ "./node_modules/react-overlays/esm/isOverflowing.js");
+/* harmony import */ var _manageAriaHidden__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./manageAriaHidden */ "./node_modules/react-overlays/esm/manageAriaHidden.js");
+
+
+
+
+
+
+
+function findIndexOf(arr, cb) {
+  var idx = -1;
+  arr.some(function (d, i) {
+    if (cb(d, i)) {
+      idx = i;
+      return true;
+    }
+
+    return false;
+  });
+  return idx;
+}
+
+/**
+ * Proper state management for containers and the modals in those containers.
+ *
+ * @internal Used by the Modal to ensure proper styling of containers.
+ */
+var ModalManager = /*#__PURE__*/function () {
+  function ModalManager(_temp) {
+    var _ref = _temp === void 0 ? {} : _temp,
+        _ref$hideSiblingNodes = _ref.hideSiblingNodes,
+        hideSiblingNodes = _ref$hideSiblingNodes === void 0 ? true : _ref$hideSiblingNodes,
+        _ref$handleContainerO = _ref.handleContainerOverflow,
+        handleContainerOverflow = _ref$handleContainerO === void 0 ? true : _ref$handleContainerO;
+
+    this.hideSiblingNodes = void 0;
+    this.handleContainerOverflow = void 0;
+    this.modals = void 0;
+    this.containers = void 0;
+    this.data = void 0;
+    this.scrollbarSize = void 0;
+    this.hideSiblingNodes = hideSiblingNodes;
+    this.handleContainerOverflow = handleContainerOverflow;
+    this.modals = [];
+    this.containers = [];
+    this.data = [];
+    this.scrollbarSize = (0,dom_helpers_scrollbarSize__WEBPACK_IMPORTED_MODULE_3__.default)();
+  }
+
+  var _proto = ModalManager.prototype;
+
+  _proto.isContainerOverflowing = function isContainerOverflowing(modal) {
+    var data = this.data[this.containerIndexFromModal(modal)];
+    return data && data.overflowing;
+  };
+
+  _proto.containerIndexFromModal = function containerIndexFromModal(modal) {
+    return findIndexOf(this.data, function (d) {
+      return d.modals.indexOf(modal) !== -1;
+    });
+  };
+
+  _proto.setContainerStyle = function setContainerStyle(containerState, container) {
+    var style = {
+      overflow: 'hidden'
+    }; // we are only interested in the actual `style` here
+    // because we will override it
+
+    containerState.style = {
+      overflow: container.style.overflow,
+      paddingRight: container.style.paddingRight
+    };
+
+    if (containerState.overflowing) {
+      // use computed style, here to get the real padding
+      // to add our scrollbar width
+      style.paddingRight = parseInt((0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_2__.default)(container, 'paddingRight') || '0', 10) + this.scrollbarSize + "px";
+    }
+
+    (0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_2__.default)(container, style);
+  };
+
+  _proto.removeContainerStyle = function removeContainerStyle(containerState, container) {
+    Object.assign(container.style, containerState.style);
+  };
+
+  _proto.add = function add(modal, container, className) {
+    var modalIdx = this.modals.indexOf(modal);
+    var containerIdx = this.containers.indexOf(container);
+
+    if (modalIdx !== -1) {
+      return modalIdx;
+    }
+
+    modalIdx = this.modals.length;
+    this.modals.push(modal);
+
+    if (this.hideSiblingNodes) {
+      (0,_manageAriaHidden__WEBPACK_IMPORTED_MODULE_4__.hideSiblings)(container, modal);
+    }
+
+    if (containerIdx !== -1) {
+      this.data[containerIdx].modals.push(modal);
+      return modalIdx;
+    }
+
+    var data = {
+      modals: [modal],
+      // right now only the first modal of a container will have its classes applied
+      classes: className ? className.split(/\s+/) : [],
+      overflowing: (0,_isOverflowing__WEBPACK_IMPORTED_MODULE_5__.default)(container)
+    };
+
+    if (this.handleContainerOverflow) {
+      this.setContainerStyle(data, container);
+    }
+
+    data.classes.forEach(dom_helpers_addClass__WEBPACK_IMPORTED_MODULE_0__.default.bind(null, container));
+    this.containers.push(container);
+    this.data.push(data);
+    return modalIdx;
+  };
+
+  _proto.remove = function remove(modal) {
+    var modalIdx = this.modals.indexOf(modal);
+
+    if (modalIdx === -1) {
+      return;
+    }
+
+    var containerIdx = this.containerIndexFromModal(modal);
+    var data = this.data[containerIdx];
+    var container = this.containers[containerIdx];
+    data.modals.splice(data.modals.indexOf(modal), 1);
+    this.modals.splice(modalIdx, 1); // if that was the last modal in a container,
+    // clean up the container
+
+    if (data.modals.length === 0) {
+      data.classes.forEach(dom_helpers_removeClass__WEBPACK_IMPORTED_MODULE_1__.default.bind(null, container));
+
+      if (this.handleContainerOverflow) {
+        this.removeContainerStyle(data, container);
+      }
+
+      if (this.hideSiblingNodes) {
+        (0,_manageAriaHidden__WEBPACK_IMPORTED_MODULE_4__.showSiblings)(container, modal);
+      }
+
+      this.containers.splice(containerIdx, 1);
+      this.data.splice(containerIdx, 1);
+    } else if (this.hideSiblingNodes) {
+      // otherwise make sure the next top modal is visible to a SR
+      var _data$modals = data.modals[data.modals.length - 1],
+          backdrop = _data$modals.backdrop,
+          dialog = _data$modals.dialog;
+      (0,_manageAriaHidden__WEBPACK_IMPORTED_MODULE_4__.ariaHidden)(false, dialog);
+      (0,_manageAriaHidden__WEBPACK_IMPORTED_MODULE_4__.ariaHidden)(false, backdrop);
+    }
+  };
+
+  _proto.isTopModal = function isTopModal(modal) {
+    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
+  };
+
+  return ModalManager;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalManager);
+
+/***/ }),
+
+/***/ "./node_modules/react-overlays/esm/isOverflowing.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-overlays/esm/isOverflowing.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ isOverflowing)
+/* harmony export */ });
+/* harmony import */ var dom_helpers_isWindow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dom-helpers/isWindow */ "./node_modules/dom-helpers/esm/isWindow.js");
+/* harmony import */ var dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dom-helpers/ownerDocument */ "./node_modules/dom-helpers/esm/ownerDocument.js");
+
+
+
+function isBody(node) {
+  return node && node.tagName.toLowerCase() === 'body';
+}
+
+function bodyIsOverflowing(node) {
+  var doc = (0,dom_helpers_isWindow__WEBPACK_IMPORTED_MODULE_0__.default)(node) ? (0,dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_1__.default)() : (0,dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_1__.default)(node);
+  var win = (0,dom_helpers_isWindow__WEBPACK_IMPORTED_MODULE_0__.default)(node) || doc.defaultView;
+  return doc.body.clientWidth < win.innerWidth;
+}
+
+function isOverflowing(container) {
+  var win = (0,dom_helpers_isWindow__WEBPACK_IMPORTED_MODULE_0__.default)(container);
+  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-overlays/esm/manageAriaHidden.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-overlays/esm/manageAriaHidden.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ariaHidden": () => (/* binding */ ariaHidden),
+/* harmony export */   "hideSiblings": () => (/* binding */ hideSiblings),
+/* harmony export */   "showSiblings": () => (/* binding */ showSiblings)
+/* harmony export */ });
+var BLACKLIST = ['template', 'script', 'style'];
+
+var isHidable = function isHidable(_ref) {
+  var nodeType = _ref.nodeType,
+      tagName = _ref.tagName;
+  return nodeType === 1 && BLACKLIST.indexOf(tagName.toLowerCase()) === -1;
+};
+
+var siblings = function siblings(container, exclude, cb) {
+  [].forEach.call(container.children, function (node) {
+    if (exclude.indexOf(node) === -1 && isHidable(node)) {
+      cb(node);
+    }
+  });
+};
+
+function ariaHidden(hide, node) {
+  if (!node) return;
+
+  if (hide) {
+    node.setAttribute('aria-hidden', 'true');
+  } else {
+    node.removeAttribute('aria-hidden');
+  }
+}
+function hideSiblings(container, _ref2) {
+  var dialog = _ref2.dialog,
+      backdrop = _ref2.backdrop;
+  siblings(container, [dialog, backdrop], function (node) {
+    return ariaHidden(true, node);
+  });
+}
+function showSiblings(container, _ref3) {
+  var dialog = _ref3.dialog,
+      backdrop = _ref3.backdrop;
+  siblings(container, [dialog, backdrop], function (node) {
+    return ariaHidden(false, node);
+  });
+}
+
+/***/ }),
+
 /***/ "./node_modules/react-overlays/esm/mergeOptionsWithPopperConfig.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/react-overlays/esm/mergeOptionsWithPopperConfig.js ***!
@@ -72768,6 +74722,61 @@ function useRootClose(ref, onRootClose, _temp) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useRootClose);
+
+/***/ }),
+
+/***/ "./node_modules/react-overlays/esm/useWaitForDOMRef.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-overlays/esm/useWaitForDOMRef.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "resolveContainerRef": () => (/* binding */ resolveContainerRef),
+/* harmony export */   "default": () => (/* binding */ useWaitForDOMRef)
+/* harmony export */ });
+/* harmony import */ var dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dom-helpers/ownerDocument */ "./node_modules/dom-helpers/esm/ownerDocument.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var resolveContainerRef = function resolveContainerRef(ref) {
+  var _ref;
+
+  if (typeof document === 'undefined') return null;
+  if (ref == null) return (0,dom_helpers_ownerDocument__WEBPACK_IMPORTED_MODULE_0__.default)().body;
+  if (typeof ref === 'function') ref = ref();
+  if (ref && 'current' in ref) ref = ref.current;
+  if ((_ref = ref) != null && _ref.nodeType) return ref || null;
+  return null;
+};
+function useWaitForDOMRef(ref, onResolved) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
+    return resolveContainerRef(ref);
+  }),
+      resolvedRef = _useState[0],
+      setRef = _useState[1];
+
+  if (!resolvedRef) {
+    var earlyRef = resolveContainerRef(ref);
+    if (earlyRef) setRef(earlyRef);
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (onResolved && resolvedRef) {
+      onResolved(resolvedRef);
+    }
+  }, [onResolved, resolvedRef]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    var nextRef = resolveContainerRef(ref);
+
+    if (nextRef !== resolvedRef) {
+      setRef(nextRef);
+    }
+  }, [ref, resolvedRef]);
+  return resolvedRef;
+}
 
 /***/ }),
 
@@ -83827,8 +85836,12 @@ var map = {
 	"./Auth/VerifyEmail.js": "./resources/js/Pages/Auth/VerifyEmail.js",
 	"./Dashboard": "./resources/js/Pages/Dashboard.js",
 	"./Dashboard.js": "./resources/js/Pages/Dashboard.js",
+	"./User/Form": "./resources/js/Pages/User/Form.jsx",
+	"./User/Form.jsx": "./resources/js/Pages/User/Form.jsx",
 	"./User/List": "./resources/js/Pages/User/List.jsx",
-	"./User/List.jsx": "./resources/js/Pages/User/List.jsx"
+	"./User/List.jsx": "./resources/js/Pages/User/List.jsx",
+	"./User/Show": "./resources/js/Pages/User/Show.jsx",
+	"./User/Show.jsx": "./resources/js/Pages/User/Show.jsx"
 };
 
 

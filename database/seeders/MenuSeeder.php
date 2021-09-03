@@ -29,8 +29,8 @@ class MenuSeeder extends Seeder
                         'is_active' => true,
                     ],
                     [
-                        'route_name' => 'user.list',
-                        'role_name' => 'user.list',
+                        'route_name' => 'users.index',
+                        'role_name' => 'users.index',
                         'label' => 'Users',
                         'is_active' => true,
                     ],

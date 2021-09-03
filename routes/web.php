@@ -25,11 +25,36 @@ Route::get('/', function () {
 })->middleware(['auth', 'verified'])->name('home');
 
 
-Route::prefix('/user')
+Route::prefix('/admin')
 ->middleware(['auth', 'verified', 'role:admin'])
 ->group(function () {
-    Route::get('/', [UserController::class, 'index'])
-        ->name('user.list');
+
+
+    Route::prefix('users')->group(function () {
+
+        Route::get('/', [UserController::class, 'index'])
+            ->name('users.index');
+
+        Route::get('/{id}', [UserController::class, 'show'])
+            ->name('users.show');
+
+        Route::get('/{id}/edit', [UserController::class, 'edit'])
+            ->name('users.edit');
+
+        Route::patch('/{id}/edit', [UserController::class, 'update'])
+            ->name('users.update');
+
+        Route::get('/create', [UserController::class, 'create'])
+            ->name('users.create');
+
+        Route::post('/create', [UserController::class, 'store'])
+            ->name('users.store');
+
+
+    });
+
+
+
 });
 
 require __DIR__.'/auth.php';

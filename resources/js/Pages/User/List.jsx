@@ -1,11 +1,19 @@
-import React from 'react'
-import { Container, Badge, Row, Col, ButtonGroup, } from 'react-bootstrap'
+import React, { useState, useEffect, } from 'react'
+import { Container, Badge, Row, Col, ButtonGroup, Button, Modal, } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faPlane, faPlaneDeparture, faSpellCheck } from '@fortawesome/free-solid-svg-icons';
 import { Table, } from '@Components'
 import Layouts from '@Layouts'
+import UserForm from './Form'
 
-export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...props}) {
+export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, roles, ...props}) {
+    const [state, setState] = useState({
+        modalIsVisible: false,
+    })
+
+    const {
+        modalIsVisible,
+    } = state
 
     const columns = React.useMemo(
         () => [
@@ -40,13 +48,12 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...p
                 isSorted: true,
                 className: 'text-center',
                 Cell: ({ row, }) => {
-                    console.log(row);
                     return (<span>
                         <ButtonGroup>
-                            <a href='#' className='btn btn-sm btn-info'>
+                            <a href={route('users.show', { id: row.original.id })} className='btn btn-sm btn-info'>
                                 <FontAwesomeIcon icon={faInfoCircle} />
                             </a>
-                            <a href="#" className='btn btn-sm btn-warning'>
+                            <a href={route('users.edit', { id: row.original.id })} className='btn btn-sm btn-warning'>
                                 <FontAwesomeIcon icon={faPencilAlt} />
                             </a>
                         </ButtonGroup>
@@ -55,6 +62,16 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...p
             }
         ]
     );
+
+    const toggleCreateUserModal = () => {
+        setState({
+            modalIsVisible: !modalIsVisible
+        })
+    }
+
+    const doCreateUser = (data) => {
+        console.log(data);
+    }
 
     return (
         <Layouts.Authenticated
@@ -70,6 +87,15 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...p
                 columns={columns}
             />
         }
+        <Button onClick={toggleCreateUserModal} variant='primary' size='lg'>Add new User</Button>
+        <Modal show={modalIsVisible} onHide={toggleCreateUserModal}>
+            <Modal.Header>
+                <Modal.Title>Add new User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <UserForm roles={roles} onSubmit={doCreateUser} onCancel={toggleCreateUserModal} />
+            </Modal.Body>
+        </Modal>
         </Layouts.Authenticated>
     );
 }

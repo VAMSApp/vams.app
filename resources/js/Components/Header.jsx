@@ -58,7 +58,7 @@ export default function Header({ id, auth, menu, logoText, isAdmin, currentRoute
     return (<header id={id}>
         <Navbar sticky='top' bg={(isLight) ? 'light' : 'dark'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
             <Container fluid>
-                <Navbar.Brand className='col-lg-2'>
+                <Navbar.Brand>
                     <Logo light={isLight} height={40} />
                     {(logoText) &&
                         <span className='logoText'>{` ${logoText}`}</span>
