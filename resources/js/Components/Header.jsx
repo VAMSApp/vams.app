@@ -19,7 +19,7 @@ const Menu = [
     }
 ]
 
-export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
+export default function Header({ id, auth, menu, logoText, isAdmin, currentRoute }) {
     const initialState = {
         isLight: false,
     }
@@ -67,7 +67,7 @@ export default function Header({ id, auth, logoText, isAdmin, currentRoute }) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {Menu.map((v, k) => (<Nav.Link key={k} href={v.href} active={route().current(v.name)}>
+                        {menu.map((v, k) => (<Nav.Link key={k} href={route(v.route_name)} active={route().current(v.role_name)}>
                             {v.label}
                         </Nav.Link>))}
                     </Nav>

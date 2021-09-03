@@ -15316,6 +15316,7 @@ var Menu = [{
 function Header(_ref) {
   var id = _ref.id,
       auth = _ref.auth,
+      menu = _ref.menu,
       logoText = _ref.logoText,
       isAdmin = _ref.isAdmin,
       currentRoute = _ref.currentRoute;
@@ -15373,10 +15374,10 @@ function Header(_ref) {
           id: "basic-navbar-nav",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
             className: "me-auto",
-            children: Menu.map(function (v, k) {
+            children: menu.map(function (v, k) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default.Link, {
-                href: v.href,
-                active: route().current(v.name),
+                href: route(v.route_name),
+                active: route().current(v.role_name),
                 children: v.label
               }, k);
             })
@@ -15679,6 +15680,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Authenticated(_ref) {
   var auth = _ref.auth,
+      menus = _ref.menus,
       isAdmin = _ref.isAdmin,
       header = _ref.header,
       appTitle = _ref.appTitle,
@@ -15691,6 +15693,7 @@ function Authenticated(_ref) {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_3__.default, {
       auth: auth,
+      menu: menus.mainMenu.menu_items,
       isAdmin: isAdmin,
       logoText: appTitle,
       id: "AuthenticatedHeader"
@@ -16550,7 +16553,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @Layouts */ "./resources/js/Layouts/index.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _excluded = ["auth", "errors", "appTitle", "pageTitle"];
+var _excluded = ["auth", "menus", "errors", "appTitle", "pageTitle"];
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
@@ -16562,6 +16565,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 function Dashboard(_ref) {
   var auth = _ref.auth,
+      menus = _ref.menus,
       errors = _ref.errors,
       appTitle = _ref.appTitle,
       pageTitle = _ref.pageTitle,
@@ -16569,6 +16573,7 @@ function Dashboard(_ref) {
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Layouts__WEBPACK_IMPORTED_MODULE_1__.default.Authenticated, {
     auth: auth,
+    menus: menus,
     errors: errors,
     appTitle: appTitle,
     pageTitle: pageTitle,
@@ -16599,7 +16604,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components */ "./resources/js/Components/index.js");
 /* harmony import */ var _Layouts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Layouts */ "./resources/js/Layouts/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _excluded = ["auth", "errors", "appTitle", "pageTitle", "users"];
+var _excluded = ["auth", "menus", "errors", "appTitle", "pageTitle", "users"];
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
@@ -16615,6 +16620,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 function ListPage(_ref) {
   var auth = _ref.auth,
+      menus = _ref.menus,
       errors = _ref.errors,
       appTitle = _ref.appTitle,
       pageTitle = _ref.pageTitle,
@@ -16677,6 +16683,7 @@ function ListPage(_ref) {
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Layouts__WEBPACK_IMPORTED_MODULE_3__.default.Authenticated, {
     auth: auth,
+    menus: menus,
     errors: errors,
     appTitle: appTitle,
     pageTitle: pageTitle,

@@ -4,12 +4,12 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import Helmet from 'react-helmet';
 import Header from '@Components/Header';
 
-export default function Authenticated({ auth, isAdmin, header, appTitle, pageTitle, children }) {
+export default function Authenticated({ auth, menus, isAdmin, header, appTitle, pageTitle, children }) {
     return (<>
         <Helmet>
             <title>{`${appTitle} | ${pageTitle}`}</title>
         </Helmet>
-        <Header auth={auth} isAdmin={isAdmin} logoText={appTitle} id='AuthenticatedHeader' />
+        <Header auth={auth} menu={menus.mainMenu.menu_items} isAdmin={isAdmin} logoText={appTitle} id='AuthenticatedHeader' />
         <Container fluid>
             <Row>
                 <Col>

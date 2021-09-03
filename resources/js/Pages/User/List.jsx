@@ -59,10 +59,10 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, ...p
     return (
         <Layouts.Authenticated
             auth={auth}
+            menus={menus}
             errors={errors}
             appTitle={appTitle}
             pageTitle={pageTitle}
-            menus={menus}
         >
         {users &&
             <Table
