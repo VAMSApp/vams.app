@@ -32,7 +32,4 @@ Route::prefix('/user')
         ->name('user.list');
 });
 
-
-Route::get('/load_menu', [MenuController::class, 'load_menu'])->middleware(['auth', 'verified'])->name('load_menu');
-
 require __DIR__.'/auth.php';
