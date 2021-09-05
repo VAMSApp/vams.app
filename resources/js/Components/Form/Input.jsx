@@ -1,42 +1,32 @@
+import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
 
 export default function Input({
-    type = 'text',
-    name,
-    value,
-    className,
-    autoComplete,
-    required,
-    isFocused,
-    handleChange,
+    field,
+    form: { errors, touched, ...form }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     label,
-    labelProps,
     helpText,
+    ...props
 }) {
-    const input = useRef();
-
-    useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
-        }
-    }, []);
 
     return (
         <div>
             {label &&
-                <Form.Label {...labelProps}>{label}</Form.Label>
+                <Form.Label>{label}</Form.Label>
             }
-            <Form.Control
-                type={type}
-                name={name}
-                value={value}
-                className={className}
-                ref={input}
-                autoComplete={autoComplete}
-                required={required}
-                onChange={(e) => handleChange(e)}
+            <FormControl
+                isValid={(touched[field.name] && !errors[field.name])}
+                isInvalid={(touched[field.name] && errors[field.name])}
+                {...field}
+                {...props}
             />
+            {(touched[field.name] && errors[field.name]) &&
+                <FormControl.Feedback type='invalid'>{errors[field.name]}</FormControl.Feedback>
+            }
+            {(touched[field.name] && !errors[field.name]) &&
+                <FormControl.Feedback type='valid'>Looks Good!</FormControl.Feedback>
+            }
             {helpText &&
                 <Form.Text>{helpText}</Form.Text>
             }

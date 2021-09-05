@@ -7,7 +7,7 @@ import { ValidationErrors, } from '@Components/Form'
 import Layouts from '@Layouts'
 import './styles.scss'
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status, appTitle, canResetPassword }) {
 
     const { data, setData, post, isDirty, hasErrors, processing, errors, reset, ...formProps } = useForm({
         username: '',
@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }) {
             {status && <Alert variant='danger'>{status}</Alert>}
 
             <Form className='form-login' onSubmit={submit}>
-                <AuthLogo height={100} light logoText='NDBB Airlines' />
+                <AuthLogo height={80} light inline logoText={appTitle} />
                 <h4>Sign In</h4>
                 <ValidationErrors errors={errors} />
                 <Form.Group>
@@ -79,14 +79,12 @@ export default function Login({ status, canResetPassword }) {
                         <hr />
                     </Col>
                 </Row>
-                <div className="d-grid gap-2">
                     <ButtonGroup>
-                        <Button type='submit' variant='primary' size='md' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
-                        <Button size='md' variant='secondary' href={route('register')}>Register</Button>
+                        <Button type='submit' variant='primary' size='lg' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
+                        <Button size='lg' variant='secondary' href={route('register')}>Register</Button>
                     </ButtonGroup>
-                </div>
                 <div className="d-grid gap-2">
-                    <Button size="md" variant="info" href={route('password.request')}>
+                    <Button size="lg" variant="info" href={route('password.request')}>
                         Forgot Password?
                     </Button>
                 </div>

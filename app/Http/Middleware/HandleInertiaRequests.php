@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\Menu;
+use App\Models\User;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -35,12 +36,27 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         $user = $request->user();
-        $menu = Menu::with(['menu_items'])->first();
+        $isAdmin = false;
+        $mainMenu = [];
+        $adminMenu = [];
 
-        foreach ($menu->menu_items as $key => $item) {
-            if ($user) {
-                if (!$user->hasAnyRole(['admin', $item->role_name ])) {
-                    unset($item);
+        if ($user) {
+
+            $user = User::with(['roles', 'roles.permissions', 'permissions'])->where('id', $user->id)->first();
+            $isAdmin = $user->hasRole('admin');
+
+            $main_menu = Menu::with(['menu_items'])->where('is_active', true)->where('slug', 'main-menu')->first();
+            $admin_menu = Menu::with(['menu_items'])->where('is_active', true)->where('slug', 'admin-menu')->first();
+
+            foreach ($main_menu->menu_items as $key => $item) {
+                if ($user->can($item->permission_name)) {
+                    array_push($mainMenu, $item);
+                }
+            }
+
+            foreach ($admin_menu->menu_items as $key => $item) {
+                if ($user->can($item->permission_name)) {
+                    array_push($adminMenu, $item);
                 }
             }
         }
@@ -48,9 +64,11 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $user,
+                'isAdmin' => $isAdmin,
             ],
             'menus' => [
-                'mainMenu' => $menu
+                'mainMenu' => $mainMenu,
+                'adminMenu' => $adminMenu
             ]
         ]);
     }

@@ -24,18 +24,43 @@ class MenuSeeder extends Seeder
                 'items' => [
                     [
                         'route_name' => 'home',
-                        'role_name' => 'home',
+                        'permission_name' => 'home',
                         'label' => 'Home',
                         'is_active' => true,
                     ],
                     [
-                        'route_name' => 'users.index',
-                        'role_name' => 'users.index',
+                        'route_name' => 'company.index',
+                        'permission_name' => 'company.index',
+                        'label' => 'My Companies',
+                        'is_active' => true,
+                    ],
+                ],
+            ],
+            [
+                'name' => 'Admin Menu',
+                'slug' => 'admin-menu',
+                'is_active' => true,
+                'items' => [
+                    [
+                        'route_name' => 'user.index',
+                        'permission_name' => 'user.index',
                         'label' => 'Users',
                         'is_active' => true,
                     ],
+                    [
+                        'route_name' => 'role.index',
+                        'permission_name' => 'role.index',
+                        'label' => 'Roles',
+                        'is_active' => true,
+                    ],
+                    [
+                        'route_name' => 'permission.index',
+                        'permission_name' => 'permission.index',
+                        'label' => 'Permissions',
+                        'is_active' => true,
+                    ],
                 ]
-                ]
+            ]
         ];
 
         foreach ($menus as $key => $m) {

@@ -16,7 +16,7 @@ class CreateMenuItemsTable extends Migration
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->string('route_name')->required();
-            $table->string('role_name');
+            $table->string('permission_name');
             $table->string('label')->required();
             $table->string('href')->nullable();
             $table->boolean('is_active')->default(false);

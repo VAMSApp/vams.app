@@ -16,9 +16,10 @@ class MenuController extends Controller
         $menus = Menu::with(['menu_items'])->where('is_active', true)->get();
         $Menus = [];
 
+        dd($user->can('company.create'));
         foreach ($menus as $key => $m) {
             foreach ($m->menu_items as $key => $item) {
-                if ($user->hasAnyRole(['admin', $item->role_name ])) {
+                if ($user->hasAnyPermission(['admin', $item->role_name ])) {
                     array_push($Menus, $item);
                 }
             }

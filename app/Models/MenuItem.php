@@ -16,6 +16,7 @@ class MenuItem extends Model
         'href',
         'is_active',
         'menu_id',
+        'permission_name',
     ];
 
     public function menu()

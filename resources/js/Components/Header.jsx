@@ -19,7 +19,7 @@ const Menu = [
     }
 ]
 
-export default function Header({ id, auth, menu, logoText, isAdmin, currentRoute }) {
+export default function Header({ id, auth, menus: { mainMenu, adminMenu, }, logoText, isAdmin, currentRoute }) {
     const initialState = {
         isLight: false,
     }
@@ -56,41 +56,41 @@ export default function Header({ id, auth, menu, logoText, isAdmin, currentRoute
     const mode = (isLight) ? 'Light' : 'Dark'
 
     return (<header id={id}>
-        <Navbar sticky='top' bg={(isLight) ? 'light' : 'dark'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
-            <Container fluid>
-                <Navbar.Brand>
-                    <Logo light={isLight} height={40} />
-                    {(logoText) &&
-                        <span className='logoText'>{` ${logoText}`}</span>
-                    }
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        {menu.map((v, k) => (<Nav.Link key={k} href={route(v.route_name)} active={route().current(v.role_name)}>
+        <Navbar bg={(isLight) ? 'light' : 'dark'} variant={(isLight) ? 'light' : 'dark'} expand="lg">
+            <Navbar.Brand>
+                <Logo light={isLight} height={40} />
+                {(logoText) &&
+                    <span className='logoText'>{` ${logoText}`}</span>
+                }
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    {mainMenu && mainMenu.length > 0 &&
+                        mainMenu.map((v, k) => (<Nav.Link key={k} href={route(v.route_name)} active={route().current(v.route_name)}>
                             {v.label}
-                        </Nav.Link>))}
-                    </Nav>
-                    <Nav className="justify-content-end">
-                        {(auth && auth.user) &&
-                            <NavDropdown title={`Hi ${auth.user.username}`} id="basic-nav-dropdown">
-                                {/* <NavDropdown.Item href={route('profile')}>My Profile</NavDropdown.Item> */}
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={doLogout}>Logout</NavDropdown.Item>
-                            </NavDropdown>
-                        }
-                        { (!auth) &&
-                        <>
-                            <Nav.Link href={route('login')}>Login</Nav.Link>
-                            <Nav.Link href={route('register')}>Register</Nav.Link>
-                        </>
-                        }
-                        <Nav.Link onClick={changeColor} alt={`Switch to ${mode} mode`}>
-                            <ColorSwitcher isLight={!isLight} />
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+                        </Nav.Link>))
+                    }
+                </Nav>
+                <Nav>
+                    {(auth && auth.user) &&
+                        <NavDropdown title={`Hi ${auth.user.username}`} id="basic-nav-dropdown">
+                            {/* <NavDropdown.Item href={route('profile')}>My Profile</NavDropdown.Item> */}
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={doLogout}>Logout</NavDropdown.Item>
+                        </NavDropdown>
+                    }
+                    { (!auth) &&
+                    <>
+                        <Nav.Link href={route('login')}>Login</Nav.Link>
+                        <Nav.Link href={route('register')}>Register</Nav.Link>
+                    </>
+                    }
+                    <Nav.Link onClick={changeColor} alt={`Switch to ${mode} mode`}>
+                        <ColorSwitcher isLight={!isLight} />
+                    </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
     </header>)
 }

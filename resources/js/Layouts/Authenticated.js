@@ -9,13 +9,18 @@ export default function Authenticated({ auth, menus, isAdmin, header, appTitle, 
         <Helmet>
             <title>{`${appTitle} | ${pageTitle}`}</title>
         </Helmet>
-        <Header auth={auth} menu={menus.mainMenu.menu_items} isAdmin={isAdmin} logoText={appTitle} id='AuthenticatedHeader' />
+        <Header auth={auth} menus={menus} isAdmin={isAdmin} logoText={appTitle} id='AuthenticatedHeader' />
         <Container fluid>
             <Row>
                 <Col>
-                    <h2>
+                    <h1>
                         {(header) ? header : pageTitle}
-                    </h2>
+                    </h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <hr />
                 </Col>
             </Row>
             {children}

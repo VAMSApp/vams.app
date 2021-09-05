@@ -5,6 +5,8 @@ import ColorSwitcherComponent from './ColorSwitcher'
 import FormComponent from './Form'
 import AuthLogoComponent from './AuthLogo'
 import TableComponent from './Table'
+import FormattedDateComponent from './FormattedDate'
+import CompanyLookupComponent from './CompanyLookup'
 
 export const Header = HeaderComponent
 export const Navigation = NavigationComponent
@@ -13,6 +15,8 @@ export const ColorSwitcher = ColorSwitcherComponent
 export const Form = FormComponent
 export const AuthLogo = AuthLogoComponent
 export const Table = TableComponent
+export const FormattedDate = FormattedDateComponent
+export const CompanyLookup = CompanyLookupComponent
 
 export default {
     Header,
@@ -22,4 +26,6 @@ export default {
     Form,
     AuthLogo,
     Table,
+    FormattedDate,
+    CompanyLookup,
 }
