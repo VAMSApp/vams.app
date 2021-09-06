@@ -48,17 +48,20 @@ function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, .
             isRefreshing: true
         })
 
-        refreshCompanyDetails(data.id)
-            .then((response) => {
-                setState({
-                    ...state,
-                    isRefreshing: false,
-                    data: {
-                        ...data,
-                        ...response,
-                    }
-                })
-            })
+        const url = route('company.refresh');
+        console.log(url);
+        Inertia.post(url, { id: company.id });
+        // refreshCompanyDetails(data.id)
+        //     .then((response) => {
+        //         setState({
+        //             ...state,
+        //             isRefreshing: false,
+        //             data: {
+        //                 ...data,
+        //                 ...response,
+        //             }
+        //         })
+        //     })
     }
 
     useEffect(() => {

@@ -128,16 +128,22 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function refresh(Request $request, OnAirCompanyService $companyService, $id)
+    public function refresh(OnAirCompanyService $companyService, Request $request)
     {
-        $company = Company::where('id', $id)->where('owner_id', $request->user()->id)->first();
+        $id = $request->id;
+        $userId = $request->user()->id;
         $response;
 
-        if ($company) {
-            $response = $companyService->refresh($id);
+        if ($id && $userId) {
+            $company = Company::where('id', $id)->where('owner_id', $request->user()->id)->first();
+
+            if ($company) {
+                $response = $companyService->refresh($id);
+            }
+
         }
 
-        return response()->json($response);
+        return redirect()->route('company.show', $company->id);
     }
 
     /**

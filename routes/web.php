@@ -161,7 +161,7 @@ Route::prefix('/company')
         ->middleware(['permission:company.delete'])
         ->name('company.delete');
 
-    Route::post('/refresh/{id}', [CompanyController::class, 'refresh'])
+    Route::post('/refresh', [CompanyController::class, 'refresh'])
         ->middleware(['permission:company.refresh'])
         ->name('company.refresh');
 
