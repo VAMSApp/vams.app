@@ -3,8 +3,10 @@ namespace App\Services\OnAir;
 
 use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
-use App\Models\Company;
 use App\Services\OnAir\Models\OnAirCompany;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Company;
+use App\Models\OnAirRefresh;
 
 class OnAirCompanyService extends OnAirService {
 
@@ -36,7 +38,14 @@ class OnAirCompanyService extends OnAirService {
             'uuid' => $translated['uuid']
         ], $translated);
 
+        $refresh = OnAirRefresh::create([
+            'company_id' => $company->id
+        ]);
+
+        $refresh->company()->associate($company);
+
         $company->save();
+        $refresh->save();
 
         return $company;
     }

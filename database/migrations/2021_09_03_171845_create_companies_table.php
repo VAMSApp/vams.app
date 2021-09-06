@@ -51,6 +51,8 @@ class CreateCompaniesTable extends Migration
             $table->boolean('sync_flights')->default(false);
             $table->boolean('sync_cashflow')->default(false);
             $table->integer('owner_id')->required();
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }
