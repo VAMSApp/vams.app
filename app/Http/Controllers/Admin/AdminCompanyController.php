@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\AdminController;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Company;
 
-class RoleController extends Controller
+class AdminCompanyController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::with(['world', 'owner' ])->get();
+
+        return Inertia::render('Admin/Company/List', [
+            'appTitle' => env('APP_TITLE'),
+            'pageTitle' => 'All Companies',
+            'companies' => $companies,
+        ]);
     }
 
     /**
@@ -40,10 +49,10 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
         //
     }
@@ -51,10 +60,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
         //
     }
@@ -63,10 +72,10 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Company $company)
     {
         //
     }
@@ -74,10 +83,10 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Company $company)
     {
         //
     }

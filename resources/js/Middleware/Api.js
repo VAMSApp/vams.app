@@ -42,9 +42,22 @@ const Api = {
         })
         .then(res => res.json())
     },
+
     post: function post (url, data, options) {
         return fetch(url, {
             method: 'POST',
+            headers: {
+                'X-CSRF-Token': document.head.querySelector("[name~=csrf-token][content]").content,
+            },
+            body: JSON.stringify(data),
+            ...options,
+        })
+        .then((res) => res.json());
+    },
+
+    patch: function post (url, data, options) {
+        return fetch(url, {
+            method: 'PATCH',
             headers: {
                 'X-CSRF-Token': document.head.querySelector("[name~=csrf-token][content]").content,
             },

@@ -15,11 +15,10 @@ export default function Input({
             {label &&
                 <Form.Label>{label}</Form.Label>
             }
-            <FormControl
+            <Form.Control
                 isValid={(touched[field.name] && !errors[field.name])}
                 isInvalid={(touched[field.name] && errors[field.name])}
                 {...field}
-                {...props}
             />
             {(touched[field.name] && errors[field.name]) &&
                 <FormControl.Feedback type='invalid'>{errors[field.name]}</FormControl.Feedback>

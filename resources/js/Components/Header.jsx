@@ -73,6 +73,11 @@ export default function Header({ id, auth, menus: { mainMenu, adminMenu, }, logo
                     }
                 </Nav>
                 <Nav>
+                    {(auth.isAdmin && auth.user.roles.find(r => r.name === 'admin')) &&
+                        <NavDropdown title={<FontAwesomeIcon icon={faCogs} />} id='admin-menu-dropdown'>
+                            {adminMenu.map((v, k) => (<NavDropdown.Item key={k} href={route(v.route_name)}>{v.label}</NavDropdown.Item>))}
+                        </NavDropdown>
+                    }
                     {(auth && auth.user) &&
                         <NavDropdown title={`Hi ${auth.user.username}`} id="basic-nav-dropdown">
                             {/* <NavDropdown.Item href={route('profile')}>My Profile</NavDropdown.Item> */}

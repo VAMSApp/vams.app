@@ -6,32 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\World;
+use App\Models\Employee;
 use App\Models\OnAirRefresh;
 
-class Company extends Model
+class Company extends BaseByModel
 {
     use HasFactory;
-
-    public static function boot()
-    {
-       parent::boot();
-       static::creating(function($model)
-       {
-           $user = Auth::user();
-           $model->created_by = $user->id;
-       });
-
-       static::updating(function($model)
-       {
-           $user = Auth::user();
-           $model->updated_by = $user->id;
-       });
-   }
 
     protected $fillable = [
         'uuid',
         'world_id',
         'name',
+        'onair_name',
         'airline',
         'last_connected',
         'last_report_date',
@@ -73,12 +59,6 @@ class Company extends Model
         return $this->belongsTo(World::class, 'world_id');
     }
 
-    public function getUpdatedAt($value)
-    {
-        $updatedAt = Carbon::parse($value);
-        return $updatedAt->format('M d Y');
-    }
-
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
@@ -87,5 +67,10 @@ class Company extends Model
     public function refreshes()
     {
         return $this->hasMany(OnAirRefresh::class, 'company_id', 'id');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'company_id', 'id');
     }
 }

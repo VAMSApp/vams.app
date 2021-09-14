@@ -48,15 +48,19 @@ class HandleInertiaRequests extends Middleware
             $main_menu = Menu::with(['menu_items'])->where('is_active', true)->where('slug', 'main-menu')->first();
             $admin_menu = Menu::with(['menu_items'])->where('is_active', true)->where('slug', 'admin-menu')->first();
 
-            foreach ($main_menu->menu_items as $key => $item) {
-                if ($user->can($item->permission_name)) {
-                    array_push($mainMenu, $item);
+            if ($main_menu) {
+                foreach ($main_menu->menu_items as $key => $item) {
+                    if ($user->can($item->permission_name)) {
+                        array_push($mainMenu, $item);
+                    }
                 }
             }
 
-            foreach ($admin_menu->menu_items as $key => $item) {
-                if ($user->can($item->permission_name)) {
-                    array_push($adminMenu, $item);
+            if ($admin_menu) {
+                foreach ($admin_menu->menu_items as $key => $item) {
+                    if ($user->can($item->permission_name)) {
+                        array_push($adminMenu, $item);
+                    }
                 }
             }
         }

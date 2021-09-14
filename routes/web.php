@@ -3,11 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,107 +23,8 @@ Route::get('/', function () {
     ]);
 })->middleware(['auth', 'verified', 'permission:home'])->name('home');
 
-
-Route::prefix('/admin')
-->middleware(['auth', 'verified', 'role:admin'])
-->group(function () {
-
-    Route::prefix('user')->group(function () {
-
-        Route::get('/', [UserController::class, 'index'])
-            ->middleware(['permission:user.index'])
-            ->name('user.index');
-
-        Route::get('/show/{id}', [UserController::class, 'show'])
-            ->middleware(['permission:user.show'])
-            ->name('user.show');
-
-        Route::get('/edit/{id}', [UserController::class, 'edit'])
-            ->middleware(['permission:user.edit'])
-            ->name('user.edit');
-
-        Route::patch('/edit/{id}', [UserController::class, 'update'])
-            ->middleware(['permission:user.edit'])
-            ->name('user.update');
-
-        Route::get('/create', [UserController::class, 'create'])
-            ->middleware(['permission:user.create'])
-            ->name('user.create');
-
-        Route::post('/create', [UserController::class, 'store'])
-            ->middleware(['permission:user.create'])
-            ->name('user.store');
-
-        Route::patch('/{id}/remove_role', [UserController::class, 'remove_role'])
-            ->middleware(['permission:user.remove_role'])
-            ->name('user.remove_role');
-
-    });
-
-
-
-
-    Route::prefix('role')->group(function() {
-
-        Route::get('/', [RoleController::class, 'index'])
-            ->middleware(['permission:role.index'])
-            ->name('role.index');
-
-        Route::get('/{id}', [RoleController::class, 'show'])
-            ->middleware(['permission:role.show'])
-            ->name('role.show');
-
-        Route::get('/{id}/edit', [RoleController::class, 'edit'])
-            ->middleware(['permission:role.edit'])
-            ->name('role.edit');
-
-        Route::patch('/{id}/edit', [RoleController::class, 'update'])
-            ->middleware(['permission:role.edit'])
-            ->name('role.update');
-
-        Route::get('/create', [RoleController::class, 'create'])
-            ->middleware(['permission:role.create'])
-            ->name('role.create');
-
-        Route::post('/create', [RoleController::class, 'store'])
-            ->middleware(['permission:role.edit'])
-            ->name('role.store');
-
-    });
-
-
-
-    Route::prefix('permission')->group(function() {
-
-        Route::get('/', [PermissionController::class, 'index'])
-            ->middleware(['permission:permission.index'])
-            ->name('permission.index');
-
-        Route::get('/{id}', [PermissionController::class, 'show'])
-            ->middleware(['permission:permission.show'])
-            ->name('permission.show');
-
-        Route::get('/{id}/edit', [PermissionController::class, 'edit'])
-            ->middleware(['permission:permission.edit'])
-            ->name('permission.edit');
-
-        Route::patch('/{id}/edit', [PermissionController::class, 'update'])
-            ->middleware(['permission:permission.edit'])
-            ->name('permission.update');
-
-        Route::get('/create', [PermissionController::class, 'create'])
-            ->middleware(['permission:permission.create'])
-            ->name('permission.create');
-
-        Route::post('/create', [PermissionController::class, 'store'])
-            ->middleware(['permission:permission.create'])
-            ->name('permission.store');
-    });
-});
-
-
 Route::prefix('/company')
-->middleware(['auth', 'verified', 'role:user' ])
+->middleware(['auth', 'verified', 'role:user|admin' ])
 ->group(function () {
     Route::get('/', [CompanyController::class, 'index'])
         ->middleware(['permission:company.index'])
@@ -166,4 +63,6 @@ Route::prefix('/company')
         ->name('company.refresh');
 
 });
+
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

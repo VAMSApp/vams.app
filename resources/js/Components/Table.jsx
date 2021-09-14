@@ -13,7 +13,7 @@ export default function TableComponent({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <Table striped bordered hover size="sm" {...getTableProps()}>
+    <Table striped bordered size="sm" {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>

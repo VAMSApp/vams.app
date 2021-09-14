@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Company;
 use App\Models\World;
+use App\Models\User;
 
 class CompanyController extends Controller
 {
@@ -18,7 +19,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+        $user = User::with(['companies', 'companies.world', 'companies.refreshes'])->where('id', Auth::user()->id)->first();
 
         return Inertia::render('Company/List', [
             'appTitle' => env('APP_TITLE'),
@@ -117,12 +118,12 @@ class CompanyController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
-        $company = Company::with(['world'])->where('id', $id)->where('owner_id', $user->id)->first();
+        $company = Company::with(['world', 'refreshes'])->where('id', $id)->where('owner_id', $user->id)->first();
         $worlds = World::where('is_enabled', true)->get();
 
         return Inertia::render('Company/Show', [
             'appTitle' => env('APP_TITLE'),
-            'pageTitle' => 'Company Details',
+            'pageTitle' => $company->airline.' Details',
             'company' => $company,
             'worlds' => $worlds,
         ]);
@@ -131,7 +132,8 @@ class CompanyController extends Controller
     public function refresh(OnAirCompanyService $companyService, Request $request)
     {
         $id = $request->id;
-        $userId = $request->user()->id;
+        $userId = Auth::user()->id;
+
         $response;
 
         if ($id && $userId) {

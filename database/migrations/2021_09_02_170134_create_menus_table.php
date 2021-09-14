@@ -18,7 +18,6 @@ class CreateMenusTable extends Migration
             $table->string('name')->unique()->required();
             $table->string('slug');
             $table->boolean('is_active')->default(false);
-
             $table->timestamps();
         });
     }

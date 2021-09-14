@@ -42,21 +42,33 @@ class MenuSeeder extends Seeder
                 'is_active' => true,
                 'items' => [
                     [
-                        'route_name' => 'user.index',
-                        'permission_name' => 'user.index',
+                        'route_name' => 'admin.user.index',
+                        'permission_name' => 'admin.user.index',
                         'label' => 'Users',
                         'is_active' => true,
                     ],
                     [
-                        'route_name' => 'role.index',
-                        'permission_name' => 'role.index',
+                        'route_name' => 'admin.role.index',
+                        'permission_name' => 'admin.role.index',
                         'label' => 'Roles',
                         'is_active' => true,
                     ],
                     [
-                        'route_name' => 'permission.index',
-                        'permission_name' => 'permission.index',
+                        'route_name' => 'admin.permission.index',
+                        'permission_name' => 'admin.permission.index',
                         'label' => 'Permissions',
+                        'is_active' => true,
+                    ],
+                    [
+                        'route_name' => 'admin.company.index',
+                        'permission_name' => 'admin.company.index',
+                        'label' => 'Companies',
+                        'is_active' => true,
+                    ],
+                    [
+                        'route_name' => 'admin.menu.index',
+                        'permission_name' => 'admin.menu.index',
+                        'label' => 'Menus',
                         'is_active' => true,
                     ],
                 ]
@@ -64,7 +76,7 @@ class MenuSeeder extends Seeder
         ];
 
         foreach ($menus as $key => $m) {
-            $Menu = Menu::firstOrCreate([
+            $Menu = Menu::updateOrCreate([
                 'slug' => $m['slug']
             ], [
                 'name' => $m['name'],
@@ -78,7 +90,7 @@ class MenuSeeder extends Seeder
             foreach ($items as $key => $i) {
                 $i['menu_id'] = $Menu->id;
 
-                $item = MenuItem::firstOrCreate([
+                $item = MenuItem::updateOrCreate([
                     'route_name' => $i['route_name'],
                 ], $i);
             }

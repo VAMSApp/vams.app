@@ -3,6 +3,7 @@ import UsernameInputComponent from './UsernameInput'
 import CheckboxComponent from './Checkbox'
 import ValidationErrorsComponent from './ValidationErrors'
 import { Form, } from 'react-bootstrap'
+import SwitchInputComponent from './SwitchInput'
 
 export const Input = InputComponent
 export const UsernameInput = UsernameInputComponent
@@ -11,10 +12,12 @@ export const ValidationErrors = ValidationErrorsComponent
 export const FormLabel = Form.Label
 export const FormText = Form.Text
 export const FormControl = Form.Control
+export const SwitchInput = Form.Switch
 // export const Feedback = FormControl.Feedback
 
 export default {
     Input,
+    SwitchInput,
     UsernameInput,
     Checkbox,
     ValidationErrors,

@@ -8,25 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use App\Models\User;
 
-class OnAirRefresh extends Model
+class OnAirRefresh extends BaseByModel
 {
     use HasFactory;
-
-    public static function boot()
-    {
-       parent::boot();
-       static::creating(function($model)
-       {
-           $user = Auth::user();
-           $model->created_by = $user->id;
-       });
-
-       static::updating(function($model)
-       {
-           $user = Auth::user();
-           $model->updated_by = $user->id;
-       });
-   }
 
     protected $fillable = [
         'company_id',

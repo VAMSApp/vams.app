@@ -19,6 +19,27 @@ class MenuItem extends Model
         'permission_name',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s A',
+        'updated_at' => 'datetime:Y-m-d h:i:s A',
+    ];
+
+    protected $appends = [
+        'human_updated_at',
+        'human_created_at',
+    ];
+
+
+    public function getHumanUpdatedAtAttribute()
+    {
+        return $this->updated_at->diffForHumans();
+    }
+
+    public function getHumanCreatedAtAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id', 'id');
