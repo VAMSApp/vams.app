@@ -31,11 +31,13 @@ class OnAirEmployee {
     public $is_online;
     public $flight_duty_end;
     public $flight_hours_grand_total;
+    public $employee_category_id;
+    public $employee_status_id;
+    public $company_id;
+    public $world_id;
 
     public function __construct($response)
     {
-
-        dd($response);
         $this->uuid = $response['Id'];
         $this->world_uuid = $response['WorldId'];
         $this->company_uuid = $response['CompanyId'];
@@ -48,7 +50,7 @@ class OnAirEmployee {
         $this->punctuality = $response['Punctuality'];
         $this->comfort = $response['Comfort'];
         $this->happiness = $response['Happiness'];
-        $this->current_aircraft_uuid = $response['CurrentAircraftId'];
+        $this->current_aircraft_uuid = (array_key_exists('CurrentAircraftId', $response)) ? $response['CurrentAircraftId'] : null;
         $this->home_airport_uuid = $response['HomeAirportId'];
         $this->per_flight_hour_wages = $response['PerFlightHourWages'];
         $this->weekly_garanted_salary = $response['WeeklyGarantedSalary'];
@@ -56,13 +58,16 @@ class OnAirEmployee {
         $this->employee_category = $response['Category'];
         $this->employee_status = $response['Status'];
         $this->last_status_change = $response['LastStatusChange'];
-        $this->flight_duty_start = $response['FlightDutyStart'];
+        $this->flight_duty_start = (array_key_exists('FlightDutyStart', $response)) ? $response['FlightDutyStart'] : null;
         $this->current_total_flight_hours_in_duty = $response['CurrentTotalFlightHoursInDuty'];
-        $this->hired_since = $response['HiredSince'];
+        $this->hired_since = (array_key_exists('HiredSince', $response)) ? $response['HiredSince'] : null;
         $this->last_payment_date = $response['LastPaymentDate'];
         $this->is_online = $response['IsOnline'];
-        $this->flight_duty_end = $response['FlightDutyEnd'];
+        $this->flight_duty_end = (array_key_exists('FlightDutyEnd', $response)) ? $response['FlightDutyEnd'] : null;
         $this->flight_hours_grand_total = $response['FlightHoursGrandTotal'];
+        $this->employee_category_id = $response['Category'];
+        $this->employee_status_id = $response['Status'];
+
     }
 
 }

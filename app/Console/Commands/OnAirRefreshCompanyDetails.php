@@ -3,9 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use App\Services\OnAir\OnAirCompanyService;
+use App\Models\Company;
 
-class OnAirRefreshCompanyDetails extends Command
+class OnAirRefreshCompanyDetails extends OnAirCommand
 {
     /**
      * The name and signature of the console command.
@@ -19,7 +21,7 @@ class OnAirRefreshCompanyDetails extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Refreshes all companies that have sync_company enabled';
 
     /**
      * Create a new command instance.
@@ -38,13 +40,14 @@ class OnAirRefreshCompanyDetails extends Command
      */
     public function handle(OnAirCompanyService $companyService)
     {
-        $apiKey = 'd17ea885-aad5-429b-9297-fe2e6deca5d9';
-        $companyUuid = 'c3d8e51d-f2e9-4918-a286-c3f2cd5ab141';
-        $response = $companyService->query_details('cumulus', $apiKey, $companyUuid);
+        $r = $companyService->refresh();
 
-        $updatedOrCreated = $companyService->updateOrCreate($response);
+        $r = [
+            'updated' => count($r['updated']),
+            'created' => count($r['created']),
+        ];
 
-        dd($updatedOrCreated);
+        $this->logStats($r['updated'], $r['created']);
 
         return 0;
     }

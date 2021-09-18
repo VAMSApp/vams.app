@@ -40,8 +40,9 @@ class Employee extends Model
         'current_airport_id',
         'home_airport_id',
         'user_id',
-        'category_id',
-        'status_id',
+        'world_id',
+        'employee_category_id',
+        'employee_status_id',
     ];
 
     public function company()
@@ -71,12 +72,17 @@ class Employee extends Model
 
     public function category()
     {
-        return $this->belongsTo(EmployeeCategory::class, 'category_id', 'id');
+        return $this->belongsTo(EmployeeCategory::class, 'employee_category_id', 'id');
     }
 
     public function status()
     {
-        return $this->belongsTo(EmployeeStatus::class, 'status_id', 'id');
+        return $this->belongsTo(EmployeeStatus::class, 'employee_status_id', 'id');
+    }
+
+    public function world()
+    {
+        return $this->belongsTo(World::class, 'world_id', 'id');
     }
 
     // public function flights()

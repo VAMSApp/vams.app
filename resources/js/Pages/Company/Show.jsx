@@ -1,30 +1,10 @@
 import React, { useEffect, useState, } from 'react'
 import { Inertia } from '@inertiajs/inertia'
-import { Button, ButtonGroup, Row, Col, } from 'react-bootstrap'
+import { Button, ButtonGroup, Row, Col, Form, } from 'react-bootstrap'
 import Layouts from '@Layouts'
 import CompanyForm from './Form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons'
-
-
-function refreshCompanyDetails(id) {
-    const url = route('company.refresh', { id: id });
-    let response = fetch(url, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-Token': document.head.querySelector("[name~=csrf-token][content]").content
-        },
-        body: JSON.stringify({
-            id: id,
-        })
-    }).then(response => {
-        return response.json()
-    }).then(response => {
-        console.log(response);
-    })
-
-    return response;
-}
 
 function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, ...props}) {
     const initialState = {
@@ -83,10 +63,76 @@ function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, .
             pageTitle={pageTitle}
         >
             {data &&
-            <CompanyForm
-                data={data}
-                worlds={worlds}
-            />
+            <div>
+                <Row>
+                    <Col md={2}>
+                        <Form.Group>
+                            <Form.Label>Company ICAO</Form.Label>
+                            <Form.Control
+                                value={company.airline}
+                                disabled
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col md={10}>
+                        <Form.Group>
+                            <Form.Label>OnAir Name</Form.Label>
+                            {(name)
+                                ?   (<InputGroup>
+                                        <InputGroup.Prepend>
+                                            <Button variant='outline-secondary' onClick={toggleOnAirName}>
+                                                <FontAwesomeIcon icon={faGlobeAmericas} />
+                                            </Button>
+                                        </InputGroup.Prepend>
+                                        {(name && !onAirName)
+                                            ?   (<>
+                                                <Form.Control
+                                                    value={company.name}
+                                                    disabled
+                                                />
+                                            </>)
+                                            : (<>
+                                                <Form.Control
+                                                    value={company.onair_name}
+                                                    disabled
+                                                />
+                                            </>)
+                                        }
+                                    </InputGroup>)
+                                    : (<>
+                                        <Form.Control
+                                            value={company.onair_name}
+                                            disabled
+                                        />
+                                    </>)
+                            }
+
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group>
+                            <Form.Label>Company UUID</Form.Label>
+                            <Form.Control
+                                value={company.uuid}
+                                disabled
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Form.Group>
+                    <Form.Label>World</Form.Label>
+                    <Form.Control
+                        as='select'
+                        value={company.world_id}
+                        disabled
+                    >
+                        <option value=''>-- SELECT WORLD ---</option>
+                        {worlds.map((w, k) => (<option key={k} value={w.id}>{w.name}</option>))}
+                    </Form.Control>
+                </Form.Group>
+            </div>
             }
             <Row>
                 <Col>

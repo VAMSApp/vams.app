@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Services\OnAir\OnAirCompanyService;
 use App\Services\OnAir\OnAirEmployeeService;
 
-class OnAirRefreshEmployees extends Command
+class OnAirRefreshEmployees extends OnAirCommand
 {
     /**
      * The name and signature of the console command.
@@ -20,7 +20,7 @@ class OnAirRefreshEmployees extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Refreshes all employee information for company\'s that have sync_employee enabled';
 
     /**
      * Create a new command instance.
@@ -37,9 +37,16 @@ class OnAirRefreshEmployees extends Command
      *
      * @return int
      */
-    public function handle(OnAirCompanyService $companyService, OnAirEmployeeService $employeeService)
+    public function handle(OnAirEmployeeService $employeeService)
     {
-        $response = $employeeService->refresh();
+        $r = $employeeService->refresh();
+
+        $r = [
+            'updated' => count($r['updated']),
+            'created' => count($r['created']),
+        ];
+
+        $this->logStats($r['updated'], $r['created']);
 
         return 0;
     }

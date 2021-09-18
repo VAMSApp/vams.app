@@ -9,6 +9,8 @@ use App\Models\Company;
 use App\Models\OnAirRefresh;
 
 class OnAirCompanyService extends OnAirService {
+    protected $created = [];
+    protected $updated = [];
 
     public function query_details($worldSlug, $api_key, $uuid)
     {
@@ -50,7 +52,7 @@ class OnAirCompanyService extends OnAirService {
         return $company;
     }
 
-    public function refresh($companyId)
+    public function refresh($companyId = null)
     {
 
         if (isset($companyId)) {
@@ -67,15 +69,22 @@ class OnAirCompanyService extends OnAirService {
         } else {
 
             $companies = Company::with(['world'])->where('sync_company', true)->get();
-            $Companies = [];
 
             foreach ($companies as $key => $company) {
                 $newCompany = $this->query_details($company->world->slug, $company->api_key, $company->uuid);
                 $company = $this->updateOrCreate($newCompany);
-                array_push($Companies, $company);
+
+                if ($company->wasRecentlyCreated || $company->exists) {
+                    array_push($this->created, $company);
+                } else {
+                    array_push($this->updated, $company);
+                }
             }
 
-            return $Companies;
+            return [
+                'created' => $this->created,
+                'updated' => $this->updated,
+            ];
         }
     }
 }
