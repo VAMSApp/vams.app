@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Services\OnAir\OnAirCompanyService;
 use App\Services\OnAir\OnAirEmployeeService;
-
+use App\Console\Commands\OnAirCommand;
 class OnAirRefreshEmployees extends OnAirCommand
 {
     /**

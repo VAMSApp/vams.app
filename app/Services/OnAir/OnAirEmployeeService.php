@@ -44,6 +44,9 @@ class OnAirEmployeeService extends OnAirService {
         $category = EmployeeCategory::where('id', $translated->employee_category_id)->first();
         $status = EmployeeStatus::where('id', $translated->employee_status_id)->first();
 
+        $homeAirport = Airport::updateOrCreate([
+            'uuid' => $translated->home_airport_uuid
+        ]);
 
         $translated->world_id = $company->world_id;
         $translated->company_id = $company->id;

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Services\OnAir\OnAirCompanyService;
 use App\Models\Company;
-
+use App\Console\Commands\OnAirCommand;
 class OnAirRefreshCompanyDetails extends OnAirCommand
 {
     /**
