@@ -11,8 +11,14 @@
 @endstory
 
 @story('deploy:syncdb')
-    update-database
+    migrate-database
 @endstory
+
+@story('deploy:syncseeddb')
+    migrate-database
+    seed-databse
+@endstory
+
 @story('deploy:resetdb')
     update-database:clean
 @endstory
@@ -32,10 +38,17 @@
     composer install
 @endtask
 
-@task('update-database')
+@task('migrate-database')
     cd /var/www/vhosts/vams.app
     sed -i 's/APP_ENV=production/APP_ENV=local/g' .env
-    php artisan migrate --seed
+    php artisan migrate
+    sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
+@endtask
+
+@task('seed-database')
+    cd /var/www/vhosts/vams.app
+    sed -i 's/APP_ENV=production/APP_ENV=local/g' .env
+    php artisan db:seed
     sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
 @endtask
 
