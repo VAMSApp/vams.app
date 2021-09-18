@@ -23,7 +23,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sendenrollmentemails')->everyMinute();
+        $schedule->command('sendenrollmentemails')
+            ->everyMinute()
+            ->emailOutputTo('admin@vams.app');
     }
 
     /**

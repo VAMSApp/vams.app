@@ -30,6 +30,6 @@ class InterestNotice extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.interest-received');
+        return $this->subject('VAMS | Thanks for registering Your interest')->view('mail.interest-received');
     }
 }

@@ -41,13 +41,18 @@ class SendEnrollmentNotificationEmails extends Command
     public function handle()
     {
         $ens = EnrollmentNotification::where('confirmation_sent', false)->get();
+        $count = 0;
 
         foreach ($ens as $key => $en) {
             Mail::to($en->email)
                 ->bcc('admin@vams.app')
                 ->send(new InterestNotice($en));
+
             $en->confirmation_sent = true;
+            $en->confirmation_sent_at = now();
+
             $en->save();
+            $count++;
         }
 
         return 0;
