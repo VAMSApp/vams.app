@@ -26,6 +26,7 @@ class EnrollmentNotification extends Model
         'fleet_mgmt',
         'jobs',
         'flight_tracking',
+        'confirmation_sent',
     ];
 
 }

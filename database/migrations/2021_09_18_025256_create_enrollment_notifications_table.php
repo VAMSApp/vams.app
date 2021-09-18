@@ -31,7 +31,7 @@ class CreateEnrollmentNotificationsTable extends Migration
             $table->boolean('fleet_mgmt')->default(false);
             $table->boolean('jobs')->default(false);
             $table->boolean('flight_tracking')->default(false);
-
+            $table->boolean('confirmation_sent')->default(false);
 
             $table->timestamps();
         });
