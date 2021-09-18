@@ -63,7 +63,7 @@ class HomeController extends Controller
             'neofly_import_career' => ($request->neofly_import_career) ? $request->neofly_import_career : false,
             'neofly_import_navdata' => ($request->neofly_import_navdata) ? $request->neofly_import_navdata : false,
             'sim_type' => implode(',', $request->sim_type),
-            'comments' => $request->comments,
+            'comments' => ($request->comments) ? $request->comments : '',
             'fleet_mgmt' => $request->fleet_mgmt,
             'jobs' => $request->jobs,
             'flight_tracking' => $request->flight_tracking,
