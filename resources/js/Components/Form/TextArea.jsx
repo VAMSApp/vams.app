@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 
-export default function Input({
+export default function TextArea({
     field,
     form: { errors, touched, ...form }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     label,
@@ -22,6 +22,7 @@ export default function Input({
                 isValid={(touched[field.name] && !errors[field.name])}
                 isInvalid={(touched[field.name] && errors[field.name])}
                 rows={rows}
+                as='textarea'
                 {...field}
             />
             {(touched[field.name] && errors[field.name]) &&

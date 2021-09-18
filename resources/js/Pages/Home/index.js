@@ -1,11 +1,14 @@
 import React, { useState, useEffect, } from 'react'
-import { Container, Row, Col, Form, Button, ButtonGroup, } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, ButtonGroup, ListGroup, Modal, } from 'react-bootstrap'
 import Layouts from '@Layouts'
 import { Logo, } from '@Components'
 import NotificationForm from './NotificationForm'
 import './homeStyles.scss'
 
 export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
+    const [notificationFormIsVisible, setNotificationFormModal] = useState(false);
+
+    const toggleNotificationFormModal = () => setNotificationFormModal(!notificationFormIsVisible)
 
     return (
         <Layouts.Guest
@@ -21,9 +24,14 @@ export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
                                 <Logo height={100} light />
                             </div>
                             <div className='logoText inline'>
-                                <h1 className='h2'>VAMS <span><strong>is</strong> coming soon...</span></h1>
+                                <h1 className='h2'>VAMS</h1>
                             </div>
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h3 className='lead text-center'><em>V</em>irtual <em>A</em>irline <em>M</em>anagement <em>S</em>ystem</h3>
                     </Col>
                 </Row>
                 <Row>
@@ -32,10 +40,20 @@ export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <p className='lead text-center'><strong>V</strong>irtual <strong>A</strong>irline <strong>M</strong>anagement <strong>S</strong>ystem.</p>
-                        <p>Will provide direct connection functionality to Flight simulators and a tool to manage all aspects of your virtual airline, from employee's, certifications, aircraft fleet, FBO's, and Job's.</p>
-                        <p>VAMS will also provide functionality for <span className='text-emphasis'>syncronization</span> and import of data from various VA systems such as; <a href='https://www.onair.company/' target='_blank'>OnAir company</a>.</p>
+                    <Col md={6} className='text-left'>
+                        <h4>Planned Features</h4>
+                        <ListGroup>
+                            <ListGroup.Item>Fleet/Aircraft Management</ListGroup.Item>
+                            <ListGroup.Item>Cargo, and Passenger Job Generation</ListGroup.Item>
+                            <ListGroup.Item>Live Flight Tracking</ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                    <Col md={6} className='text-left'>
+                        <h4>Third Party VA Integrations</h4>
+                        <ListGroup>
+                            <ListGroup.Item>Import Career, Aircraft, Flights, Cashflow, Employees, FBOs from <a href='https://www.onair.company/' target='_blank'>OnAir company</a></ListGroup.Item>
+                            <ListGroup.Item>Import Career, Aircraft, Navdata from Neofly</ListGroup.Item>
+                        </ListGroup>
                     </Col>
                 </Row>
                 <Row>
@@ -52,10 +70,15 @@ export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
                     : (<>
                         <Row>
                             <Col>
-                                <p>Fill out the form below to get notified when alhpa enrollment's are <strong>available</strong>!</p>
+                                <Button variant='primary' block onClick={toggleNotificationFormModal}>Interested? Click to get notified when registration opens</Button>
                             </Col>
                         </Row>
-                        <NotificationForm simTypes={simTypes} />
+                        <NotificationForm
+                            simTypes={simTypes}
+                            toggleModal={toggleNotificationFormModal}
+                            isVisible={notificationFormIsVisible}
+                        />
+
                       </>)
                     }
                 </div>

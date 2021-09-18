@@ -1,6 +1,6 @@
 .form-interested {
     width: 100%;
-    max-width: 430px;
+    max-width: 630px;
     padding: 15px;
     margin: auto;
     align-items: center;
@@ -66,4 +66,21 @@
     form {
         text-align: left;
     }
+
+    h3.lead > em {
+        color: #158cba;
+        font-style: normal;
+        font-weight: 600;
+    }
+
+}
+
+.LogoContainer .logoText.inline {
+    padding-left: 10px;
+    border-left: 1px solid #333;
+    margin-left: 10px;
+}
+
+.LogoContainer .inline {
+    display: inline-block;
 }

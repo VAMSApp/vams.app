@@ -46,14 +46,12 @@ class HomeController extends Controller
     {
 
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|min:1|max:255'
         ]);
 
         $newEnrollNotification = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
             'ip_address' => $request->ip(),
             'sync_onair_company' => $request->sync_onair_company,
@@ -61,8 +59,14 @@ class HomeController extends Controller
             'sync_onair_employees' => $request->sync_onair_employees,
             'sync_onair_fbos' => $request->sync_onair_fbos,
             'sync_onair_cashflow' => $request->sync_onair_cashflow,
-            'sim_type' => $request->sim_type,
+            'neofly_import_aircraft' => $request->neofly_import_aircraft,
+            'neofly_import_career' => $request->neofly_import_career,
+            'neofly_import_navdata' => $request->neofly_import_navdata,
+            'sim_type' => implode(',', $request->sim_type),
             'comments' => $request->comments,
+            'fleet_mgmt' => $request->fleet_mgmt,
+            'jobs' => $request->jobs,
+            'flight_tracking' => $request->flight_tracking,
         ];
 
         $eN = EnrollmentNotification::create($newEnrollNotification);

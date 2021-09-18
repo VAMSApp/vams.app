@@ -6,13 +6,14 @@ import {
 } from 'react-bootstrap';
 
 export default function SelectComponent({
-    field,
+    field: { value, ...field},
     form: { errors, touched, ...form }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     label,
     placeholder,
     helpText,
     defaultselectmsg,
     options,
+    multiple,
     ...props
 }) {
 
@@ -24,13 +25,13 @@ export default function SelectComponent({
             }
             <Form.Control
                 as='select'
+                multiple={multiple}
                 placeholder={placeholder}
                 isValid={(touched[field.name] && !errors[field.name])}
                 isInvalid={(touched[field.name] && errors[field.name])}
+                value={(value instanceof Array) ? value : [value] }
                 {...field}
             >
-                <option>{defaultselectmsg || '-- SELECT --'}</option>
-
                 {(options && options.length > 0) &&
                     options.map((o, k) => (<option key={k} value={o.value}>{`${o.label}`}</option>))
                 }

@@ -10,8 +10,7 @@ class EnrollmentNotification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'ip_address',
         'sync_onair_company',
@@ -19,8 +18,14 @@ class EnrollmentNotification extends Model
         'sync_onair_employees',
         'sync_onair_fbos',
         'sync_onair_cashflow',
+        'neofly_import_aircraft',
+        'neofly_import_career',
+        'neofly_import_navdata',
         'sim_type',
         'comments',
+        'fleet_mgmt',
+        'jobs',
+        'flight_tracking',
     ];
 
 }
