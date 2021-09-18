@@ -67,6 +67,7 @@ class HomeController extends Controller
             'fleet_mgmt' => $request->fleet_mgmt,
             'jobs' => $request->jobs,
             'flight_tracking' => $request->flight_tracking,
+            'early_access' => (env('EARLY_ACCESS') == true) ? true : false,
         ];
 
         $eN = EnrollmentNotification::create($newEnrollNotification);

@@ -32,7 +32,10 @@ class CreateEnrollmentNotificationsTable extends Migration
             $table->boolean('jobs')->default(false);
             $table->boolean('flight_tracking')->default(false);
             $table->boolean('confirmation_sent')->default(false);
-
+            $table->dateTime('confirmation_sent_at')->nullable();
+            $table->boolean('early_access')->default(false);
+            $table->boolean('early_access_email_sent')->default(false);
+            $table->dateTime('early_access_email_sent_at')->nullable();
             $table->timestamps();
         });
     }
