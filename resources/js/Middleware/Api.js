@@ -43,6 +43,21 @@ const Api = {
         .then(res => res.json())
     },
 
+    enrollNotification: function enrollNotification(values) {
+        if (!values) {
+            throw new Error('no values provided');
+        }
+
+        return fetch('/notify', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-Token': document.head.querySelector("[name~=csrf-token][content]").content
+            },
+            body: JSON.stringify(values)
+        })
+        .then(res => res.json())
+    },
+
     post: function post (url, data, options) {
         return fetch(url, {
             method: 'POST',

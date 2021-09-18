@@ -7,7 +7,7 @@ import { ValidationErrors, } from '@Components/Form'
 import Layouts from '@Layouts'
 import './styles.scss'
 
-export default function Login({ status, appTitle, canResetPassword }) {
+export default function Login({ status, appTitle, canResetPassword, canRegister }) {
 
     const { data, setData, post, isDirty, hasErrors, processing, errors, reset, ...formProps } = useForm({
         username: '',
@@ -79,10 +79,21 @@ export default function Login({ status, appTitle, canResetPassword }) {
                         <hr />
                     </Col>
                 </Row>
-                    <ButtonGroup>
-                        <Button type='submit' variant='primary' size='lg' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
-                        <Button size='lg' variant='secondary' href={route('register')}>Register</Button>
-                    </ButtonGroup>
+                {(canRegister)
+                ? (<Row>
+                        <Col>
+                            <ButtonGroup>
+                                <Button type='submit' variant='primary' size='lg' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
+                                <Button size='lg' variant='secondary' href='/register'>Register</Button>
+                            </ButtonGroup>
+                        </Col>
+                  </Row>)
+                : (<Row>
+                    <Col>
+                        <Button block type='submit' variant='primary' size='lg' disabled={(processing || (isDirty && hasErrors))}>Sign In</Button>
+                    </Col>
+                  </Row>)
+                }
                 <div className="d-grid gap-2">
                     <Button size="lg" variant="info" href={route('password.request')}>
                         Forgot Password?

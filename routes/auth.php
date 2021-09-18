@@ -10,20 +10,22 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
+if (env('ALLOW_REGISTRATION') == true) {
+    Route::get('/register', [RegisteredUserController::class, 'create'])
     ->middleware('guest')
     ->name('register');
 
-Route::post('/register/load_company_details', [RegisteredUserController::class, 'load_company_details'])
+    Route::post('/register/load_company_details', [RegisteredUserController::class, 'load_company_details'])
     ->middleware(['guest'])
     ->name('register.load_company_details');
 
-Route::post('/register/check_username', [RegisteredUserController::class, 'check_username'])
+    Route::post('/register/check_username', [RegisteredUserController::class, 'check_username'])
     ->middleware(['guest'])
     ->name('register.check_username');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
+    Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
+}
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')

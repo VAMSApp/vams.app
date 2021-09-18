@@ -6,6 +6,7 @@ export default function Input({
     field,
     form: { errors, touched, ...form }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     label,
+    placeholder,
     helpText,
     ...props
 }) {
@@ -16,6 +17,7 @@ export default function Input({
                 <Form.Label>{label}</Form.Label>
             }
             <Form.Control
+                placeholder={placeholder}
                 isValid={(touched[field.name] && !errors[field.name])}
                 isInvalid={(touched[field.name] && errors[field.name])}
                 {...field}

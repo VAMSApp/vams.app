@@ -49,3 +49,14 @@ a.nav-link.active {
 .text-cursor-pointer {
     cursor: pointer;
 }
+
+
+#LogoContainer {
+    text-align: center;
+    margin-top: 50%;
+
+    h1 span {
+        font-size: 18px !important;
+        font-style: italic;
+    }
+}

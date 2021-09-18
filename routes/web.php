@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,10 @@ use App\Http\Controllers\CompanyController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index'])->name('landing');
+Route::post('/notify', [HomeController::class, 'notification_enroll'])->name('enroll.notification');
+
+Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
         'appTitle' => env('APP_TITLE'),
         'pageTitle' => 'Dashboard'
