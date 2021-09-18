@@ -5,7 +5,6 @@
     margin: auto;
     align-items: center;
     text-align: left;
-    padding-top: 100px;
     padding-bottom: 40px;
 }
 .form-interested .checkbox {
@@ -55,6 +54,16 @@
     font-weight: 700;
 }
 
-.form-interested .form-label {
-    font-weight: bold;
+#LandingContainer {
+    text-align: center;
+    margin-top: 20%;
+
+    h1 span {
+        font-size: 18px !important;
+        font-style: italic;
+    }
+
+    form {
+        text-align: left;
+    }
 }

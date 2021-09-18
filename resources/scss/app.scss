@@ -8,6 +8,7 @@ body {
   height: 100%;
   color: #222;
   background-color: #fafafa;
+  font-size: 1rem;
 }
 
 // body {
@@ -48,15 +49,4 @@ a.nav-link.active {
 
 .text-cursor-pointer {
     cursor: pointer;
-}
-
-
-#LogoContainer {
-    text-align: center;
-    margin-top: 50%;
-
-    h1 span {
-        font-size: 18px !important;
-        font-style: italic;
-    }
 }

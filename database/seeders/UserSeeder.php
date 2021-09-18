@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'Freeman',
                 'username' => 'admin',
                 'email' => 'admin@vams.app',
-                'password' => Hash::make('passw0rd!'),
+                'password' => Hash::make('Fr33d0m!'),
                 'roles' => [
                     'admin'
                 ]

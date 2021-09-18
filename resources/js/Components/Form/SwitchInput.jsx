@@ -1,25 +1,23 @@
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { Form, FormControl } from 'react-bootstrap';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
 export default function SwitchInput({
-    field,
+    field: { name, id, ...field },
     form: { errors, touched, ...form }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-    label,
     helpText,
+    label,
     ...props
 }) {
 
-    console.log('SwitchInput', { field, form, props })
     return (
         <div>
-            {label &&
-                <Form.Label>{label}</Form.Label>
-            }
-            <Form.Switch
-                type={props.type || 'switch'}
-                isValid={(touched[field.name] && !errors[field.name])}
-                isInvalid={(touched[field.name] && errors[field.name])}
+            <Form.Check
+                type='switch'
+                label={label}
+                name={name || id}
+                id={id || name}
                 {...field}
             />
             {(touched[field.name] && errors[field.name]) &&

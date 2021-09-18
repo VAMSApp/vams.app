@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState, } from 'react'
 import { Formik, Form, Field, } from 'formik'
 import { Inertia } from '@inertiajs/inertia'
 import { Container, Row, Col, Button, ButtonGroup, } from 'react-bootstrap'
 import classNames from 'classnames'
 import * as Yup from 'yup'
-import { Input, UsernameInput, } from '@Components/Form'
+import { Input, UsernameInput, SwitchInput, SelectInput, } from '@Components/Form'
 import { Api } from '@/Middleware'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +13,13 @@ const initialValues = {
     first_name: '',
     last_name: '',
     email: '',
+    sync_onair_company: '',
+    sync_onair_fleet: '',
+    sync_onair_employees: '',
+    sync_onair_fbos: '',
+    sync_onair_cashflow: '',
+    sim_type: '',
+    comments: '',
 };
 
 const Schema = Yup.object().shape({
@@ -21,7 +28,7 @@ const Schema = Yup.object().shape({
     email: Yup.string().email('A valid Email Address is required').required('Email Address is required'),
 });
 
-export default function NotificationForm() {
+export default function NotificationForm({ simTypes, }) {
     const submit = (values, actions) => {
         console.log(actions);
 
@@ -31,6 +38,8 @@ export default function NotificationForm() {
         actions.setSubmitting(false);
 
     }
+
+    const [onAirSync, toggleOnAirSync] = useState(false);
 
     return (
         <Formik
@@ -68,6 +77,85 @@ export default function NotificationForm() {
                                 component={Input}
                                 placeholder='Email Address'
                                 label='Email Address'
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <hr />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            I'm interested in <Button size='sm' variant={(onAirSync) ? 'outline-info' : 'outline-dark'} onClick={() => toggleOnAirSync(!onAirSync)}>OnAir Synchronization</Button>
+                        </Col>
+                    </Row>
+                    {onAirSync && <>
+                    <Row>
+                        <Col>
+                            <Field
+                                name='sync_onair_company'
+                                component={SwitchInput}
+                                label='Sync OnAir company'
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Field
+                                name='sync_onair_fleet'
+                                component={SwitchInput}
+                                label='Sync OnAir fleet'
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Field
+                                name='sync_onair_employees'
+                                component={SwitchInput}
+                                label='Sync OnAir employees'
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Field
+                                name='sync_onair_fbos'
+                                component={SwitchInput}
+                                label='Sync OnAir fbos'
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Field
+                                className='fs-6'
+                                name='sync_onair_cashflow'
+                                component={SwitchInput}
+                                label='Sync OnAir cashflow'
+                            />
+                        </Col>
+                    </Row>
+                    </> }
+                    <Row>
+                        <Col>
+                            <p>I primarily use the following sim</p>
+                            <Field
+                                name='sim_type'
+                                component={SelectInput}
+                                options={simTypes}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Field
+                                name='comments'
+                                component={Input}
+                                as='textarea'
+                                rows={6}
+                                label='Comments, feedback, suggestions'
                             />
                         </Col>
                     </Row>

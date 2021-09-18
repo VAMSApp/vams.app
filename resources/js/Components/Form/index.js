@@ -4,6 +4,7 @@ import CheckboxComponent from './Checkbox'
 import ValidationErrorsComponent from './ValidationErrors'
 import { Form, } from 'react-bootstrap'
 import SwitchInputComponent from './SwitchInput'
+import SelectInputComponent from './Select'
 
 export const Input = InputComponent
 export const UsernameInput = UsernameInputComponent
@@ -12,7 +13,8 @@ export const ValidationErrors = ValidationErrorsComponent
 export const FormLabel = Form.Label
 export const FormText = Form.Text
 export const FormControl = Form.Control
-export const SwitchInput = Form.Switch
+export const SwitchInput = SwitchInputComponent
+export const SelectInput = SelectInputComponent
 // export const Feedback = FormControl.Feedback
 
 export default {
@@ -23,4 +25,5 @@ export default {
     ValidationErrors,
     FormLabel,
     FormText,
+    SelectInput,
 }

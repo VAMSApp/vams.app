@@ -8,11 +8,13 @@ export default function Input({
     label,
     placeholder,
     helpText,
+    as,
+    rows,
     ...props
 }) {
 
     return (
-        <div>
+        <Form.Group>
             {label &&
                 <Form.Label>{label}</Form.Label>
             }
@@ -20,6 +22,8 @@ export default function Input({
                 placeholder={placeholder}
                 isValid={(touched[field.name] && !errors[field.name])}
                 isInvalid={(touched[field.name] && errors[field.name])}
+                as={as}
+                rows={rows}
                 {...field}
             />
             {(touched[field.name] && errors[field.name]) &&
@@ -31,6 +35,6 @@ export default function Input({
             {helpText &&
                 <Form.Text>{helpText}</Form.Text>
             }
-        </div>
+        </Form.Group>
     );
 }

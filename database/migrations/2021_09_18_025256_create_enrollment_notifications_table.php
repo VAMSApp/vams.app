@@ -19,6 +19,13 @@ class CreateEnrollmentNotificationsTable extends Migration
             $table->string('last_name')->required();
             $table->string('email')->unique()->required();
             $table->string('ip_address')->required();
+            $table->boolean('sync_onair_company')->default(false);
+            $table->boolean('sync_onair_fleet')->default(false);
+            $table->boolean('sync_onair_employees')->default(false);
+            $table->boolean('sync_onair_fbos')->default(false);
+            $table->boolean('sync_onair_cashflow')->default(false);
+            $table->string('sim_type');
+            $table->string('comments');
             $table->timestamps();
         });
     }

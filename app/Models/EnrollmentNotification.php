@@ -14,6 +14,13 @@ class EnrollmentNotification extends Model
         'last_name',
         'email',
         'ip_address',
+        'sync_onair_company',
+        'sync_onair_fleet',
+        'sync_onair_employees',
+        'sync_onair_fbos',
+        'sync_onair_cashflow',
+        'sim_type',
+        'comments',
     ];
 
 }

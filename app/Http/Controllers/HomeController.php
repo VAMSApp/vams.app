@@ -21,6 +21,24 @@ class HomeController extends Controller
             'appTitle' => env('APP_TITLE'),
             'pageTitle' => 'Home',
             'isEnrolled' => $isEnrolled,
+            'simTypes' => [
+                [
+                    'value' => 'msfs2020',
+                    'label' => 'MSFS 2020'
+                ],
+                [
+                    'value' => 'fsx',
+                    'label' => 'MS FS X'
+                ],
+                [
+                    'value' => 'xplane11',
+                    'label' => 'X-Plane 11'
+                ],
+                [
+                    'value' => 'other',
+                    'label' => 'Other, please specify in the comments'
+                ],
+            ]
         ]);
     }
 
@@ -37,12 +55,19 @@ class HomeController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'ip_address' => $request->ip()
+            'ip_address' => $request->ip(),
+            'sync_onair_company' => $request->sync_onair_company,
+            'sync_onair_fleet' => $request->sync_onair_fleet,
+            'sync_onair_employees' => $request->sync_onair_employees,
+            'sync_onair_fbos' => $request->sync_onair_fbos,
+            'sync_onair_cashflow' => $request->sync_onair_cashflow,
+            'sim_type' => $request->sim_type,
+            'comments' => $request->comments,
         ];
 
         $eN = EnrollmentNotification::create($newEnrollNotification);
         $eN->save();
 
-        return response()->redirect('landing');
+        return redirect()->route('landing');
     }
 }
