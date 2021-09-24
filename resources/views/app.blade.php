@@ -20,6 +20,15 @@
                 window.env = 'local'
             </script>
         @endenv
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEBCDCGR6B"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-WEBCDCGR6B');
+        </script>
 
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
