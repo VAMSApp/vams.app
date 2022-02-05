@@ -17,6 +17,12 @@ mix.js('resources/js/app.js', 'public/js')
     .webpackConfig(require('./webpack.config'))
     .browserSync({
         open: false,
+        host: '192.168.10.45',
+        port: 3000,
+        ui: {
+            host: '192.168.10.45',
+            port: 3001,
+        }
     });
 
 if (mix.inProduction()) {

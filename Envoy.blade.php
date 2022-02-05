@@ -1,5 +1,10 @@
 @servers(['web' => 'deploy@vams.app'])
 
+@task('delete-code')
+    cd /var/www/vhosts
+    rm -rf vams.app
+@endtask
+
 @story('deploy:new')
     clone-code
     install-dependencies
