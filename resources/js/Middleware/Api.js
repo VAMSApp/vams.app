@@ -21,9 +21,7 @@ const Api = {
     },
 
     requestCompanyDetails: function requestCompanyDetails (world_slug, api_key, uuid) {
-        if (!world_slug) {
-            throw new Error('No world provided');
-        } else if (!api_key) {
+        if (!api_key) {
             throw new Error('noew api key provided');
         } else if (!uuid) {
             throw new Error('no Company UUID provided');
@@ -35,7 +33,6 @@ const Api = {
                 'X-CSRF-Token': document.head.querySelector("[name~=csrf-token][content]").content
             },
             body: JSON.stringify({
-                world_slug: world_slug,
                 api_key: api_key,
                 uuid: uuid,
             })

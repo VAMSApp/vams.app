@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Models\Company;
 use App\Models\World;
 use App\Models\User;
+use Mockery\Undefined;
 
 class CompanyController extends Controller
 {
@@ -53,6 +54,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $user = User::find($user->id);
 
         $request->validate([
             'uuid' => 'required|string|max:255',
@@ -99,11 +101,10 @@ class CompanyController extends Controller
     {
         $data = $request->json()->all();
 
-        $world_slug = $data['world_slug'];
         $uuid = $data['uuid'];
         $api_key = $data['api_key'];
 
-        $response = $companyService->query_details($world_slug, $api_key, $uuid);
+        $response = $companyService->query_details($api_key, $uuid);
         $translatedResponse = $companyService->translate($response);
 
         return response()->json($translatedResponse);
@@ -134,7 +135,7 @@ class CompanyController extends Controller
         $id = $request->id;
         $userId = Auth::user()->id;
 
-        $response;
+        $response = null;
 
         if ($id && $userId) {
             $company = Company::where('id', $id)->where('owner_id', $request->user()->id)->first();
@@ -154,9 +155,11 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $company = Company::with(['world'])->where('id', $id)->where('owner_id', $request->user()->id)->first();
+        $user = Auth::user();
+
+        $company = Company::with(['world'])->where('id', $id)->where('owner_id', $user->id)->first();
         $worlds = World::where('is_enabled', true)->get();
 
         return Inertia::render('Company/Edit', [
@@ -174,9 +177,19 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update($id)
     {
-        //
+        $user = Auth::user();
+
+        $company = Company::with(['world'])->where('id', $id)->where('owner_id', $user->id)->first();
+        $worlds = World::where('is_enabled', true)->get();
+
+        return Inertia::render('Company/Edit', [
+            'appTitle' => env('APP_TITLE'),
+            'pageTitle' => 'Editing Company',
+            'company' => $company,
+            'worlds' => $worlds,
+        ]);
     }
 
     /**
@@ -185,8 +198,12 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy($id)
     {
-        //
+        $user = Auth::user();
+
+        $company = Company::destroy($id);
+
+        return redirect()->route('company.list');
     }
 }

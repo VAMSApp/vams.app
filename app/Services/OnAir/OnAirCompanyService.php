@@ -12,9 +12,9 @@ class OnAirCompanyService extends OnAirService {
     protected $created = [];
     protected $updated = [];
 
-    public function query_details($worldSlug, $api_key, $uuid)
+    public function query_details($api_key, $uuid)
     {
-        $response = $this->ApiService->makeRequest($worldSlug, $api_key, '/company/'.$uuid);
+        $response = $this->ApiService->makeRequest($api_key, '/company/'.$uuid);
         return $response;
     }
 
@@ -61,7 +61,7 @@ class OnAirCompanyService extends OnAirService {
                 ->where('id', $companyId)
                 ->first();
 
-            $newCompany = $this->query_details($company->world->slug, $company->api_key, $company->uuid);
+            $newCompany = $this->query_details($company->api_key, $company->uuid);
             $company = $this->updateOrCreate($newCompany);
 
             return $company;
@@ -71,7 +71,7 @@ class OnAirCompanyService extends OnAirService {
             $companies = Company::with(['world'])->where('sync_company', true)->get();
 
             foreach ($companies as $key => $company) {
-                $newCompany = $this->query_details($company->world->slug, $company->api_key, $company->uuid);
+                $newCompany = $this->query_details($company->api_key, $company->uuid);
                 $company = $this->updateOrCreate($newCompany);
 
                 if ($company->wasRecentlyCreated || $company->exists) {

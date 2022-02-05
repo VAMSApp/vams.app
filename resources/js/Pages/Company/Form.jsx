@@ -8,14 +8,86 @@ import Layouts from '@Layouts'
 import classNames from 'classnames';
 
 const guidRegex = /^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$/i;
+const initialState = {
+    onair_name: '',
+    xp: '',
+    level: '',
+    level_xp: '',
+    reputation: '',
+    airline: '',
+    roundedReputation: '',
+    uuid: 'c3d8e51d-f2e9-4918-a286-c3f2cd5ab141',
+    api_key: 'd17ea885-aad5-429b-9297-fe2e6deca5d9',
+    world_slug: 'cumulus',
+    aircraft_rent_level: '',
+    checkride_level: '',
+    creation_date: '',
+    difficulty_level: '',
+    disable_seats_config_check: '',
+    enable_cargos_and_charters_loading_time: '',
+    enable_employees_flight_duty_and_sleep: '',
+    enable_landing_penalities: '',
+    enable_sim_failures: '',
+    enable_skill_tree: '',
+    force_time_in_simulator: '',
+    in_survival: '',
+    last_connected: '',
+    last_report_date: '',
+    pay_bonus_factor: '',
+    realistic_sim_procedures: '',
+    transport_employee_instant: '',
+    transport_player_instant: '',
+    use_only_vanilla_airports: '',
+    use_small_airports: '',
+    sync_company: true,
+    sync_fleet: false,
+    sync_employees: false,
+    sync_flights: false,
+    sync_fbos: false,
+    sync_cashflow: false
+}
 
 function CompanyForm({ data, worlds, doSubmit = null, doCancel, cancelHref, }) {
-    const [state, setState] = useState({
-        onAirName: false,
-    })
+
+    const [state, setState] = useState(initialState)
 
     const {
-        onAirName,
+        onair_name,
+        xp,
+        level,
+        level_xp,
+        reputation,
+        airline,
+        roundedReputation,
+        uuid,
+        api_key,
+        world_slug,
+        sync_company,
+        sync_fleet,
+        sync_employees,
+        sync_flights,
+        sync_fbos,
+        sync_cashflow,
+        aircraft_rent_level,
+        checkride_level,
+        creation_date,
+        difficulty_level,
+        disable_seats_config_check,
+        enable_cargos_and_charters_loading_time,
+        enable_employees_flight_duty_and_sleep,
+        enable_landing_penalities,
+        enable_sim_failures,
+        enable_skill_tree,
+        force_time_in_simulator,
+        in_survival,
+        last_connected,
+        last_report_date,
+        pay_bonus_factor,
+        realistic_sim_procedures,
+        transport_employee_instant,
+        transport_player_instant,
+        use_only_vanilla_airports,
+        use_small_airports,
     } = state
 
     const toggleOnAirName = (e) => {
@@ -26,11 +98,32 @@ function CompanyForm({ data, worlds, doSubmit = null, doCancel, cancelHref, }) {
         })
     }
 
+    const onHandleChange = (event) => {
+        const {
+            name,
+            type,
+            checked,
+            value,
+        } = event.target;
+
+        const newState = Object.assign({}, state, {
+            [name]: (type === 'checkbox') ? checked : value
+        })
+
+        setState(newState);
+    }
+
     const { register, handleSubmit, watch, formState: { dirtyFields, isDirty, isValid, isSubmitting, errors, ...formState }, ...formProps } = useForm({
         defaultValues: {
             uuid: (data) ? data.uuid : '',
             api_key: (data) ? data.api_key : '',
             worldId: (data) ? data.world_id : '',
+            sync_company: (data) ? (data.sync_company === 1) ? true : false : true,
+            sync_fleet: (data) ? (data.sync_fleet === 1) ? true : false : false,
+            sync_employees: (data) ? (data.sync_employees === 1) ? true : false : false,
+            sync_flights: (data) ? (data.sync_flights === 1) ? true : false : false,
+            sync_fbos: (data) ? (data.sync_fbos === 1) ? true : false : false,
+            sync_cashflow: (data) ? (data.sync_cashflow === 1) ? true : false : false,
         },
     })
 
@@ -156,24 +249,121 @@ function CompanyForm({ data, worlds, doSubmit = null, doCancel, cancelHref, }) {
                     </Form.Group>
                 </Col>
             </Row>
-            <Form.Group>
-                <Form.Label>World</Form.Label>
-                <Form.Control
-                    as='select'
-                    isInvalid={errors.worldId}
+            <Row>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>World</Form.Label>
+                        <Form.Control
+                            as='select'
+                            isInvalid={errors.worldId}
                             isValid={(dirtyFields.worldId && !errors.worldId)}
-                    disabled={!doSubmit}
-                    {...register('worldId', { required: true })}
-                >
-                    <option value=''>-- SELECT WORLD ---</option>
-                    {worlds.map((w, k) => (<option key={k} value={w.id}>{w.name}</option>))}
-                </Form.Control>
-                {errors.worldId &&
-                    <FormControl.Feedback type='invalid'>
-                        {(errors.worldId.type === 'required') ? 'World Is Required' : errors.worldId.message}
-                    </FormControl.Feedback>
-                }
-            </Form.Group>
+                            disabled={!doSubmit}
+                            {...register('worldId', { required: true })}
+                            >
+                            <option value=''>-- SELECT WORLD ---</option>
+                            {worlds.map((w, k) => (<option key={k} value={w.id}>{w.name}</option>))}
+                        </Form.Control>
+                        {errors.worldId &&
+                            <FormControl.Feedback type='invalid'>
+                                {(errors.worldId.type === 'required') ? 'World Is Required' : errors.worldId.message}
+                            </FormControl.Feedback>
+                        }
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_company'
+                            value={data.sync_company}
+                            name='sync_company'
+                            label='Refresh Company'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_fbos'
+                            value={data.sync_fbos}
+                            name='sync_fbos'
+                            label='Refresh FBOs'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_employees'
+                            value={data.sync_employees}
+                            name='sync_employees'
+                            label='Refresh Employees'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_cashflow'
+                            value={data.sync_cashflow}
+                            name='sync_cashflow'
+                            label='Refresh Cash Flow'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_fleet'
+                            value={data.sync_fleet}
+                            name='sync_fleet'
+                            label='Refresh Fleet'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+
+                </Col>
+            </Row>
+            <Row>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Check
+                            type='switch'
+                            id='sync_flights'
+                            value={data.sync_flights}
+                            name='sync_flights'
+                            label='Refresh Flights'
+                            onChange={onHandleChange}
+                            disabled={false}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+
+                </Col>
+            </Row>
             {doSubmit &&
                 <>
                     <Row>
