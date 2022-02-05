@@ -1,4 +1,4 @@
-@servers(['web' => 'vams-deploy@vams.app'])
+@servers(['web' => 'deploy@vams.app'])
 
 @story('deploy:new')
     clone-code
