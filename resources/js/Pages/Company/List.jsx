@@ -24,6 +24,7 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, companies, 
             {(companies && companies.length > 0) &&
                 <Company.Table
                     data={companies}
+                    refreshCompany={refreshCompany}
                 />
             }
             <Button href={route('company.create')} variant='primary' size='lg'>Add New Company</Button>

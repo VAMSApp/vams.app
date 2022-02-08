@@ -95,7 +95,7 @@ export default function Login({ status, appTitle, canResetPassword, canRegister 
                   </Row>)
                 }
                 <div className="d-grid gap-2">
-                    <Button size="lg" variant="info" href={route('password.request')}>
+                    <Button block size="lg" variant="light" href={route('password.request')}>
                         Forgot Password?
                     </Button>
                 </div>

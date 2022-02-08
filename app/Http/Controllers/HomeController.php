@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\EnrollmentNotification;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
+
         $count = EnrollmentNotification::where('ip_address', $request->ip())->count();
         $isEnrolled = false;
+        $allowRegistration = env('ALLOW_REGISTRATION');
 
         if (($count > 0) && (env('APP_ENV') == 'production')) {
             $isEnrolled = ($count > 0);
@@ -21,6 +26,7 @@ class HomeController extends Controller
             'appTitle' => env('APP_TITLE'),
             'pageTitle' => 'Home',
             'isEnrolled' => $isEnrolled,
+            'allowRegistration' => $allowRegistration,
             'simTypes' => [
                 [
                     'value' => 'msfs2020',

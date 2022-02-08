@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faPlane, faPlaneDeparture, faRedoAlt, faSpellCheck } from '@fortawesome/free-solid-svg-icons';
 import { Table, FormattedDate } from '@Components'
 
-function CompanyTable({ data, ...props }) {
+function CompanyTable({ refreshCompany, data, ...props }) {
     const columns = React.useMemo(
         () => [
             {

@@ -80,9 +80,13 @@ export default function Header({ id, auth, menus: { mainMenu, adminMenu, }, logo
                     }
                     {(auth && auth.user) &&
                         <NavDropdown title={`Hi ${auth.user.username}`} id="basic-nav-dropdown">
-                            {/* <NavDropdown.Item href={route('profile')}>My Profile</NavDropdown.Item> */}
+                            <NavDropdown.Item href={route('profile')}>
+                                My Profile
+                            </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={doLogout}>Logout</NavDropdown.Item>
+                            <NavDropdown.Item onClick={doLogout}>
+                                Logout
+                            </NavDropdown.Item>
                         </NavDropdown>
                     }
                     { (!auth) &&

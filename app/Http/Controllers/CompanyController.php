@@ -146,7 +146,7 @@ class CompanyController extends Controller
 
         }
 
-        return redirect()->route('company.show', $company->id);
+        return redirect()->route('company.index');
     }
 
     /**

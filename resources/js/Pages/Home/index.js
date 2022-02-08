@@ -1,14 +1,20 @@
 import React, { useState, useEffect, } from 'react'
-import { Container, Row, Col, Form, Button, ButtonGroup, ListGroup, Modal, } from 'react-bootstrap'
+import { Inertia } from '@inertiajs/inertia'
+import { Container, Row, Col, Nav, NavDropdown, Form, Button, ButtonGroup, ListGroup, Modal, } from 'react-bootstrap'
 import Layouts from '@Layouts'
 import { Logo, } from '@Components'
 import NotificationForm from './NotificationForm'
 import './homeStyles.scss'
+import { isNull } from 'lodash'
 
-export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
+export default function Home({ auth: { isAdmin, user, }, appTitle, pageTitle, isEnrolled, allowRegistration, simTypes, }) {
     const [notificationFormIsVisible, setNotificationFormModal] = useState(false);
 
     const toggleNotificationFormModal = () => setNotificationFormModal(!notificationFormIsVisible)
+
+    const doLogout = () => {
+        Inertia.post(route('logout'))
+    }
 
     return (
         <Layouts.Guest
@@ -16,6 +22,65 @@ export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
             pageTitle={pageTitle}
         >
             <Container>
+                <Row>
+                    <Col md={6}>
+                        <Nav
+                            variant='pills'
+                            defaultActiveKey={route('home')}
+                            className='pt-3 justify-content-left'
+                        >
+                            <Nav.Item>
+                                <Nav.Link
+                                    className='btn btn-lg'
+                                    href={route('home')}
+                                >
+                                    Home
+                                </Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col md={6}>
+                        <Nav
+                            variant='pills'
+                            className='pt-3 justify-content-end'
+                        >
+                            <Nav.Item>
+                                {(user)
+                                    ? (<NavDropdown
+                                        title={`Hello ${user.username}`}
+                                        id="user-nav-dropdown" className='btn btn-lg btn-outline-secondary'
+                                    >
+                                    <NavDropdown.Item
+                                        href={route('profile')}
+                                    >
+                                            Profile
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item onClick={doLogout}>
+                                        Logout
+                                    </NavDropdown.Item>
+                                  </NavDropdown>)
+                                    : (<ButtonGroup>
+                                        <Nav.Link
+                                            className='btn btn-lg btn-light'
+                                            href={route('login')}
+                                        >
+                                            Sign In
+                                        </Nav.Link>
+                                        {allowRegistration &&
+                                        <Nav.Link
+                                        className='btn btn-lg btn-info'
+                                        href={(allowRegistration) ? route('register') : ''}
+                                        >
+                                            Register
+                                        </Nav.Link>
+                                        }
+                                    </ButtonGroup>)
+                                }
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                </Row>
                 <div className='form-interested' id='LandingContainer'>
                 <Row>
                     <Col>
@@ -56,31 +121,41 @@ export default function Home({ appTitle, pageTitle, isEnrolled, simTypes, }) {
                         </ListGroup>
                     </Col>
                 </Row>
-                <Row>
+                {(isEnrolled || allowRegistration)
+                ? (<Row>
                     <Col>
                         <hr />
                     </Col>
-                </Row>
-                    {(isEnrolled)
-                    ? (<Row>
+                </Row>)
+                : (<>
+                    <Row>
                         <Col>
-                            <p>Thank you for Signing up, we will let you know via email when enrollments open up!</p>
+                            <hr />
                         </Col>
-                      </Row>)
-                    : (<>
-                        <Row>
-                            <Col>
-                                <Button variant='primary' block onClick={toggleNotificationFormModal}>Interested? Click to get notified when registration opens</Button>
-                            </Col>
-                        </Row>
-                        <NotificationForm
-                            simTypes={simTypes}
-                            toggleModal={toggleNotificationFormModal}
-                            isVisible={notificationFormIsVisible}
-                        />
-
-                      </>)
-                    }
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Button variant='primary' block onClick={toggleNotificationFormModal}>Interested? Click to get notified when registration opens</Button>
+                        </Col>
+                    </Row>
+                    <NotificationForm
+                        simTypes={simTypes}
+                        toggleModal={toggleNotificationFormModal}
+                        isVisible={notificationFormIsVisible}
+                    />
+                    <Row>
+                        <Col>
+                            <hr />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className='text-align-center'>
+                            <p>Copyright 2022 vams.app | <a href='https://twitter.com/vamsapp' target='_blank'>@vamsapp</a> | <a href='https://github.com/vams-app' target='_blank'>Github</a>
+                            </p>
+                        </Col>
+                    </Row>
+                    </>)
+                }
                 </div>
             </Container>
         </Layouts.Guest>
