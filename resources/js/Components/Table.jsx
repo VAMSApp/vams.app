@@ -17,14 +17,14 @@ export default function TableComponent({ columns, data }) {
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render('Header')}
-                    <span>
-                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                    </span>
-                </th>
-            ))}
+            {headerGroup.headers.map(column => (<th {...column.getHeaderProps([
+                {
+                    className: column.className,
+                    style: column.style,
+                }
+            ])}>
+                {column.render('Header')}
+            </th>))}
           </tr>
         ))}
       </thead>

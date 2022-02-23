@@ -6,6 +6,9 @@ use Illuminate\Console\Command;
 use App\Services\OnAir\OnAirCompanyService;
 use App\Services\OnAir\OnAirEmployeeService;
 use App\Console\Commands\OnAirCommand;
+use FFI\Exception;
+use Illuminate\Support\Facades\Log;
+
 class OnAirRefreshEmployees extends OnAirCommand
 {
     /**
@@ -39,14 +42,25 @@ class OnAirRefreshEmployees extends OnAirCommand
      */
     public function handle(OnAirEmployeeService $employeeService)
     {
-        $r = $employeeService->refresh();
+        try {
+            $r = $employeeService->refresh();
 
-        $r = [
-            'updated' => count($r['updated']),
-            'created' => count($r['created']),
-        ];
+            if (!$r) {
+                throw new Exception('no results returned');
+            }
 
-        $this->logStats($r['updated'], $r['created']);
+            $r = [
+                'updated' => count($r['updated']),
+                'created' => count($r['created']),
+            ];
+
+            $this->logStats($r['updated'], $r['created']);
+        }
+
+        catch (Exception $error) {
+            throw new Exception($error);
+        }
+
 
         return 0;
     }

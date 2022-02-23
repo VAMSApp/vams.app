@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 
@@ -67,6 +68,14 @@ Route::prefix('/company')
         ->middleware(['permission:company.refresh'])
         ->name('company.refresh');
 
+    Route::prefix('/{companyCode}/employees')
+    ->group(function () {
+        Route::get('/', [EmployeeController::class, 'by_company_code'])
+        ->name('company.employees.index');
+
+        Route::get('/{id}', [EmployeeController::class, 'by_id'])
+        ->name('company.employees.show');
+    });
 });
 
 

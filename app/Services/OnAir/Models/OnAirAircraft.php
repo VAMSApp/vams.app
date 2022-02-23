@@ -50,6 +50,7 @@ class OnAirAircraft {
     public $total_weight_capacity;
     public $current_seats;
     public $must_do_maintenance;
+    public $aircraft_type;
 
     public function __construct($response)
     {
@@ -100,7 +101,7 @@ class OnAirAircraft {
         $this->total_weight_capacity = $response['TotalWeightCapacity'];
         $this->current_seats = $response['CurrentSeats'];
         $this->must_do_maintenance = $response['MustDoMaintenance'];
-
+        $this->aircraft_type = new OnAirAircraftType($response['AircraftType']);
     }
 
 }

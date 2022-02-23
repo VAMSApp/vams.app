@@ -21,7 +21,7 @@ class ClassCertification extends Model
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
-    public function aircraft()
+    public function aircraft_class()
     {
         return $this->belongsTo(AircraftClass::class, 'aircraft_class_id', 'id');
     }

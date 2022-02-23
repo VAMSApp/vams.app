@@ -42,8 +42,8 @@ class MenuSeeder extends Seeder
                 'is_active' => true,
                 'items' => [
                     [
-                        'route_name' => 'admin.user.index',
-                        'permission_name' => 'admin.user.index',
+                        'route_name' => 'admin.users.index',
+                        'permission_name' => 'admin.users.index',
                         'label' => 'Users',
                         'is_active' => true,
                     ],

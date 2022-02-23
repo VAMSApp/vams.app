@@ -15,7 +15,7 @@ class Employee extends Model
 
     protected $fillable = [
         'uuid',
-        'psuedo_name',
+        'pseudo',
         'company_id',
         'flight_hours_total_before_hiring',
         'flight_hours_in_company',
@@ -43,6 +43,9 @@ class Employee extends Model
         'world_id',
         'employee_category_id',
         'employee_status_id',
+        'flight_duty_start',
+        'flight_duty_end',
+        'hired_since',
     ];
 
     public function company()

@@ -46,6 +46,10 @@ class OnAirAirport {
     public $display_name;
     public $utc_time_open_in_hours_since_midnight;
     public $utc_time_close_in_hours_since_midnight;
+    public $is_not_in_vanilla_fsx;
+    public $is_not_in_vanilla_p3d;
+    public $is_not_in_vanilla_xplane;
+    public $is_not_in_vanilla_fs2020;
 
     public function __construct($response)
     {
@@ -88,10 +92,16 @@ class OnAirAirport {
         $this->last_medium_trip_request_date = $response['LastMediumTripRequestDate'];
         $this->last_short_haul_request_date = $response['LastShortHaulRequestDate'];
         $this->last_medium_haul_request_date = $response['LastMediumHaulRequestDate'];
-        $this->last_long_haul_request_date = $response['LastLongHaulRequestDate'];
+        $this->last_long_haul_request_date = (array_key_exists('LastLongHaulRequestDate', $response)) ? $response['LastLongHaulRequestDate'] : false;
         $this->display_name = $response['DisplayName'];
         $this->utc_time_open_in_hours_since_midnight = $response['UTCTimeOpenInHoursSinceMidnight'];
         $this->utc_time_close_in_hours_since_midnight = $response['UTCTimeCloseInHoursSinceMidnight'];
+        $this->is_not_in_vanilla_fsx = (array_key_exists('is_not_in_vanilla_fsx', $response)) ? $response['is_not_in_vanilla_fsx'] : false;
+        $this->is_not_in_vanilla_p3d = (array_key_exists('is_not_in_vanilla_p3d', $response)) ? $response['is_not_in_vanilla_p3d'] : false;
+        $this->is_not_in_vanilla_xplane = (array_key_exists('is_not_in_vanilla_xplane', $response)
+        ) ? $response['is_not_in_vanilla_xplane'] : false;
+        $this->is_not_in_vanilla_fs2020 = (array_key_exists('is_not_in_vanilla_fs2020', $response)) ? $response['is_not_in_vanilla_fs2020'] : false;
+
     }
 
 }

@@ -119,7 +119,16 @@ class CompanyController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
-        $company = Company::with(['world', 'refreshes'])->where('id', $id)->where('owner_id', $user->id)->first();
+        $company = Company::with([
+            'world',
+            'employees',
+            'employees.company',
+            'employees.status',
+            'employees.certifications',
+            'employees.certifications.aircraft_class',
+            'employees.home_airport',
+            'employees.current_airport',
+            'refreshes'])->where('id', $id)->where('owner_id', $user->id)->first();
         $worlds = World::where('is_enabled', true)->get();
 
         return Inertia::render('Company/Show', [

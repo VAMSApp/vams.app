@@ -33,14 +33,15 @@ class CreateEmployeesTable extends Migration
             $table->float('per_flight_hour_wages')->nullable();
             $table->float('weekly_garanted_salary')->nullable();
             $table->float('per_flight_hourly_salary')->nullable();
-            $table->dateTime('last_status_change');
-            $table->dateTime('flight_duty_start');
+            $table->string('last_status_change');
+            $table->string('flight_duty_start');
             $table->float('current_total_flight_hours_in_duty');
-            $table->dateTime('hired_since');
-            $table->dateTime('last_payment_date');
+            $table->string('hired_since');
+            $table->string('last_payment_date');
             $table->boolean('is_online')->default(false);
-            $table->dateTime('flight_duty_end');
+            $table->string('flight_duty_end');
             $table->float('flight_hours_grand_total');
+            $table->integer('current_airport_id');
             $table->timestamps();
         });
     }

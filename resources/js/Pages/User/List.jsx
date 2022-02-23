@@ -50,10 +50,10 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, role
                 Cell: ({ row, }) => {
                     return (<span>
                         <ButtonGroup>
-                            <a href={route('users.show', { id: row.original.id })} className='btn btn-sm btn-info'>
+                            <a href={route('admin.users.show', { id: row.original.id })} className='btn btn-sm btn-info'>
                                 <FontAwesomeIcon icon={faInfoCircle} />
                             </a>
-                            <a href={route('users.edit', { id: row.original.id })} className='btn btn-sm btn-warning'>
+                            <a href={route('admin.users.edit', { id: row.original.id })} className='btn btn-sm btn-warning'>
                                 <FontAwesomeIcon icon={faPencilAlt} />
                             </a>
                         </ButtonGroup>
@@ -87,7 +87,7 @@ export function ListPage({ auth, menus, errors, appTitle, pageTitle, users, role
                 columns={columns}
             />
         }
-        <Button href={route('users.create')} variant='primary' size='lg'>Add New User</Button>
+        <Button href={route('admin.users.create')} variant='primary' size='lg'>Add New User</Button>
         </Layouts.Authenticated>
     );
 }

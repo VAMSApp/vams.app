@@ -27,6 +27,16 @@ class Kernel extends ConsoleKernel
 #            ->everyMinute()
             ->daily()
             ->emailOutputTo('admin@vams.app');
+
+        $schedule->command('onair:refreshdetails')
+            ->everyFiveMinutes()
+            //->everyFifteenMinutes()
+            ->emailOutputTo('admin@vams.app');
+
+        $schedule->command('onair:refreshdetails')
+            ->everyFiveMinutes()
+            //->everyFifteenMinutes()
+            ->emailOutputTo('admin@vams.app');
     }
 
     /**

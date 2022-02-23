@@ -3,6 +3,7 @@ import { Inertia } from '@inertiajs/inertia'
 import { Button, ButtonGroup, Row, Col, Form, } from 'react-bootstrap'
 import Layouts from '@Layouts'
 import CompanyForm from './Form'
+import { CompanyEmployeesTable, } from '@Components/Company'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons'
 
@@ -137,6 +138,18 @@ function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, .
             <Row>
                 <Col>
                     <hr />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Company Employee's</h2>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <CompanyEmployeesTable
+                        data={company.employees}
+                    />
                 </Col>
             </Row>
             <ButtonGroup>

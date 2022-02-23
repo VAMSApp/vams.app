@@ -19,7 +19,7 @@ class OnAirApiService {
         ])->get($url)->json();
 
         if (!array_key_exists('Content', $response)) {
-            throw new Exception($response['Error']);
+            throw new Exception($response["Message"]);
         }
 
         return $response['Content'];

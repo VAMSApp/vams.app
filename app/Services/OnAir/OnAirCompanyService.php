@@ -74,9 +74,9 @@ class OnAirCompanyService extends OnAirService {
                 $newCompany = $this->query_details($company->api_key, $company->uuid);
                 $company = $this->updateOrCreate($newCompany);
 
-                if ($company->wasRecentlyCreated || $company->exists) {
+                if ($company->wasRecentlyCreated) {
                     array_push($this->created, $company);
-                } else {
+                } else if ($company->exists) {
                     array_push($this->updated, $company);
                 }
             }

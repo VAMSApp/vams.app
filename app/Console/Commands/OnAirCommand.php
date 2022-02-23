@@ -29,8 +29,8 @@ abstract class OnAirCommand extends Command
 
         $this->info("$this->signature completed");
         $this->info("  Run statistics");
-        $this->info("    Records Updated: $updated");
         $this->info("    Records Created: $created");
+        $this->info("    Records Updated: $updated");
     }
 
 }

@@ -15,8 +15,10 @@ class CreateClassCertificationsTable extends Migration
     {
         Schema::create('class_certifications', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid');
             $table->integer('employee_id');
-            $table->integer('certification_id');
+            $table->integer('aircraft_class_id');
+            $table->string('last_validation');
             $table->timestamps();
         });
     }

@@ -48,35 +48,35 @@ Route::prefix('/admin')
     });
 
 
-    Route::prefix('user')->group(function () {
+    Route::prefix('users')->group(function () {
 
         Route::get('/', [UserController::class, 'index'])
             ->middleware(['permission:user.index'])
-            ->name('admin.user.index');
+            ->name('admin.users.index');
 
         Route::get('/show/{id}', [UserController::class, 'show'])
             ->middleware(['permission:user.show'])
-            ->name('admin.user.show');
+            ->name('admin.users.show');
 
         Route::get('/edit/{id}', [UserController::class, 'edit'])
             ->middleware(['permission:user.edit'])
-            ->name('admin.user.edit');
+            ->name('admin.users.edit');
 
         Route::patch('/edit/{id}', [UserController::class, 'update'])
             ->middleware(['permission:user.edit'])
-            ->name('admin.user.edit');
+            ->name('admin.users.edit');
 
         Route::get('/create', [UserController::class, 'create'])
             ->middleware(['permission:user.create'])
-            ->name('admin.user.create');
+            ->name('admin.users.create');
 
         Route::post('/create', [UserController::class, 'store'])
             ->middleware(['permission:user.create'])
-            ->name('admin.user.create');
+            ->name('admin.users.create');
 
         Route::patch('/{id}/remove_role', [UserController::class, 'remove_role'])
             ->middleware(['permission:user.remove_role'])
-            ->name('admin.user.remove_role');
+            ->name('admin.users.remove_role');
 
     });
 
