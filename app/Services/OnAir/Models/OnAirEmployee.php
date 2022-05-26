@@ -86,7 +86,7 @@ class OnAirEmployee {
             $this->current_airport_uuid = $response['CurrentAirportId'];
             $this->current_airport = new OnAirAirport($response['CurrentAirport']);
         }
-    }
 
+    }
 }
 

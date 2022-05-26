@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\OnAir\OnAirCompanyService;
+use App\Services\OnAir\OnAirEmployeeService;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Company;
@@ -119,6 +120,7 @@ class CompanyController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
+
         $company = Company::with([
             'world',
             'employees',
@@ -128,7 +130,12 @@ class CompanyController extends Controller
             'employees.certifications.aircraft_class',
             'employees.home_airport',
             'employees.current_airport',
-            'refreshes'])->where('id', $id)->where('owner_id', $user->id)->first();
+            'refreshes'
+        ])
+        ->where('id', $id)
+        ->where('owner_id', $user->id)
+        ->first();
+
         $worlds = World::where('is_enabled', true)->get();
 
         return Inertia::render('Company/Show', [
@@ -139,7 +146,11 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function refresh(OnAirCompanyService $companyService, Request $request)
+    public function refresh(
+        OnAirCompanyService $companyService,
+        OnAirEmployeeService $employeeService,
+        Request $request
+    )
     {
         $id = $request->id;
         $userId = Auth::user()->id;
@@ -150,7 +161,11 @@ class CompanyController extends Controller
             $company = Company::where('id', $id)->where('owner_id', $request->user()->id)->first();
 
             if ($company) {
-                $response = $companyService->refresh($id);
+                $companySyncResponse = $companyService->refresh($id);
+
+                if ($company->sync_employees == true) {
+                    $companyEmployeesResponse = $employeeService->refresh($id);
+                }
             }
 
         }

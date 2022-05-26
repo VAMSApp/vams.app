@@ -91,7 +91,7 @@ class OnAirAirport {
         $this->last_small_trip_request_date = $response['LastSmallTripRequestDate'];
         $this->last_medium_trip_request_date = $response['LastMediumTripRequestDate'];
         $this->last_short_haul_request_date = $response['LastShortHaulRequestDate'];
-        $this->last_medium_haul_request_date = $response['LastMediumHaulRequestDate'];
+        $this->last_medium_haul_request_date = (array_key_exists('LastMediumHaulRequestDate', $response)) ? $response['LastMediumHaulRequestDate'] : false;
         $this->last_long_haul_request_date = (array_key_exists('LastLongHaulRequestDate', $response)) ? $response['LastLongHaulRequestDate'] : false;
         $this->display_name = $response['DisplayName'];
         $this->utc_time_open_in_hours_since_midnight = $response['UTCTimeOpenInHoursSinceMidnight'];

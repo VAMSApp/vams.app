@@ -1,4 +1,4 @@
-@servers(['web' => 'deploy@vams.app'])
+@servers(['web' => 'relativemedia@vams.app'])
 
 @task('delete-code')
     cd /var/www/vhosts

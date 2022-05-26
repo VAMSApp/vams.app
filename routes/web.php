@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,7 +37,7 @@ Route::prefix('/company')
         ->middleware(['permission:company.index'])
         ->name('company.index');
 
-    Route::get('/show/{id}', [CompanyController::class, 'show'])
+    Route::get('/show/{id}/{companyCode?}', [CompanyController::class, 'show'])
         ->middleware(['permission:company.show'])
         ->name('company.show');
 
@@ -78,6 +79,14 @@ Route::prefix('/company')
     });
 });
 
+Route::prefix('/airport')
+->middleware(['auth', 'verified', 'role:user|admin'])
+->group(function () {
+
+    Route::get('/show/{id}/{airportCode?}', [AirportController::class, 'show'])
+        ->middleware(['permission:airport.show'])
+        ->name('airport.show');
+});
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware(['auth', 'role:user'])

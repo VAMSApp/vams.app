@@ -9,6 +9,10 @@ import FormattedDateComponent from './FormattedDate'
 import CompanyLookupComponent from './CompanyLookup'
 import AdminComponents from './Admin'
 import CompanyComponents from './Company'
+import EmployeeClassificationComponent from './EmployeeClassification'
+import EmployeeStatusComponent from './EmployeeStatus'
+import PseudoNameComponent from './PseudoName'
+
 export const Header = HeaderComponent
 export const Navigation = NavigationComponent
 export const Logo = LogoComponent
@@ -20,6 +24,9 @@ export const FormattedDate = FormattedDateComponent
 export const CompanyLookup = CompanyLookupComponent
 export const Admin = AdminComponents
 export const Company = CompanyComponents
+export const EmployeeClassification = EmployeeClassificationComponent
+export const EmployeeStatus = EmployeeStatusComponent
+export const PseudoName = PseudoNameComponent
 
 export default {
     Header,
@@ -33,4 +40,7 @@ export default {
     CompanyLookup,
     Admin,
     Company,
+    EmployeeClassification,
+    EmployeeStatus,
+    PseudoName,
 }

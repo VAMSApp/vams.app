@@ -42,11 +42,11 @@ class OnAirEmployeeService extends OnAirService {
         }
 
         $translated = $this->translate($input);
-
+        $employee_status_id = ($translated->employee_status_id) ? $translated->employee_status_id : 0;
 
         $company = Company::with(['world'])->where('uuid', $translated->company_uuid)->first();
         $category = EmployeeCategory::where('id', $translated->employee_category_id)->first();
-        $status = EmployeeStatus::where('oa_id', $translated->employee_status_id)->first();
+        $status = EmployeeStatus::where('oa_id', $employee_status_id)->first();
 
         $homeAirport = Airport::updateOrCreate([
             'uuid' => $translated->home_airport_uuid
@@ -72,7 +72,7 @@ class OnAirEmployeeService extends OnAirService {
         // echo $translated->world_id."\n";
         $arr = (array) $translated;
 
-        Log::debug("uuid: ".$arr['uuid'].' | employee_category_id: '.$arr['employee_category_id'].' | world_id: '.$arr['world_id'].' | employee_status_id: '.$arr['employee_status_id']);
+        echo "uuid: ".$arr['uuid'].' | employee_category_id: '.$arr['employee_category_id'].' | world_id: '.$arr['world_id'].' | employee_status_id: '.$arr['employee_status_id']."\n";
 
         // echo "pseudo: ".$arr['pseudo']."\n";
         // echo "flight_duty_start: ".$arr['flight_duty_start']."\n";
@@ -135,7 +135,19 @@ class OnAirEmployeeService extends OnAirService {
 
             if ($company) {
                 $response = $this->query_details($company->api_key, $company->uuid);
-                $response = new OnAirEmployee($response);
+
+                Log::debug("received ".count($response)." employee records. Looping through each.");
+
+                foreach ($response as $oae) {
+                    $res = $this->updateOrCreate($oae);
+
+                    if ($res->wasRecentlyCreated) {
+                        Log::debug("was recently created: $res->wasRecentlyCreated | exists: ".$res->exists);
+                        array_push($this->created, $res);
+                    } else if ($res->exists) {
+                        array_push($this->updated, $res);
+                    }
+                }
             }
 
             return [

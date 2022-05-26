@@ -20,69 +20,76 @@ class PermissionSeeder extends Seeder
             'home',
         ];
 
+        $airportCRUDPermissions = [
+            'airport.index', //  list all Airports
+            'airport.show', // show a specific airport
+            'airport.edit', // edit a specific airport
+            'airport.create', // create an airport
+            'airport.delete', // delete an airport
+        ];
+
         $companyCRUDPermissions = [
-            'company.index',
-            'company.show',
-            'company.edit',
-            'company.create',
-            'company.delete',
+            'company.index', // list all Companies
+            'company.show', // show a single Permission by a given Company
+            'company.edit', // edit a single Permission by a given Company
+            'company.create', // create a new Company
+            'company.delete', // delete a Company
         ];
 
         $userCRUDPermissions = [
-            'user.index',
-            'user.show',
-            'user.edit',
-            'user.create',
-            'user.delete',
+            'user.index', // list all Users
+            'user.show', // show a single Permission by a given User
+            'user.edit', // edit a single Permission by a given User
+            'user.create', // create a new User
+            'user.delete', // delete a User
         ];
 
         $roleCRUDPermissions = [
-            'role.index',
-            'role.show',
-            'role.edit',
-            'role.create',
-            'role.delete',
-            'permission.index',
-            'permission.show',
-            'permission.edit',
-            'permission.create',
-            'permission.delete',
+            'role.index', // list all Roles
+            'role.show', // show a single Permission by a given Role
+            'role.edit', // edit a single Permission by a given Role
+            'role.create', // create a new Role
+            'role.delete', // delete a Role
         ];
 
         $permissionCRUDPermissions = [
-            'permission.index',
-            'permission.show',
-            'permission.edit',
-            'permission.create',
-            'permission.delete',
+            'permission.index', // list all Permissions
+            'permission.show', // show a single Permission by a given id
+            'permission.edit', // edit a single Permission by a given id
+            'permission.create', // create a new Permission
+            'permission.delete', // delete a Permission
         ];
 
-
-        $userPermissions = [
-            'company.index',
-            'company.create',
-            'user.profile',
-            'user.profile_edit',
-            'user.change_password',
+        // what permissions the `user` role will have
+        $userRolePermissions = [
+            'company.index', // list all of the current users companies
+            'company.create', // create a company
+            'airport.index', // list all airports
+            'airport.show', // show a single airport by a given id
+            'user.profile', // show the current users profiles
+            'user.profile_edit', // edit the current users profiles
+            'user.change_password', // change the current users password
         ];
 
-        $ownerPermissions = [
-            'company.index',
-            'company.show',
-            'company.edit',
-            'company.create',
-            'company.delete',
-            'company.refresh',
+        // what permissions the `owner` role will have
+        $ownerRolePermissions = [
+            'company.index', // Show the companies the current user is an owner of
+            'company.show', // show a single Company by a given id
+            'company.edit', // edit a single Company by a given id
+            'company.create', // create a new Company
+            'company.delete', // delete a Company
+            'company.refresh', // trigger an onair Company refresh
         ];
 
         $permissions = array_merge(
             $basePermissions,
             $companyCRUDPermissions,
+            $airportCRUDPermissions,
             $userCRUDPermissions,
             $roleCRUDPermissions,
             $permissionCRUDPermissions,
-            $userPermissions,
-            $ownerPermissions,
+            $userRolePermissions,
+            $ownerRolePermissions,
         );
 
         $roles = [
@@ -92,11 +99,11 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'user',
-                'permissions' => array_merge($basePermissions, $userPermissions)
+                'permissions' => array_merge($basePermissions, $userRolePermissions)
             ],
             [
                 'name' => 'owner',
-                'permissions' => $ownerPermissions
+                'permissions' => $ownerRolePermissions
             ]
         ];
 

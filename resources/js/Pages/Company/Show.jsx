@@ -112,7 +112,7 @@ function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, .
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={6}>
+                    <Col md={3}>
                         <Form.Group>
                             <Form.Label>Company UUID</Form.Label>
                             <Form.Control
@@ -121,18 +121,34 @@ function ShowPage({ auth, menus, appTitle, pageTitle, company, worlds, errors, .
                             />
                         </Form.Group>
                     </Col>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Company API Key</Form.Label>
+                            <Form.Control
+                                value={company.api_key}
+                                disabled
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>World</Form.Label>
+                            <Form.Control
+                                value={company.world.name}
+                                disabled
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Last Refreshed</Form.Label>
+                            <Form.Control
+                                value={company.updated_at}
+                                disabled
+                            />
+                        </Form.Group>
+                    </Col>
                 </Row>
-                <Form.Group>
-                    <Form.Label>World</Form.Label>
-                    <Form.Control
-                        as='select'
-                        value={company.world_id}
-                        disabled
-                    >
-                        <option value=''>-- SELECT WORLD ---</option>
-                        {worlds.map((w, k) => (<option key={k} value={w.id}>{w.name}</option>))}
-                    </Form.Control>
-                </Form.Group>
             </div>
             }
             <Row>

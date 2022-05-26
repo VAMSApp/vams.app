@@ -8,9 +8,12 @@ import Layouts from '@Layouts'
 
 export function ListPage({ auth, menus, errors, appTitle, pageTitle, companies, roles, ...props}) {
 
-    const refreshCompany = (e, companyId) => {
-        e.preventDefault();
-        Inertia.post(route('company.refresh', { id: companyId }), { id: companyId });
+    const refreshCompany = async (e, companyId) => {
+        e.preventDefault()
+        const url = route('company.refresh', { id: companyId })
+        const payload = { id: companyId }
+
+        Inertia.post(url, payload)
     }
 
     return (

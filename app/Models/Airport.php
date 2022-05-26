@@ -53,4 +53,14 @@ class Airport extends Model
         'utc_time_open_in_hours_since_midnight',
         'utc_time_close_in_hours_since_midnight',
     ];
+
+    public function employees_home()
+    {
+        return $this->hasMany(Employee::class, 'home_airport_id', 'id');
+    }
+
+    public function employees_current()
+    {
+        return $this->hasMany(Employee::class, 'current_airport_id', 'id');
+    }
 }

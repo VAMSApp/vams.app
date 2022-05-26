@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             EmployeeStatusSeeder::class,
             EmployeeCategorySeeder::class,
             FuelTypeSeeder::class,
+            CompanySeeder::class,
         ]);
     }
 }

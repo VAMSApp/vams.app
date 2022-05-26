@@ -41,7 +41,7 @@ class CreateEmployeesTable extends Migration
             $table->boolean('is_online')->default(false);
             $table->string('flight_duty_end');
             $table->float('flight_hours_grand_total');
-            $table->integer('current_airport_id');
+            $table->integer('current_airport_id')->nullable();
             $table->timestamps();
         });
     }

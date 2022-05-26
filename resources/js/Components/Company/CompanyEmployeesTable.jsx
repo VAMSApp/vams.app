@@ -1,84 +1,12 @@
 import React from 'react'
-import { Container, Badge, Row, Col, ButtonGroup, Button, Modal, ProgressBar, } from 'react-bootstrap'
+import { Container, Badge, Row, Col, ButtonGroup, Button, Modal, ProgressBar, OverlayTrigger, Tooltip, } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faAnchor, faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faCircle, faPlane, faPlaneDeparture, faRedoAlt, faSpellCheck, faDotCircle } from '@fortawesome/free-solid-svg-icons';
-import { Table, FormattedDate } from '@Components'
+import { faCheck, faPlane, faAnchor, faCheckCircle, faCheckSquare, faInfo, faInfoCircle, faPencilAlt, faCircle, faPlaneDeparture, faRedoAlt, faSpellCheck, faDotCircle, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { Table, EmployeeStatus, EmployeeClassification, PseudoName, } from '@Components'
 import classNames from 'classnames';
-
-function EmployeeStatus ({ status }) {
-    const determineIcon = (s) => {
-        let icon;
-
-        switch (s) {
-            case 'ready':
-                icon = faCheck;
-            break;
-            default:
-                icon = faAnchor;
-            break;
-        }
-        return icon;
-    }
-
-    return (<FontAwesomeIcon icon={determineIcon(status)} />)
-}
-
-function EmployeeClassification ({ classifcation, }) {
-    const determineBadgeColor = (c) => {
-        let color;
-        switch (c) {
-            case 'ULM':
-                color = 'success';
-            break;
-            case 'SEPL':
-                color = 'info';
-            break;
-            case 'SEPS':
-                color = 'info';
-            break;
-            case 'MEPL':
-                color = 'info';
-            break;
-            case 'SETL':
-                color = 'warning';
-            break;
-            case 'SETS':
-                color = 'warning';
-            break;
-            case 'METL':
-                color = 'warning';
-            break;
-            case 'METS':
-                color = 'warning';
-            break;
-            case 'HELO':
-                color = 'danger';
-            break;
-            case 'GLD':
-                color = 'success';
-            break;
-            case 'MEPS':
-                color = 'info';
-            break;
-            case 'JET':
-                color = 'purple';
-            break;
-            default:
-                color ='secondary';
-            break;
-        }
-
-        return color;
-    }
-
-    return (<Badge className='mx-1' variant={determineBadgeColor(classifcation)}>
-        {classifcation}
-    </Badge>);
-}
+import DefaultProperties from 'cleave.js';
 
 function CompanyEmployeesTable({ data, ...props }) {
-
-
 
     const columns = React.useMemo(
         () => [
@@ -89,11 +17,7 @@ function CompanyEmployeesTable({ data, ...props }) {
                 isSorted: true,
                 className: 'text-center',
                 headerClassName: 'text-center',
-                Cell: ({ row, }) => (<span>
-                    {row.original.pseudo}
-                    &nbsp;
-                    <FontAwesomeIcon icon={faCircle} className={classNames('ms-3', { 'is_online': (row.original.is_online), 'text-muted': (!row.original.is_online) })} />
-                </span>)
+                Cell: ({ row: { original: { pseudo, is_online }}, }) => (<PseudoName pseudo={pseudo} online={is_online} />)
             },
             {
                 Header: 'Status',
@@ -112,7 +36,9 @@ function CompanyEmployeesTable({ data, ...props }) {
                 className: 'text-center',
                 headerClassName: 'text-center',
                 Cell: ({ row, }) => (<span>
-                    {row.original.home_airport.icao}
+                    <a href={route('airport.show', { id: row.original.home_airport.id, airportCode: row.original.home_airport.icao})}>
+                        {row.original.home_airport.icao}
+                    </a>
                 </span>)
             },
             {
@@ -123,7 +49,12 @@ function CompanyEmployeesTable({ data, ...props }) {
                 className: 'text-center',
                 headerClassName: 'text-center',
                 Cell: ({ row, }) => (<span>
-                    {row.original.current_airport.icao}
+                    {(row.original.current_airport)
+                        ? (<a href={route('airport.show', { id: row.original.current_airport.id, airportCode: row.original.current_airport.icao})}>
+                            {row.original.current_airport.icao}
+                        </a>)
+                        : (<em className='text-muted'>n/a</em>)
+                    }
                 </span>)
             },
             {
@@ -145,7 +76,10 @@ function CompanyEmployeesTable({ data, ...props }) {
                 className: 'text-center',
                 headerClassName: 'text-center',
                 Cell: ({ row, }) => (<span>
-                    <ProgressBar now={row.original.punctuality * 100} />
+                    {(row.original.punctuality !== 0 && row.original.comfort !== 0 && row.original.happiness !== 0)
+                        ? <ProgressBar now={row.original.punctuality * 100} />
+                        : (<em className='text-muted'>n/a</em>)
+                    }
                 </span>)
             },
             {
@@ -156,7 +90,10 @@ function CompanyEmployeesTable({ data, ...props }) {
                 className: 'text-center',
                 headerClassName: 'text-center',
                 Cell: ({ row, }) => (<span>
-                    <ProgressBar now={row.original.comfort * 100} />
+                    {(row.original.punctuality !== 0 && row.original.comfort !== 0 && row.original.happiness !== 0)
+                        ? <ProgressBar now={row.original.comfort * 100} />
+                        : (<em className='text-muted'>n/a</em>)
+                    }
                 </span>)
             },
             {
@@ -167,10 +104,21 @@ function CompanyEmployeesTable({ data, ...props }) {
                 className: 'text-center',
                 headerClassName: 'text-center',
                 Cell: ({ row, }) => {
-                    return (<span>
-                        {row.original.certifications.map((c, k) => (
-                            <EmployeeClassification key={k} classifcation={c.aircraft_class.short_name} />
-                        ))}
+                    return (row.original.certifications.length <= 3)
+                    ? (<span>
+                        {row.original.certifications.map((c, k) => {
+                            return (row.original.certifications.length <= 3)
+                                ? (<EmployeeClassification key={k} classifcation={c.aircraft_class.short_name} />)
+                                : null
+
+                        })}
+                    </span>)
+                    : (<span>
+                        {row.original.company.airline &&
+                        <a href={route('company.employees.show', { companyCode: row.original.company.airline, id: row.original.id })}>
+                            {`view ${row.original.certifications.length} certs`}
+                        </a>
+                        }
                     </span>)
                 }
             },

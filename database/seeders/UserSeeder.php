@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Freeb1rd04'),
                 'roles' => [
                     'user',
+                    'owner',
                 ]
             ],
             [
